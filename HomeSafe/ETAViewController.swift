@@ -10,6 +10,11 @@ import UIKit
 
 class ETAViewController: UIViewController {
 
+    @IBOutlet weak var ETADatePicker: UIDatePicker!
+    @IBOutlet weak var ETALabel: UILabel!
+    @IBOutlet weak var SelectDestinationButton: UIButton!
+    @IBOutlet weak var DestinationLabel: UILabel!
+    @IBOutlet weak var startTrackingButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +26,11 @@ class ETAViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
+    }
 
+    @IBAction func startTrackingButtonTapped(sender: AnyObject) {
+    }
     /*
     // MARK: - Navigation
 

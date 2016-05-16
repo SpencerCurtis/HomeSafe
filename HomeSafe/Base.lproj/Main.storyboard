@@ -71,9 +71,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="X9P-jb-ASP">
-                        <barButtonItem key="rightBarButtonItem" title="Create" style="done" id="mCQ-I9-aC3"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create" style="done" id="mCQ-I9-aC3">
+                            <connections>
+                                <action selector="createUserButtonTapped:" destination="BYZ-38-t0r" id="3pV-dJ-ZdU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="nameTextField" destination="fvR-X0-uAx" id="sCL-I5-U2C"/>
+                        <outlet property="phoneNumberTextField" destination="X93-zV-Hya" id="2O7-dN-lrY"/>
+                        <outlet property="safeLocationLabel" destination="Urp-L7-w8a" id="nfM-AH-4aK"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1184" y="537"/>
@@ -192,6 +201,7 @@
                                 </constraints>
                                 <state key="normal" title="Start The Stalking"/>
                                 <connections>
+                                    <action selector="startTrackingButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Kux-k8-f6k"/>
                                     <segue destination="opV-Et-HB6" kind="showDetail" id="1GB-aw-rgA"/>
                                 </connections>
                             </button>
@@ -199,6 +209,7 @@
                                 <rect key="frame" x="20" y="356" width="335" height="30"/>
                                 <state key="normal" title="Select Destination"/>
                                 <connections>
+                                    <action selector="SelectDestinationButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Zoo-ls-6xr"/>
                                     <segue destination="ydj-Gj-Ang" kind="presentation" id="5BP-g4-Qhp"/>
                                 </connections>
                             </button>
@@ -228,6 +239,13 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="DestinationLabel" destination="n77-Vi-Y2a" id="hha-LD-55X"/>
+                        <outlet property="ETADatePicker" destination="517-Fm-BfH" id="GLW-at-jxh"/>
+                        <outlet property="ETALabel" destination="v9n-fG-Hag" id="OCq-sc-fa8"/>
+                        <outlet property="SelectDestinationButton" destination="j3v-gO-8NW" id="ZZe-WD-lGw"/>
+                        <outlet property="startTrackingButton" destination="y4j-M8-EcK" id="t6c-bY-fXX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O3I-WH-c5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -242,7 +260,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GZg-2d-sgm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" id="GZg-2d-sgm">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GZg-2d-sgm" id="o0I-8z-THc">
@@ -289,6 +307,9 @@
                                     <constraint firstAttribute="height" constant="65" id="djI-Lu-OG4"/>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="opV-Et-HB6" eventType="touchUpInside" id="e2V-fB-20w"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkl-Gz-Joo">
                                 <rect key="frame" x="20" y="180" width="335" height="230"/>
@@ -300,6 +321,9 @@
                                 <state key="normal" title="DANGER">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="dangerButtonTapped:" destination="opV-Et-HB6" eventType="touchUpInside" id="Uiz-rv-JKV"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -316,10 +340,15 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="Thk-PW-Qce" id="hsy-3R-7q2"/>
+                        <outlet property="dangerButton" destination="vkl-Gz-Joo" id="VsF-8J-5qg"/>
+                        <outlet property="headerLabel" destination="CFQ-Pd-dPz" id="i0C-os-fC0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pz-sg-Mw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2186.5" y="1300.5"/>
+            <point key="canvasLocation" x="2141.5" y="1300.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4wH-Bs-aoS">
@@ -359,6 +388,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zlm-W4-Pjk"/>
+        <segue reference="5BP-g4-Qhp"/>
     </inferredMetricsTieBreakers>
 </document>

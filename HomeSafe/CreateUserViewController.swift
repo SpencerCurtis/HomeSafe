@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import CoreLocation
 
 class CreateUserViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var safeLocationLabel: UILabel!
+    
+    var selectedSafeLocation: CLLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -21,7 +28,16 @@ class CreateUserViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func createUserButtonTapped(sender: AnyObject) {
+        if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = selectedSafeLocation {
+        UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: Int(phoneNumber)!)
+        }
+        
+    }
 
+    
+    
+    
     /*
     // MARK: - Navigation
 

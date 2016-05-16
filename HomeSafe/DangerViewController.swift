@@ -10,6 +10,11 @@ import UIKit
 
 class DangerViewController: UIViewController {
 
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var dangerButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +26,15 @@ class DangerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func dangerButtonTapped(sender: AnyObject) {
+        
+        
+    }
+    
+    @IBAction func cancelButtonTapped(sender: AnyObject) {
+        
+        
+    }
 
     /*
     // MARK: - Navigation

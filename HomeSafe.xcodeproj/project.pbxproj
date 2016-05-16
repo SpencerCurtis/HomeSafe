@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0391CEA542F003EB3C1 /* AppDelegate.swift */; };
-		4617E03C1CEA542F003EB3C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E03B1CEA542F003EB3C1 /* ViewController.swift */; };
 		4617E03F1CEA542F003EB3C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4617E03D1CEA542F003EB3C1 /* Main.storyboard */; };
 		4617E0411CEA5430003EB3C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4617E0401CEA5430003EB3C1 /* Assets.xcassets */; };
 		4617E0441CEA5430003EB3C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4617E0421CEA5430003EB3C1 /* LaunchScreen.storyboard */; };
@@ -21,12 +20,12 @@
 		4617E05A1CEA5D9E003EB3C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0591CEA5D9E003EB3C1 /* User.swift */; };
 		4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E05B1CEA5E30003EB3C1 /* ETA.swift */; };
 		4617E05F1CEA5EFC003EB3C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */; };
+		4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0601CEA6284003EB3C1 /* UserController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4617E0361CEA542F003EB3C1 /* HomeSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4617E0391CEA542F003EB3C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4617E03B1CEA542F003EB3C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4617E03E1CEA542F003EB3C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4617E0401CEA5430003EB3C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4617E0431CEA5430003EB3C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,6 +40,7 @@
 		4617E05B1CEA5E30003EB3C1 /* ETA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETA.swift; sourceTree = "<group>"; };
 		4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HomeSafe.entitlements; sourceTree = "<group>"; };
 		4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		4617E0601CEA6284003EB3C1 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +77,8 @@
 			children = (
 				4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */,
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
-				4617E03B1CEA542F003EB3C1 /* ViewController.swift */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
+				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				4617E0591CEA5D9E003EB3C1 /* User.swift */,
 				4617E05B1CEA5E30003EB3C1 /* ETA.swift */,
 				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
@@ -174,9 +174,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4617E03C1CEA542F003EB3C1 /* ViewController.swift in Sources */,
 				4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */,
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
+				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
 				4617E05A1CEA5D9E003EB3C1 /* User.swift in Sources */,
