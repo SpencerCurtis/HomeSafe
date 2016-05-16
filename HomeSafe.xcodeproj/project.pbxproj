@@ -18,6 +18,9 @@
 		4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */; };
 		4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */; };
 		4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */; };
+		4617E05A1CEA5D9E003EB3C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0591CEA5D9E003EB3C1 /* User.swift */; };
+		4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E05B1CEA5E30003EB3C1 /* ETA.swift */; };
+		4617E05F1CEA5EFC003EB3C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,10 @@
 		4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETAViewController.swift; sourceTree = "<group>"; };
 		4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DangerViewController.swift; sourceTree = "<group>"; };
 		4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContactTableViewController.swift; sourceTree = "<group>"; };
+		4617E0591CEA5D9E003EB3C1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4617E05B1CEA5E30003EB3C1 /* ETA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETA.swift; sourceTree = "<group>"; };
+		4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HomeSafe.entitlements; sourceTree = "<group>"; };
+		4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4617E05F1CEA5EFC003EB3C1 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +58,7 @@
 		4617E02D1CEA542F003EB3C1 = {
 			isa = PBXGroup;
 			children = (
+				4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */,
 				4617E0381CEA542F003EB3C1 /* HomeSafe */,
 				4617E0371CEA542F003EB3C1 /* Products */,
 			);
@@ -66,9 +75,12 @@
 		4617E0381CEA542F003EB3C1 /* HomeSafe */ = {
 			isa = PBXGroup;
 			children = (
+				4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */,
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E03B1CEA542F003EB3C1 /* ViewController.swift */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
+				4617E0591CEA5D9E003EB3C1 /* User.swift */,
+				4617E05B1CEA5E30003EB3C1 /* ETA.swift */,
 				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
@@ -114,6 +126,15 @@
 				TargetAttributes = {
 					4617E0351CEA542F003EB3C1 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W4BT774F98;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -158,6 +179,8 @@
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
+				4617E05A1CEA5D9E003EB3C1 /* User.swift in Sources */,
+				4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */,
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
@@ -275,6 +298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HomeSafe/HomeSafe.entitlements;
 				INFOPLIST_FILE = HomeSafe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
@@ -286,6 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HomeSafe/HomeSafe.entitlements;
 				INFOPLIST_FILE = HomeSafe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
