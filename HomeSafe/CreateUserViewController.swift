@@ -12,6 +12,7 @@ import CoreLocation
 class CreateUserViewController: UIViewController {
     
     
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var safeLocationLabel: UILabel!
