@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ETAViewController: UIViewController {
 
@@ -15,6 +16,9 @@ class ETAViewController: UIViewController {
     @IBOutlet weak var SelectDestinationButton: UIButton!
     @IBOutlet weak var DestinationLabel: UILabel!
     @IBOutlet weak var startTrackingButton: UIButton!
+    
+    var destination: CLLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,6 +31,7 @@ class ETAViewController: UIViewController {
     }
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
+        
     }
 
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {
