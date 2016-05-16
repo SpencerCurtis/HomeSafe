@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class ETA {
+class EstimatedTimeOfArrival {
     
     let ETA: NSDate
     let destinationLocation: CLLocation
