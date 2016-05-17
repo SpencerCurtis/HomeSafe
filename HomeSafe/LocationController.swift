@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import UIKit
+import CloudKit
 
 class LocationController: NSObject, CLLocationManagerDelegate {
     
@@ -26,7 +27,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        
+//        let notification = CKNotification(
     }
     
 }
