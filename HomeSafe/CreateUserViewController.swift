@@ -11,7 +11,7 @@ import CoreLocation
 
 class CreateUserViewController: UIViewController {
     
-    
+    static let sharedController = CreateUserViewController()
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
