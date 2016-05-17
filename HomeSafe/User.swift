@@ -11,9 +11,9 @@ import CoreLocation
 
 class User {
     
-    let name: String
-    let safeLocation: CLLocation
-    let phoneNumber: String
+    var name: String
+    var safeLocation: CLLocation
+    var phoneNumber: String
     
     init(name: String, safeLocation: CLLocation, phoneNumber: String) {
         

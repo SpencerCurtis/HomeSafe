@@ -38,8 +38,6 @@ class CreateUserViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().setValue(safeLocation.coordinate.latitude, forKey: "latitude")
             NSUserDefaults.standardUserDefaults().setValue(safeLocation.coordinate.longitude, forKey: "longitude")
 
-            ContactTableViewController.sharedController.currentUser = User(name: name, safeLocation: safeLocation, phoneNumber: phoneNumber)
-
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
