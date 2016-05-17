@@ -54,7 +54,7 @@ class SelectContactTableViewController: UITableViewController {
         return cell
     }
     
-    var favoriteContacts: [User]
+//    var favoriteContacts: [User]
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
