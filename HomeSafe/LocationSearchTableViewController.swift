@@ -13,6 +13,7 @@ class LocationSearchTableViewController: UITableViewController {
     
     var matchingLocations: [MKMapItem] = []
     var mapView: MKMapView? = nil
+    var handleMapSearchDelegate: HandleMapSearch? = nil
     
     func parsingTheAddress(selectedItem: MKPlacemark) -> String {
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
@@ -58,4 +59,12 @@ extension LocationSearchTableViewController {
     }
     
     
+}
+
+extension LocationSearchTableViewController {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedItem = matchingLocations[indexPath.row].placemark
+        handleMapSearchDelegate?.dropPinOnSelectedLocation(selectedItem)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }
