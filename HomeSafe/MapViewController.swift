@@ -113,9 +113,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
 }
 
-//extension MapViewController: MKMapViewDelegate {
-//    
-//}
 
 
 
