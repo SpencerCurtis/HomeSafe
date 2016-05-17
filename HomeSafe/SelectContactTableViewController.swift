@@ -53,8 +53,14 @@ class SelectContactTableViewController: UITableViewController {
         return cell
     }
     
+    var favoriteContacts: [User]
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        let indexPath = tableView.indexPathsForSelectedRows!
+        let selectedCell = tableView.cellForRowAtIndexPath
+        
+        
     }
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
@@ -65,6 +71,17 @@ class SelectContactTableViewController: UITableViewController {
 
     
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
