@@ -30,6 +30,7 @@
 		4659FF191CEBB3F100B02642 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF171CEBB3F100B02642 /* User.swift */; };
 		4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1A1CEBB52400B02642 /* ContactsController.swift */; };
 		4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1E1CEBB93300B02642 /* Stack.swift */; };
+		4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		4659FF171CEBB3F100B02642 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4659FF1A1CEBB52400B02642 /* ContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
+		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
 				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
 				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
+				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
 				4659FF0F1CEB8CE900B02642 /* Colors.swift */,
 				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
@@ -216,6 +219,7 @@
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
 				4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */,
 				4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */,
+				4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */,
 				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
 				4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */,
 				4659FF191CEBB3F100B02642 /* User.swift in Sources */,

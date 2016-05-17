@@ -14,6 +14,7 @@ class SelectContactTableViewController: UITableViewController {
     
     var userContacts = [CNContact]()
     var contactStore = CNContactStore()
+    
     static let sharedInstance = SelectContactTableViewController()
     
     
