@@ -74,8 +74,25 @@ class ContactTableViewController: UITableViewController {
             completionHandler(accessGranted: false)
         }
     }
+    
+    
+    
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 0
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
