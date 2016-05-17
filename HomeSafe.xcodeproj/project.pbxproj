@@ -23,7 +23,9 @@
 		4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0601CEA6284003EB3C1 /* UserController.swift */; };
 		4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0621CEA6C18003EB3C1 /* ETAController.swift */; };
 		4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */; };
-		8452C4111CEB7D6100BC68C7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452C4101CEB7D6100BC68C7 /* Colors.swift */; };
+		4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0661CEA7DE8003EB3C1 /* LocationController.swift */; };
+		4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D8B91CEB765500C2587F /* CloudKitController.swift */; };
+		4659FF101CEB8CE900B02642 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF0F1CEB8CE900B02642 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +48,9 @@
 		4617E0601CEA6284003EB3C1 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		4617E0621CEA6C18003EB3C1 /* ETAController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETAController.swift; sourceTree = "<group>"; };
 		4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		8452C4101CEB7D6100BC68C7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		4617E0661CEA7DE8003EB3C1 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
+		4622D8B91CEB765500C2587F /* CloudKitController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
+		4659FF0F1CEB8CE900B02642 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,16 +90,18 @@
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
 				4617E0591CEA5D9E003EB3C1 /* User.swift */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
-				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4617E05B1CEA5E30003EB3C1 /* ETA.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
-				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
+				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
+				4622D8B91CEB765500C2587F /* CloudKitController.swift */,
 				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
+				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
+				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
-				8452C4101CEB7D6100BC68C7 /* Colors.swift */,
+				4659FF0F1CEB8CE900B02642 /* Colors.swift */,
 				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
 				4617E0421CEA5430003EB3C1 /* LaunchScreen.storyboard */,
 				4617E0451CEA5430003EB3C1 /* Info.plist */,
@@ -184,15 +190,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */,
+				4659FF101CEB8CE900B02642 /* Colors.swift in Sources */,
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
+				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
 				4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */,
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
 				4617E05A1CEA5D9E003EB3C1 /* User.swift in Sources */,
-				8452C4111CEB7D6100BC68C7 /* Colors.swift in Sources */,
 				4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */,
+				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
@@ -311,10 +319,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HomeSafe/HomeSafe.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HomeSafe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -323,10 +334,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HomeSafe/HomeSafe.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HomeSafe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

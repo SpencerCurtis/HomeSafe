@@ -13,10 +13,12 @@ class EstimatedTimeOfArrival {
     
     let ETA: NSDate
     let destinationLocation: CLLocation
+    let name: String
     
-    init(ETA: NSDate, destinationLocation: CLLocation) {
+    init(ETA: NSDate, destinationLocation: CLLocation, name: String) {
         self.ETA = ETA
         self.destinationLocation = destinationLocation
+        self.name = name
     }
     
     // CloudKit Initializer?
