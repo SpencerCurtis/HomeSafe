@@ -16,6 +16,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
+    var selectedSafeZonePin: MKAnnotation? = nil
+    var color = Colors()
     
     
     override func viewDidLoad() {
@@ -64,6 +66,39 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.addAnnotation(annotation)
     }
     
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let reuseID = "pin"
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as? MKPinAnnotationView
+        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+        pinView?.pinTintColor = color.hunterOrange
+        pinView?.canShowCallout = true
+        pinView?.animatesDrop = true
+        
+        let smallSquare = CGSize(width: 30, height: 30)
+        let button = UIButton(frame: CGRect(origin: CGPointZero, size: smallSquare))
+        button.setBackgroundImage(UIImage(named: "") ?? UIImage(), forState: .Normal)
+        button.addTarget(self, action: #selector(selectSafeZone), forControlEvents: .TouchUpInside)
+        pinView?.rightCalloutAccessoryView = button
+        self.selectedSafeZonePin = annotation
+        
+        return pinView
+        
+    }
+    
+    func selectSafeZone() {
+        if let annotation = self.selectedSafeZonePin {
+            let coordinate = annotation.coordinate
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            CreateUserViewController.sharedController.selectedSafeLocation = location
+            navigationController?.popViewControllerAnimated(true)
+            
+        }
+    }
+    
     
     
     /*
@@ -77,6 +112,38 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
      */
     
 }
+
+//extension MapViewController: MKMapViewDelegate {
+//    
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
