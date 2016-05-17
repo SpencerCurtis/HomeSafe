@@ -10,13 +10,19 @@ import UIKit
 import MapKit
 import CoreLocation
 
+protocol HandleMapSearch {
+    func dropPinOnSelectedLocation(placemark: MKPlacemark)
+}
+
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
+    
     var selectedSafeZonePin: MKAnnotation? = nil
+    
     var color = Colors()
     
     var resultsSearchController: UISearchController? = nil
@@ -40,6 +46,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("LocationSearchTableViewController") as? LocationSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultsSearchController?.searchResultsUpdater = locationSearchTable
+        
         let searchBar = resultsSearchController?.searchBar
         searchBar?.sizeToFit()
         searchBar?.placeholder = "Enter Desired Location"
@@ -49,6 +56,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         definesPresentationContext = true
         
         locationSearchTable?.mapView = mapView
+        locationSearchTable?.handleMapSearchDelegate = self
         
     }
     
@@ -125,6 +133,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
      // Pass the selected object to the new view controller.
      }
      */
+    
+}
+
+extension MapViewController: HandleMapSearch {
+    
+    func dropPinOnSelectedLocation(placemark: MKPlacemark) {
+        selectedSafeZonePin = placemark
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+           let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city), \(state)"
+        }
+        
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpanMake(0.0073, 0.0073)
+        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        mapView.setRegion(region, animated: true)
+    }
     
 }
 
