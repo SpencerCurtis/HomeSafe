@@ -11,6 +11,8 @@ import UIKit
 
 class NotificationController {
     
+    static let sharedController = NotificationController()
+    
     func scheduleLocalNotification(user: User, ETA: EstimatedTimeOfArrival) {
         let notification = UILocalNotification()
         notification.fireDate = ETA.ETA
