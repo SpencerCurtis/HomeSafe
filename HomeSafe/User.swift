@@ -13,9 +13,9 @@ class User {
     
     let name: String
     let safeLocation: CLLocation
-    let phoneNumber: Int
+    let phoneNumber: String
     
-    init(name: String, safeLocation: CLLocation, phoneNumber: Int) {
+    init(name: String, safeLocation: CLLocation, phoneNumber: String) {
         
         self.name = name
         self.safeLocation = safeLocation

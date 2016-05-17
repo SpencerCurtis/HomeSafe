@@ -8,9 +8,13 @@
 
 import UIKit
 import Contacts
+import CoreLocation
 
 class ContactTableViewController: UITableViewController {
     
+    static let sharedController = ContactTableViewController()
+    
+    var currentUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +22,14 @@ class ContactTableViewController: UITableViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)
+        } else {
+            let name = NSUserDefaults.valueForKey("name") as! String
+            let latitude = NSUserDefaults.valueForKey("latitude") as! Double
+            let longitude = NSUserDefaults.valueForKey("longitude") as! Double
+            let safeLocation = CLLocation(latitude: latitude, longitude: longitude)
+            let phoneNumber = NSUserDefaults.valueForKey("phoneNumber") as! String
+            currentUser = User(name: name, safeLocation: safeLocation, phoneNumber: phoneNumber)
+            
         }
         
     }
