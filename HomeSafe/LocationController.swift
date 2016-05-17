@@ -17,6 +17,8 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     
+    var selectedSafeLocation: CLLocation?
+    
     override init() {
         super.init()
         locationManager.delegate = self

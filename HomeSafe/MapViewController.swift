@@ -93,7 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let annotation = self.selectedSafeZonePin {
             let coordinate = annotation.coordinate
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            CreateUserViewController.sharedController.selectedSafeLocation = location
+            LocationController.sharedController.selectedSafeLocation = location
             navigationController?.popViewControllerAnimated(true)
             
         }
