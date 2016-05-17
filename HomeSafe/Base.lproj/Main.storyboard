@@ -167,7 +167,7 @@
         <!--View Controller-->
         <scene sceneID="D7b-CO-Cbk">
             <objects>
-                <viewController id="rbU-DB-Roa" customClass="ETAViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationSearchTableViewController" id="rbU-DB-Roa" customClass="ETAViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YrE-OK-ViN"/>
                         <viewControllerLayoutGuide type="bottom" id="A9P-N8-zji"/>
@@ -366,7 +366,7 @@
         <!--Navigation Controller-->
         <scene sceneID="4wH-Bs-aoS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uyP-MJ-6vE" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CreateUserViewController" automaticallyAdjustsScrollViewInsets="NO" id="uyP-MJ-6vE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qfv-VQ-RzM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
