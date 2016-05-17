@@ -21,7 +21,7 @@ class ETAViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ETADatePicker.addTarget(self, action: #selector(updateETALabel), forControlEvents: .ValueChanged)
         // Do any additional setup after loading the view.
     }
     
@@ -29,6 +29,11 @@ class ETAViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func updateETALabel() {
+        ETALabel.text = "Your ETA is \(ETADatePicker.date.formatted)"
+    }
+    
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
         
@@ -40,14 +45,11 @@ class ETAViewController: UIViewController {
     }
 }
 
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
+extension NSDate {
+    var formatted: String {
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        return formatter.stringFromDate(self)
+    }
+}
 
