@@ -2,28 +2,33 @@
 //  User.swift
 //  HomeSafe
 //
-//  Created by Spencer Curtis on 5/16/16.
+//  Created by Spencer Curtis on 5/17/16.
 //  Copyright © 2016 Spencer Curtis. All rights reserved.
 //
 
 import Foundation
-import CoreLocation
+import CoreData
 
-class User {
+
+class User: NSManagedObject {
     
-    var name: String
-    var safeLocation: CLLocation
-    var phoneNumber: String
-    
-    init(name: String, safeLocation: CLLocation, phoneNumber: String) {
+    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+        let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
+        self.init(entity: entity!, insertIntoManagedObjectContext: context)
         
         self.name = name
-        self.safeLocation = safeLocation
         self.phoneNumber = phoneNumber
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
-    
-    // CloudKit Initializer?
+    convenience init(name: String, phoneNumber: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+        let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
+        self.init(entity: entity!, insertIntoManagedObjectContext: context)
+        
+        self.name = name
+        self.phoneNumber = phoneNumber
+    }
     
     
 }

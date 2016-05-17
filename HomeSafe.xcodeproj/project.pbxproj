@@ -17,7 +17,6 @@
 		4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */; };
 		4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */; };
 		4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */; };
-		4617E05A1CEA5D9E003EB3C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0591CEA5D9E003EB3C1 /* User.swift */; };
 		4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E05B1CEA5E30003EB3C1 /* ETA.swift */; };
 		4617E05F1CEA5EFC003EB3C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */; };
 		4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0601CEA6284003EB3C1 /* UserController.swift */; };
@@ -26,6 +25,11 @@
 		4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0661CEA7DE8003EB3C1 /* LocationController.swift */; };
 		4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D8B91CEB765500C2587F /* CloudKitController.swift */; };
 		4659FF101CEB8CE900B02642 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF0F1CEB8CE900B02642 /* Colors.swift */; };
+		4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF111CEBB31300B02642 /* Model.xcdatamodeld */; };
+		4659FF151CEBB3CF00B02642 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF141CEBB3CF00B02642 /* Stack.swift */; };
+		4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */; };
+		4659FF191CEBB3F100B02642 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF171CEBB3F100B02642 /* User.swift */; };
+		4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1A1CEBB52400B02642 /* ContactsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +45,6 @@
 		4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETAViewController.swift; sourceTree = "<group>"; };
 		4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DangerViewController.swift; sourceTree = "<group>"; };
 		4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContactTableViewController.swift; sourceTree = "<group>"; };
-		4617E0591CEA5D9E003EB3C1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4617E05B1CEA5E30003EB3C1 /* ETA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETA.swift; sourceTree = "<group>"; };
 		4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HomeSafe.entitlements; sourceTree = "<group>"; };
 		4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -51,6 +54,11 @@
 		4617E0661CEA7DE8003EB3C1 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		4622D8B91CEB765500C2587F /* CloudKitController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
 		4659FF0F1CEB8CE900B02642 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		4659FF121CEBB31300B02642 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		4659FF141CEBB3CF00B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4659FF171CEBB3F100B02642 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4659FF1A1CEBB52400B02642 /* ContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,12 +93,16 @@
 		4617E0381CEA542F003EB3C1 /* HomeSafe */ = {
 			isa = PBXGroup;
 			children = (
+				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
+				4659FF171CEBB3F100B02642 /* User.swift */,
+				4659FF1A1CEBB52400B02642 /* ContactsController.swift */,
 				4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */,
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
-				4617E0591CEA5D9E003EB3C1 /* User.swift */,
+				4659FF141CEBB3CF00B02642 /* Stack.swift */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				4617E05B1CEA5E30003EB3C1 /* ETA.swift */,
+				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
@@ -195,15 +207,19 @@
 				4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */,
 				4659FF101CEB8CE900B02642 /* Colors.swift in Sources */,
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
+				4659FF151CEBB3CF00B02642 /* Stack.swift in Sources */,
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
+				4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */,
 				4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */,
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
-				4617E05A1CEA5D9E003EB3C1 /* User.swift in Sources */,
 				4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */,
+				4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */,
 				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
+				4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */,
+				4659FF191CEBB3F100B02642 /* User.swift in Sources */,
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
@@ -369,6 +385,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4659FF111CEBB31300B02642 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4659FF121CEBB31300B02642 /* Model.xcdatamodel */,
+			);
+			currentVersion = 4659FF121CEBB31300B02642 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4617E02E1CEA542F003EB3C1 /* Project object */;
 }
