@@ -8,12 +8,13 @@
 
 import Foundation
 import CoreData
-
+import CoreLocation
 
 class User: NSManagedObject {
     
     convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
+        
         self.init(entity: entity!, insertIntoManagedObjectContext: context)
         
         self.name = name
@@ -29,6 +30,14 @@ class User: NSManagedObject {
         self.name = name
         self.phoneNumber = phoneNumber
     }
-    
+ 
+    convenience init(name: String, safeLocation: CLLocation, phoneNumber: String) {
+        self.init()
+        self.name = name
+        self.latitude = safeLocation.coordinate.latitude
+        self.longitude = safeLocation.coordinate.longitude
+        self.phoneNumber = phoneNumber
+    }
+
     
 }

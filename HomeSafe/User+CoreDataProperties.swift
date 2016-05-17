@@ -12,11 +12,15 @@
 import Foundation
 import CoreData
 
-extension User {
 
+extension User {
+    
     @NSManaged var name: String?
     @NSManaged var latitude: NSNumber?
     @NSManaged var longitude: NSNumber?
     @NSManaged var phoneNumber: String?
-
+    
+       
+    
+    
 }

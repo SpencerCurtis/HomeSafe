@@ -58,7 +58,7 @@
 		4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4659FF171CEBB3F100B02642 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4659FF1A1CEBB52400B02642 /* ContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
-		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,6 @@
 		4617E02D1CEA542F003EB3C1 = {
 			isa = PBXGroup;
 			children = (
-				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 				4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */,
 				4617E0381CEA542F003EB3C1 /* HomeSafe */,
 				4617E0371CEA542F003EB3C1 /* Products */,
@@ -103,6 +102,7 @@
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				4617E05B1CEA5E30003EB3C1 /* ETA.swift */,
 				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
+				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
