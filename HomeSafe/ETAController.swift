@@ -21,9 +21,10 @@ class ETAController {
     let record = CKRecord(recordType: "ETA")
 
     
-    func createETA(ETATime: NSDate, destination: CLLocation) {
+    func createETA(ETATime: NSDate, destination: CLLocation, name: String) {
         record.setValue(ETATime, forKey: "ETA")
         record.setValue(destination, forKey: "destinationLocation")
+        record.setValue(name, forKey: "name")
         publicDatabate.saveRecord(record) { (record, error) in
             
         }

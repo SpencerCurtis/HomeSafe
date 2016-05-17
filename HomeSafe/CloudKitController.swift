@@ -15,8 +15,9 @@ class CloudKitController {
     static let sharedController = CloudKitController()
     
     
-    func loadETAForUser(user: User) {
-        let predicate = NSPredicate(format: "\(user.phoneNumber)")
+    func loadETAForUser() {
+        let predicate = NSPredicate(value: true)
+//        let predicate = NSPredicate(format: "\(user.phoneNumber)")
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         var ETA: EstimatedTimeOfArrival?
         let operation = CKQueryOperation(query: query)
