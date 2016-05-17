@@ -14,6 +14,11 @@ class ContactTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if NSUserDefaults.standardUserDefaults().boolForKey("CurrentUser") == false {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
+            self.presentViewController(pageViewController, animated: true, completion: nil)
+        }
         
     }
     
