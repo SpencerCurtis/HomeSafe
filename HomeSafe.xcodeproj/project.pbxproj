@@ -106,8 +106,6 @@
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
 				4622D8B91CEB765500C2587F /* CloudKitController.swift */,
 				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
-				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
-				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
 				8452C4101CEB7D6100BC68C7 /* Colors.swift */,
 				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
