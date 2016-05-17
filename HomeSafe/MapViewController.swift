@@ -19,6 +19,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var selectedSafeZonePin: MKAnnotation? = nil
     var color = Colors()
     
+    var resultsSearchController: UISearchController? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
         createAnnotation.minimumPressDuration = 1
         mapView.addGestureRecognizer(createAnnotation)
+        
+        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("LocationSearchTableViewController") as? LocationSearchTableViewController
+        resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultsSearchController?.searchResultsUpdater = locationSearchTable
+        let searchBar = resultsSearchController?.searchBar
+        searchBar?.sizeToFit()
+        searchBar?.placeholder = "Enter Desired Location"
+        navigationItem.titleView = resultsSearchController?.searchBar
+        resultsSearchController?.hidesNavigationBarDuringPresentation = false
+        resultsSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
+        locationSearchTable?.mapView = mapView
         
     }
     
@@ -74,13 +89,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let reuseID = "pin"
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as? MKPinAnnotationView
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
-        pinView?.pinTintColor = color.hunterOrange
+        pinView?.pinTintColor = color.exoticGreen
         pinView?.canShowCallout = true
         pinView?.animatesDrop = true
         
         let smallSquare = CGSize(width: 30, height: 30)
         let button = UIButton(frame: CGRect(origin: CGPointZero, size: smallSquare))
-        button.setBackgroundImage(UIImage(named: "") ?? UIImage(), forState: .Normal)
+        button.setBackgroundImage(UIImage(named: "goArrow") ?? UIImage(), forState: .Normal)
         button.addTarget(self, action: #selector(selectSafeZone), forControlEvents: .TouchUpInside)
         pinView?.rightCalloutAccessoryView = button
         self.selectedSafeZonePin = annotation
