@@ -14,26 +14,30 @@ class ContactTableViewController: UITableViewController {
     
     static let sharedController = ContactTableViewController()
     
-    var currentUser: User? {
-        guard let name = NSUserDefaults.standardUserDefaults().valueForKey("name") as? String,
-            phoneNumber = NSUserDefaults.standardUserDefaults().valueForKey("phoneNumber") as? String,
-            latitude = NSUserDefaults.standardUserDefaults().valueForKey("latitude") as? Double,
-            longitude = NSUserDefaults.standardUserDefaults().valueForKey("longitude") as? Double else { return nil }
-        
-        let safeLocation = CLLocation(latitude: latitude, longitude: longitude)
-        let user = User(name: name, safeLocation: safeLocation, phoneNumber: phoneNumber)
-        return user
-        
-    }
+//    var currentUser: User? {
+//        guard let name = NSUserDefaults.standardUserDefaults().valueForKey("name") as? String,
+//            phoneNumber = NSUserDefaults.standardUserDefaults().valueForKey("phoneNumber") as? String,
+//            latitude = NSUserDefaults.standardUserDefaults().valueForKey("latitude") as? Double,
+//            longitude = NSUserDefaults.standardUserDefaults().valueForKey("longitude") as? Double else { return nil }
+//        
+//        let safeLocation = CLLocation(latitude: latitude, longitude: longitude)
+//        let user = User(name: <#T##String#>, phoneNumber: <#T##String#>, context: <#T##NSManagedObjectContext#>)
+//        return user
+//        
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if currentUser == nil {
+//        if currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)
-        }
+//        }
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -99,7 +103,15 @@ class ContactTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return SelectContactTableViewController.sharedInstance.selectedFavoriteContactsArray.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
+        let favoriteContact = SelectContactTableViewController.sharedInstance.selectedFavoriteContactsArray[indexPath.row]
+        cell.selectionStyle = .None
+        cell.textLabel?.text = favoriteContact.givenName + " " + favoriteContact.familyName
+        return cell
     }
 }
 

@@ -25,7 +25,8 @@ class SelectContactTableViewController: UITableViewController {
     }
     @IBAction func done(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
-
+        
+        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -54,22 +55,25 @@ class SelectContactTableViewController: UITableViewController {
         return cell
     }
     
-//    var favoriteContacts: [User]
+    var favoriteContacts: [CNContact] = []
+    var selectedFavoriteContactsArray: [CNContact] = []
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let indexPath = tableView.indexPathsForSelectedRows!
-        let selectedCell = tableView.cellForRowAtIndexPath
+        let selectedContacts = userContacts[indexPath.row]
         
+        selectedFavoriteContactsArray.append(selectedContacts)
         
+    
     }
+    
+    
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
+        let index = selectedFavoriteContactsArray.indexOf(userContacts[indexPath.row])
+        selectedFavoriteContactsArray.removeAtIndex(index!)
+        
     }
-    
-    
-    
-
     
 }
 
