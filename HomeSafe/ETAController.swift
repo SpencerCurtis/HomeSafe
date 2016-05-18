@@ -16,6 +16,7 @@ class ETAController {
     
     static let sharedController = ETAController()
     
+    var currentETA: EstimatedTimeOfArrival?
     
     var arrayOfETAs: [EstimatedTimeOfArrival] {
         let request = NSFetchRequest(entityName: "ETA")
@@ -30,28 +31,63 @@ class ETAController {
     
     
     
+    
     let publicDatabate = CKContainer.defaultContainer().publicCloudDatabase
     let record = CKRecord(recordType: "ETA")
     
     
-    func createETA(ETATime: NSDate, destination: CLLocation, name: String) {
+    func createETA(ETATime: NSDate, latitude: Double, longitude: Double, name: String, canceledETA: Bool, inDanger: Bool) {
         record.setValue(ETATime, forKey: "ETA")
-        record.setValue(destination, forKey: "destinationLocation")
+        record.setValue(latitude, forKey: "latitude")
+        record.setValue(longitude, forKey: "longitude")
         record.setValue(name, forKey: "name")
         record.setValue(false, forKey: "homeSafe")
+        record.setValue(false, forKey: "inDanger")
+        record.setValue(canceledETA, forKey: "canceledETA")
+        
+        
+        
         publicDatabate.saveRecord(record) { (record, error) in
-            
+            if let record = record {
+                let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: String(record.recordID))
+                self.currentETA = eta
+                self.saveToPersistentStorage()
+            }
         }
     }
     
     func removeETA(ETA: EstimatedTimeOfArrival) {
         ETA.managedObjectContext?.deleteObject(ETA)
+        if let id = ETA.id {
+            saveToPersistentStorage()
+            publicDatabate.deleteRecordWithID(CKRecordID(recordName: id), completionHandler: { (id, error) in
+            })
+        }
+    }
+    
+    func inDanger(eta: EstimatedTimeOfArrival) {
+        let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: eta.id!))
+        record.setValue(true, forKey: "inDanger")
+        eta.inDanger = true
         saveToPersistentStorage()
     }
     
-    func saveETA(ETA: EstimatedTimeOfArrival) {
+    func cancelETA(eta: EstimatedTimeOfArrival) {
+        let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: eta.id!))
+        record.setValue(true, forKey: "canceledETA")
+        eta.canceledETA = true
         saveToPersistentStorage()
     }
+    
+    func homeSafely(eta: EstimatedTimeOfArrival) {
+        let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: eta.id!))
+        record.setValue(true, forKey: "homeSafe")
+        eta.homeSafe = true
+        saveToPersistentStorage()
+    }
+    
+    
+    
     
     
     func saveToPersistentStorage() {

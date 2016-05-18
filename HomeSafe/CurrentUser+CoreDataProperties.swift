@@ -1,5 +1,5 @@
 //
-//  EstimatedTimeOfArrival+CoreDataProperties.swift
+//  CurrentUser+CoreDataProperties.swift
 //  HomeSafe
 //
 //  Created by Spencer Curtis on 5/18/16.
@@ -12,15 +12,11 @@
 import Foundation
 import CoreData
 
-extension EstimatedTimeOfArrival {
+extension CurrentUser {
 
-    @NSManaged var eta: NSDate?
+    @NSManaged var name: String?
+    @NSManaged var phoneNumber: String?
     @NSManaged var latitude: NSNumber?
     @NSManaged var longitude: NSNumber?
-    @NSManaged var userName: String?
-    @NSManaged var homeSafe: NSNumber?
-    @NSManaged var id: String?
-    @NSManaged var inDanger: NSNumber?
-    @NSManaged var canceledETA: NSNumber?
 
 }

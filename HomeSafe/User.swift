@@ -31,13 +31,13 @@ class User: NSManagedObject {
         self.phoneNumber = phoneNumber
     }
  
-    convenience init(name: String, safeLocation: CLLocation, phoneNumber: String) {
-        self.init()
-        self.name = name
-        self.latitude = safeLocation.coordinate.latitude
-        self.longitude = safeLocation.coordinate.longitude
-        self.phoneNumber = phoneNumber
-    }
+//    convenience init(name: String, safeLocation: CLLocation, phoneNumber: String) {
+//        self.init()
+//        self.name = name
+//        self.latitude = safeLocation.coordinate.latitude
+//        self.longitude = safeLocation.coordinate.longitude
+//        self.phoneNumber = phoneNumber
+//    }
 
     
 }

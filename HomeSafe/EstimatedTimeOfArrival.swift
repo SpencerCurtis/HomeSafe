@@ -12,7 +12,7 @@ import CoreData
 
 class EstimatedTimeOfArrival: NSManagedObject {
 
-    convenience init(eta: NSDate, latitude: Double, longitude: Double, userName: String, homeSafe: Bool = false, id: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(eta: NSDate, latitude: Double, longitude: Double, userName: String, homeSafe: Bool = false, inDanger: Bool = false, canceledETA: Bool = false, id: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         let entity = NSEntityDescription.entityForName("ETA", inManagedObjectContext: context)
         
         self.init(entity: entity!, insertIntoManagedObjectContext: context)
@@ -23,6 +23,8 @@ class EstimatedTimeOfArrival: NSManagedObject {
         self.userName = userName
         self.homeSafe = homeSafe
         self.id = id
+        self.canceledETA = canceledETA
+        self.inDanger = inDanger
     }
 
 }

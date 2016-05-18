@@ -17,7 +17,6 @@
 		4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */; };
 		4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */; };
 		4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */; };
-		4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E05B1CEA5E30003EB3C1 /* ETA.swift */; };
 		4617E05F1CEA5EFC003EB3C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */; };
 		4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0601CEA6284003EB3C1 /* UserController.swift */; };
 		4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0621CEA6C18003EB3C1 /* ETAController.swift */; };
@@ -33,6 +32,10 @@
 		4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */; };
 		46D5F9231CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */; };
 		46D5F9241CECC0D9007105D8 /* EstimatedTimeOfArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */; };
+		46D5F9261CECCCF2007105D8 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5F9251CECCCF2007105D8 /* AppearanceController.swift */; };
+		46D5F9291CECCE2C007105D8 /* CurrentUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5F9271CECCE2C007105D8 /* CurrentUser+CoreDataProperties.swift */; };
+		46D5F92A1CECCE2C007105D8 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5F9281CECCE2C007105D8 /* CurrentUser.swift */; };
+		8452C4151CEBCAB800BC68C7 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +51,6 @@
 		4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETAViewController.swift; sourceTree = "<group>"; };
 		4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DangerViewController.swift; sourceTree = "<group>"; };
 		4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContactTableViewController.swift; sourceTree = "<group>"; };
-		4617E05B1CEA5E30003EB3C1 /* ETA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETA.swift; sourceTree = "<group>"; };
 		4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HomeSafe.entitlements; sourceTree = "<group>"; };
 		4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		4617E0601CEA6284003EB3C1 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,9 @@
 		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EstimatedTimeOfArrival+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatedTimeOfArrival.swift; sourceTree = "<group>"; };
+		46D5F9251CECCCF2007105D8 /* AppearanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
+		46D5F9271CECCE2C007105D8 /* CurrentUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		46D5F9281CECCE2C007105D8 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +104,8 @@
 		4617E0381CEA542F003EB3C1 /* HomeSafe */ = {
 			isa = PBXGroup;
 			children = (
+				46D5F9271CECCE2C007105D8 /* CurrentUser+CoreDataProperties.swift */,
+				46D5F9281CECCE2C007105D8 /* CurrentUser.swift */,
 				46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
 				46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */,
 				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
@@ -108,12 +115,12 @@
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
-				4617E05B1CEA5E30003EB3C1 /* ETA.swift */,
 				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
+				46D5F9251CECCCF2007105D8 /* AppearanceController.swift */,
 				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
 				4622D8B91CEB765500C2587F /* CloudKitController.swift */,
@@ -123,7 +130,6 @@
 				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
 				4659FF0F1CEB8CE900B02642 /* Colors.swift */,
-				8452C4141CEBCAB800BC68C7 /* AppearanceController.swift */,
 				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
 				4617E0421CEA5430003EB3C1 /* LaunchScreen.storyboard */,
 				4617E0451CEA5430003EB3C1 /* Info.plist */,
@@ -219,6 +225,7 @@
 				46D5F9241CECC0D9007105D8 /* EstimatedTimeOfArrival.swift in Sources */,
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
 				46D5F9231CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,
+				46D5F92A1CECCE2C007105D8 /* CurrentUser.swift in Sources */,
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,
@@ -226,8 +233,8 @@
 				4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */,
 				4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */,
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
-				8452C4151CEBCAB800BC68C7 /* AppearanceController.swift in Sources */,
-				4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */,
+				46D5F9291CECCE2C007105D8 /* CurrentUser+CoreDataProperties.swift in Sources */,
+				8452C4151CEBCAB800BC68C7 /* (null) in Sources */,
 				4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */,
 				4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */,
 				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
@@ -236,6 +243,7 @@
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
 				4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */,
+				46D5F9261CECCCF2007105D8 /* AppearanceController.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

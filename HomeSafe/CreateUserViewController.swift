@@ -32,7 +32,7 @@ class CreateUserViewController: UIViewController {
     @IBAction func createUserButtonTapped(sender: AnyObject) {
         if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
         UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber)
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "CurrentUser")
+            UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber)
             NSUserDefaults.standardUserDefaults().setValue(name, forKey: "name")
             NSUserDefaults.standardUserDefaults().setValue(phoneNumber, forKey: "phoneNumber")
             NSUserDefaults.standardUserDefaults().setValue(safeLocation.coordinate.latitude, forKey: "latitude")

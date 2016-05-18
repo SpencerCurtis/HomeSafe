@@ -35,7 +35,7 @@ class CloudKitController {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 if error == nil {
                     if let ETA = ETA {
-                        ETAController.sharedController.saveETA(ETA)
+                        ETAController.sharedController.saveToPersistentStorage()
                     }
                 }
             })

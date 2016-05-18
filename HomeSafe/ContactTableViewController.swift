@@ -14,21 +14,10 @@ class ContactTableViewController: UITableViewController {
     
     static let sharedController = ContactTableViewController()
     
-    var currentUser: User? {
-        guard let name = NSUserDefaults.standardUserDefaults().valueForKey("name") as? String,
-            phoneNumber = NSUserDefaults.standardUserDefaults().valueForKey("phoneNumber") as? String,
-            latitude = NSUserDefaults.standardUserDefaults().valueForKey("latitude") as? Double,
-            longitude = NSUserDefaults.standardUserDefaults().valueForKey("longitude") as? Double else { return nil }
-        
-        let safeLocation = CLLocation(latitude: latitude, longitude: longitude)
-        let user = User(name: name, safeLocation: safeLocation, phoneNumber: phoneNumber)
-        return user
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if currentUser == nil {
+        if UserController.sharedController.currentUser.count == 0 {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)
