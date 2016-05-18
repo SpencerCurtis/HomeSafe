@@ -17,7 +17,7 @@ class ContactTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserController.sharedController.currentUser.count == 0 {
+        if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)

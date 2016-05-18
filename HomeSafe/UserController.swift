@@ -15,14 +15,14 @@ class UserController {
     
     static let sharedController = UserController()
     
-    var currentUser: [CurrentUser] {
-        let request = NSFetchRequest(entityName: "currentUser")
+    var currentUser: CurrentUser? {
+        let request = NSFetchRequest(entityName: "CurrentUser")
         
         do {
             let currentUsers = try Stack.sharedStack.managedObjectContext.executeFetchRequest(request) as! [CurrentUser]
-            return currentUsers
+            return currentUsers.first
         } catch {
-            return []
+            return nil
         }
     }
     
