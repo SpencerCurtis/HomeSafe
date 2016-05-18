@@ -31,6 +31,8 @@
 		4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1A1CEBB52400B02642 /* ContactsController.swift */; };
 		4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1E1CEBB93300B02642 /* Stack.swift */; };
 		4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */; };
+		46D5F9231CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */; };
+		46D5F9241CECC0D9007105D8 /* EstimatedTimeOfArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		4659FF1A1CEBB52400B02642 /* ContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
 		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
+		46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EstimatedTimeOfArrival+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatedTimeOfArrival.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 		4617E0381CEA542F003EB3C1 /* HomeSafe */ = {
 			isa = PBXGroup;
 			children = (
+				46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
+				46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */,
 				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
 				4659FF171CEBB3F100B02642 /* User.swift */,
 				4659FF1A1CEBB52400B02642 /* ContactsController.swift */,
@@ -209,7 +215,9 @@
 			files = (
 				4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */,
 				4659FF101CEB8CE900B02642 /* Colors.swift in Sources */,
+				46D5F9241CECC0D9007105D8 /* EstimatedTimeOfArrival.swift in Sources */,
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
+				46D5F9231CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,

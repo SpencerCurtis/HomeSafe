@@ -29,7 +29,7 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-//        let notification = CKNotification(
+        
     }
     
 }
