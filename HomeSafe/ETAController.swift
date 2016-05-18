@@ -19,7 +19,7 @@ class ETAController {
     var currentETA: EstimatedTimeOfArrival?
     
     var arrayOfETAs: [EstimatedTimeOfArrival] {
-        let request = NSFetchRequest(entityName: "ETA")
+        let request = NSFetchRequest(entityName: "EstimatedTimeOfArrival")
         
         do {
             let ETAs = try Stack.sharedStack.managedObjectContext.executeFetchRequest(request) as! [EstimatedTimeOfArrival]
@@ -28,9 +28,6 @@ class ETAController {
             return []
         }
     }
-    
-    
-    
     
     let publicDatabate = CKContainer.defaultContainer().publicCloudDatabase
     let record = CKRecord(recordType: "ETA")

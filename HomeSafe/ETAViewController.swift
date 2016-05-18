@@ -40,8 +40,9 @@ class ETAViewController: UIViewController {
     }
     
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {
-        let dest = CLLocation(latitude: 51.50998, longitude: -0.1337)
-//        ETAController.sharedController.createETA(ETADatePicker.date, destination: dest, name: "Brock")
+        if let name = UserController.sharedController.currentUser?.name, destination = destination {
+        ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
+        }
     }
 }
 

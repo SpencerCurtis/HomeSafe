@@ -34,7 +34,6 @@ class UserController {
         record.setValue(safeLocation, forKey: "safeLocation")
         record.setValue(phoneNumber, forKey: "phoneNum")
         
-        
         publicDatabase.saveRecord(record) { (record, error) in
             let currentUser = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber)
             UserController.sharedController.saveToPersistentStorage()
