@@ -21,10 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         application.registerUserNotificationSettings(pushNotificationSettings)
         application.registerForRemoteNotifications()
-<<<<<<< HEAD
-=======
-        
->>>>>>> master
+
         AppearanceController.initializeAppearance()
 
         return true

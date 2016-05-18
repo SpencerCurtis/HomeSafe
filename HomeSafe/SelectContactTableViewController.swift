@@ -24,11 +24,22 @@ class SelectContactTableViewController: UITableViewController {
         
     }
     @IBAction func done(sender: AnyObject) {
+        if self.delegate != nil {
+            let contacts: [CNContact] = self.selectedFavoriteContactsArray
+            self.delegate?.userDidSelectContacts(contacts)
+            
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
-        
+        self.tableView.reloadData()
         
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
@@ -64,7 +75,7 @@ class SelectContactTableViewController: UITableViewController {
         
         selectedFavoriteContactsArray.append(selectedContacts)
         
-    
+        
     }
     
     
@@ -74,8 +85,15 @@ class SelectContactTableViewController: UITableViewController {
         selectedFavoriteContactsArray.removeAtIndex(index!)
         
     }
+    var delegate: PassContactsDelegate?
     
 }
+protocol PassContactsDelegate {
+    func userDidSelectContacts(contacts: [CNContact])
+}
+
+
+
 
 
 

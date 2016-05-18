@@ -17,7 +17,6 @@
 		4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */; };
 		4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */; };
 		4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */; };
-		4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E05B1CEA5E30003EB3C1 /* ETA.swift */; };
 		4617E05F1CEA5EFC003EB3C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */; };
 		4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0601CEA6284003EB3C1 /* UserController.swift */; };
 		4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0621CEA6C18003EB3C1 /* ETAController.swift */; };
@@ -32,6 +31,10 @@
 		4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1E1CEBB93300B02642 /* Stack.swift */; };
 		4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */; };
 		E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */; };
+		E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */; };
+		E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */; };
+		E5DE0F121CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */; };
+		E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +50,6 @@
 		4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETAViewController.swift; sourceTree = "<group>"; };
 		4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DangerViewController.swift; sourceTree = "<group>"; };
 		4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContactTableViewController.swift; sourceTree = "<group>"; };
-		4617E05B1CEA5E30003EB3C1 /* ETA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETA.swift; sourceTree = "<group>"; };
 		4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HomeSafe.entitlements; sourceTree = "<group>"; };
 		4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		4617E0601CEA6284003EB3C1 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,10 @@
 		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
 		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApperanceController.swift; sourceTree = "<group>"; };
+		E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentUser.swift; path = HomeSafe/CurrentUser.swift; sourceTree = "<group>"; };
+		E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CurrentUser+CoreDataProperties.swift"; path = "HomeSafe/CurrentUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EstimatedTimeOfArrival.swift; path = HomeSafe/EstimatedTimeOfArrival.swift; sourceTree = "<group>"; };
+		E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EstimatedTimeOfArrival+CoreDataProperties.swift"; path = "HomeSafe/EstimatedTimeOfArrival+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,10 @@
 		4617E02D1CEA542F003EB3C1 = {
 			isa = PBXGroup;
 			children = (
+				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
+				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
+				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
+				E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
 				4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */,
 				4617E0381CEA542F003EB3C1 /* HomeSafe */,
 				4617E0371CEA542F003EB3C1 /* Products */,
@@ -105,7 +115,6 @@
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
-				4617E05B1CEA5E30003EB3C1 /* ETA.swift */,
 				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
@@ -220,16 +229,19 @@
 				4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */,
 				4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */,
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
-				4617E05C1CEA5E30003EB3C1 /* ETA.swift in Sources */,
 				4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */,
 				4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */,
 				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
 				4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */,
+				E5DE0F121CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift in Sources */,
 				4659FF191CEBB3F100B02642 /* User.swift in Sources */,
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
 				E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */,
+				E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
 				4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */,
+				E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */,
+				E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,24 +10,30 @@ import UIKit
 import Contacts
 import CoreLocation
 
-class ContactTableViewController: UITableViewController {
+class ContactTableViewController: UITableViewController, PassContactsDelegate {
+    
+    func userDidSelectContacts(contacts: [CNContact]) {
+        selectedArray = contacts
+    }
     
     static let sharedController = ContactTableViewController()
     
+    var selectedArray: [CNContact] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)
         }
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         tableView.reloadData()
     }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -37,6 +43,7 @@ class ContactTableViewController: UITableViewController {
         requestForAccess { (accessGranted) in
             if accessGranted {
                 guard let selectContacts = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("selectContacts") as? SelectContactTableViewController else {return}
+                selectContacts.delegate = self
                 self.presentViewController(selectContacts, animated: true, completion: {
                     self.tableView.reloadData()
                 })
@@ -86,18 +93,23 @@ class ContactTableViewController: UITableViewController {
             completionHandler(accessGranted: false)
         }
     }
-    
-    
-    
-    
+ 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return SelectContactTableViewController.sharedInstance.selectedFavoriteContactsArray.count
+        return selectedArray.count
+        
     }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
+        let favoriteContact = selectedArray[indexPath.row]
+        cell.selectionStyle = .None
+        cell.textLabel?.text = favoriteContact.givenName + " " + favoriteContact.familyName
+        
+        return cell
+    }
+
 }
-
-
-
 
 
 
