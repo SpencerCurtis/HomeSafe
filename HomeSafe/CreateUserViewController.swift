@@ -33,11 +33,6 @@ class CreateUserViewController: UIViewController {
         if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
         UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber)
             UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber)
-            NSUserDefaults.standardUserDefaults().setValue(name, forKey: "name")
-            NSUserDefaults.standardUserDefaults().setValue(phoneNumber, forKey: "phoneNumber")
-            NSUserDefaults.standardUserDefaults().setValue(safeLocation.coordinate.latitude, forKey: "latitude")
-            NSUserDefaults.standardUserDefaults().setValue(safeLocation.coordinate.longitude, forKey: "longitude")
-
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         

@@ -107,12 +107,16 @@
 		4617E0381CEA542F003EB3C1 /* HomeSafe */ = {
 			isa = PBXGroup;
 			children = (
+				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
+				46D5F9271CECCE2C007105D8 /* CurrentUser+CoreDataProperties.swift */,
+				46D5F9281CECCE2C007105D8 /* CurrentUser.swift */,
+				46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
+				46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */,
 				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
 				4659FF171CEBB3F100B02642 /* User.swift */,
 				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
 				4659FF1A1CEBB52400B02642 /* ContactsController.swift */,
 				4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */,
-				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
