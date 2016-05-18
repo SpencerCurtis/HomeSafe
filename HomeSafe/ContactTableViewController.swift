@@ -22,7 +22,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
@@ -31,9 +31,15 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        tableView.reloadData()
+        ContactsController.sharedController.convertContactsToUsers(selectedArray) {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+            })
+            
+        }
     }
 
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -93,22 +99,22 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
             completionHandler(accessGranted: false)
         }
     }
- 
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return selectedArray.count
+        return ContactsController.sharedController.contacts.count
         
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-        let favoriteContact = selectedArray[indexPath.row]
+        let favoriteContact = ContactsController.sharedController.contacts[indexPath.row]
         cell.selectionStyle = .None
-        cell.textLabel?.text = favoriteContact.givenName + " " + favoriteContact.familyName
+        cell.textLabel?.text = favoriteContact.name
         
         return cell
     }
-
+    
 }
 
 

@@ -65,10 +65,10 @@
 		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
 		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApperanceController.swift; sourceTree = "<group>"; };
-		E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentUser.swift; path = HomeSafe/CurrentUser.swift; sourceTree = "<group>"; };
-		E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CurrentUser+CoreDataProperties.swift"; path = "HomeSafe/CurrentUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EstimatedTimeOfArrival.swift; path = HomeSafe/EstimatedTimeOfArrival.swift; sourceTree = "<group>"; };
-		E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EstimatedTimeOfArrival+CoreDataProperties.swift"; path = "HomeSafe/EstimatedTimeOfArrival+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
+		E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatedTimeOfArrival.swift; sourceTree = "<group>"; };
+		E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EstimatedTimeOfArrival+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +86,6 @@
 		4617E02D1CEA542F003EB3C1 = {
 			isa = PBXGroup;
 			children = (
-				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
-				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
-				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
-				E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
 				4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */,
 				4617E0381CEA542F003EB3C1 /* HomeSafe */,
 				4617E0371CEA542F003EB3C1 /* Products */,
@@ -107,11 +103,11 @@
 		4617E0381CEA542F003EB3C1 /* HomeSafe */ = {
 			isa = PBXGroup;
 			children = (
+				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
+				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
+				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
+				E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
-				46D5F9271CECCE2C007105D8 /* CurrentUser+CoreDataProperties.swift */,
-				46D5F9281CECCE2C007105D8 /* CurrentUser.swift */,
-				46D5F9211CECC0D9007105D8 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
-				46D5F9221CECC0D9007105D8 /* EstimatedTimeOfArrival.swift */,
 				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
 				4659FF171CEBB3F100B02642 /* User.swift */,
 				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,

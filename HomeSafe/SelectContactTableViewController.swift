@@ -31,6 +31,8 @@ class SelectContactTableViewController: UITableViewController {
         }
         self.dismissViewControllerAnimated(true, completion: nil)
         self.tableView.reloadData()
+//        ContactTableViewController.sharedController.tableView.reloadData()
+        
         
     }
     
