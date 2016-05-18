@@ -9,10 +9,23 @@
 import Foundation
 import CloudKit
 import CoreLocation
+import CoreData
 
 class UserController {
     
     static let sharedController = UserController()
+    
+    var currentUser: CurrentUser? {
+        let request = NSFetchRequest(entityName: "CurrentUser")
+        
+        do {
+            let currentUsers = try Stack.sharedStack.managedObjectContext.executeFetchRequest(request) as! [CurrentUser]
+            return currentUsers.first
+        } catch {
+            return nil
+        }
+    }
+    
     
     func createUser(name: String, safeLocation: CLLocation, phoneNumber: String) {
         let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
@@ -20,13 +33,27 @@ class UserController {
         record.setValue(name, forKey: "name")
         record.setValue(safeLocation, forKey: "safeLocation")
         record.setValue(phoneNumber, forKey: "phoneNum")
+        
+        
         publicDatabase.saveRecord(record) { (record, error) in
-            
+            let currentUser = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber)
+            UserController.sharedController.saveToPersistentStorage()
         }
     }
     
     
-    
-    
-    
+    func saveToPersistentStorage() {
+        
+        do {
+            try Stack.sharedStack.managedObjectContext.save()
+        } catch {
+            print("Error saving Managed Object Context. Items not saved.")
+        }
+    }
 }
+
+
+
+
+
+

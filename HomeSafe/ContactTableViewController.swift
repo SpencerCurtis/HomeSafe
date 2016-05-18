@@ -14,25 +14,14 @@ class ContactTableViewController: UITableViewController {
     
     static let sharedController = ContactTableViewController()
     
-//    var currentUser: User? {
-//        guard let name = NSUserDefaults.standardUserDefaults().valueForKey("name") as? String,
-//            phoneNumber = NSUserDefaults.standardUserDefaults().valueForKey("phoneNumber") as? String,
-//            latitude = NSUserDefaults.standardUserDefaults().valueForKey("latitude") as? Double,
-//            longitude = NSUserDefaults.standardUserDefaults().valueForKey("longitude") as? Double else { return nil }
-//        
-//        let safeLocation = CLLocation(latitude: latitude, longitude: longitude)
-//        let user = User(name: <#T##String#>, phoneNumber: <#T##String#>, context: <#T##NSManagedObjectContext#>)
-//        return user
-//        
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if currentUser == nil {
+        if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)
-//        }
+        }
         
     }
     
@@ -104,14 +93,6 @@ class ContactTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return SelectContactTableViewController.sharedInstance.selectedFavoriteContactsArray.count
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-        let favoriteContact = SelectContactTableViewController.sharedInstance.selectedFavoriteContactsArray[indexPath.row]
-        cell.selectionStyle = .None
-        cell.textLabel?.text = favoriteContact.givenName + " " + favoriteContact.familyName
-        return cell
     }
 }
 
