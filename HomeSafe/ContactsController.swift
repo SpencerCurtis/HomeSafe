@@ -17,6 +17,8 @@ class ContactsController {
     
     static let sharedController = ContactsController()
     
+    var selectedGuardians: [User] = []
+
     var contacts: [User] {
         let request = NSFetchRequest(entityName: "User")
         

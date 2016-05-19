@@ -24,7 +24,8 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
 
     static let sharedController = ContactTableViewController()
     
-    var selectedArray: [CNContact] = []
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)
         }
+        self.tableView.allowsMultipleSelection = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -146,6 +148,20 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
             ContactsController.sharedController.removeContact(contact)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        let selectedGuardians = ContactsController.sharedController.contacts[indexPath.row]
+        ContactsController.sharedController.selectedGuardians.append(selectedGuardians)
+        
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
+        let index = ContactsController.sharedController.selectedGuardians.indexOf(ContactsController.sharedController.contacts[indexPath.row])
+        ContactsController.sharedController.selectedGuardians.removeAtIndex(index!)
+
     }
   
 }
