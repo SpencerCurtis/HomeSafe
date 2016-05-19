@@ -11,11 +11,17 @@ import Contacts
 import CoreLocation
 
 class ContactTableViewController: UITableViewController, PassContactsDelegate {
-    
+    //*********************//
+    //PROTOCOLS FUNCTION
+    //*******************//
+
    func userDidSelectContacts(contacts: [CNContact]) {
         UserController.sharedController.selectedArray = contacts
     }
-    
+    //**********************************************************************************************************//
+    //SHARED CONTROLLER. SELECTED CONTACTS ARRAY. VIEW DID LOAD IF USER WAS CREATED. SHOW VIEW. RELOAD TABLEVIEW.
+    //**********************************************************************************************************//
+
     static let sharedController = ContactTableViewController()
     
     var selectedArray: [CNContact] = []
@@ -41,16 +47,17 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    //************************************************************//
+    // MARK: - Calling Request for access Function.//
+    //IF ACCESS IS GRANTED, PROCEED. IF NOT, DO NOT PRESENT MODALLY
+    //************************************************************//
+    
     @IBAction func addContactButtonTapped(sender: AnyObject) {
         requestForAccess { (accessGranted) in
             if accessGranted {
-                guard let selectContacts = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("selectContacts") as? SelectContactTableViewController else {return}
+                guard let selectContactsNavController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("navController") as? UINavigationController,                 let selectContacts = selectContactsNavController.viewControllers[0] as? SelectContactTableViewController else {return}
                 selectContacts.delegate = self
-                self.presentViewController(selectContacts, animated: true, completion: {
+                self.presentViewController(selectContactsNavController, animated: true, completion: {
                     self.tableView.reloadData()
                 })
                 
@@ -71,6 +78,12 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
             }
         }
     }
+    
+    //*********************************************************************************//
+    // MARK: - Request For Access Function//
+    // CHECKS PERMISSION, IF GRANTED, PROCCEED. IF NOT, DO NOT. MUST CHANGE IN SETTINGS.
+    //*********************************************************************************//
+    
     func requestForAccess(completionHandler: (accessGranted: Bool) -> Void) {
         let authorizationStatus = CNContactStore.authorizationStatusForEntityType(.Contacts)
         
@@ -89,7 +102,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
                     if authorizationStatus == .Denied {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             let message = "\(accessError!.localizedDescription)\n\nPlease allow the app to access your contacts through the Settings."
-                            SelectContactTableViewController.sharedInstance.showMessage(message)
+                            self.showMessage(message)
                             self.dismissViewControllerAnimated(true, completion: nil)
                         })
                     }
@@ -100,6 +113,17 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
         }
     }
     
+    func showMessage(message: String) {
+        let alert = UIAlertController(title: "My Contacts", message: message, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alert.addAction(okAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    //*****************************//
+    //MARK: - TABLEVIEW DELEGATION CONTACTTABLEVIEWCONTROLLER
+    //*******************************************************//
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return ContactsController.sharedController.contacts.count
