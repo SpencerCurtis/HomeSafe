@@ -13,7 +13,7 @@ import CoreLocation
 class ContactTableViewController: UITableViewController, PassContactsDelegate {
     
     func userDidSelectContacts(contacts: [CNContact]) {
-        selectedArray = contacts
+        UserController.sharedController.selectedArray = contacts
     }
     
     static let sharedController = ContactTableViewController()
@@ -22,7 +22,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
         if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
@@ -31,14 +31,14 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        ContactsController.sharedController.convertContactsToUsers(selectedArray) {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadData()
-            })
-            
-        }
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
     }
 
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
     
     
     override func didReceiveMemoryWarning() {

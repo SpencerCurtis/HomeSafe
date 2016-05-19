@@ -17,6 +17,7 @@ class SelectContactTableViewController: UITableViewController {
     
     static let sharedInstance = SelectContactTableViewController()
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +31,9 @@ class SelectContactTableViewController: UITableViewController {
             
         }
         self.dismissViewControllerAnimated(true, completion: nil)
-        self.tableView.reloadData()
-//        ContactTableViewController.sharedController.tableView.reloadData()
-        
+        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
+            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
+        }
         
     }
     

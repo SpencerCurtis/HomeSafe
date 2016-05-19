@@ -28,6 +28,7 @@ class CloudKitController {
             let name = record["name"] as! String
             let id = String(record.recordID)
             
+            
             ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id)
         }
         operation.queryCompletionBlock = { (cursor, error) in
@@ -44,7 +45,7 @@ class CloudKitController {
     
     
     func setupSubscription(eta: EstimatedTimeOfArrival, user: User) {
-        let predicate = NSPredicate(format: "ETA")
+        let predicate = NSPredicate(format: "canceledETA = \(eta.canceledETA), recordName = \(eta.id)")
         let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnce)
         
         let info = CKNotificationInfo()

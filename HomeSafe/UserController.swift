@@ -15,6 +15,8 @@ class UserController {
     
     static let sharedController = UserController()
     
+    var selectedArray: [CNContact] = []
+
     var currentUser: CurrentUser? {
         let request = NSFetchRequest(entityName: "CurrentUser")
         
