@@ -73,6 +73,11 @@ class ContactsController {
         return result
     }
     
+    func removeContact(contact: User) {
+        contact.managedObjectContext?.deleteObject(contact)
+        saveToPersistentStorage()
+    }
+    
     
     func saveToPersistentStorage() {
         
