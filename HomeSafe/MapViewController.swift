@@ -105,6 +105,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let button = UIButton(frame: CGRect(origin: CGPointZero, size: smallSquare))
         button.setBackgroundImage(UIImage(named: "goArrow") ?? UIImage(), forState: .Normal)
         button.addTarget(self, action: #selector(selectSafeZone), forControlEvents: .TouchUpInside)
+        // Get the address from the pin.
         pinView?.rightCalloutAccessoryView = button
         self.selectedSafeZonePin = annotation
         

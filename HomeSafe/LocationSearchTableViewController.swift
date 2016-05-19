@@ -11,6 +11,8 @@ import MapKit
 
 class LocationSearchTableViewController: UITableViewController {
     
+    static let sharedController = LocationSearchTableViewController()
+    
     var matchingLocations: [MKMapItem] = []
     var mapView: MKMapView? = nil
     var handleMapSearchDelegate: HandleMapSearch? = nil
@@ -65,6 +67,7 @@ extension LocationSearchTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedItem = matchingLocations[indexPath.row].placemark
         handleMapSearchDelegate?.dropPinOnSelectedLocation(selectedItem)
+        LocationController.sharedController.address = parsingTheAddress(selectedItem)
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

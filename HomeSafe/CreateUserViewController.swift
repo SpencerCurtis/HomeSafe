@@ -23,6 +23,13 @@ class CreateUserViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+     
+    override func viewWillAppear(animated: Bool) {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.safeLocationLabel.text = LocationController.sharedController.address
+        })
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
