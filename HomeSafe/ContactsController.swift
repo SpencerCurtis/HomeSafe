@@ -31,7 +31,12 @@ class ContactsController {
     func saveContact(contact: User) {
         saveToPersistentStorage()
     }
+    func removeContact(contact: User) {
+        contact.managedObjectContext?.deleteObject(contact)
+        saveToPersistentStorage()
+    }
     
+
     func convertContactsToUsers(contacts: [CNContact], completion: () -> Void) {
         for contact in contacts {
             let name = contact.givenName + " " + contact.familyName

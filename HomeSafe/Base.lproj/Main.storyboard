@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="20Y-eI-ML3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="20Y-eI-ML3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -123,7 +123,7 @@
             </objects>
             <point key="canvasLocation" x="1650.5" y="536.5"/>
         </scene>
-        <!--Select Stalkers-->
+        <!--Select Guardians -->
         <scene sceneID="FZA-cK-XGm">
             <objects>
                 <tableViewController id="Zf9-7w-nQh" customClass="ContactTableViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
@@ -136,7 +136,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="teT-G9-t9A" id="mbz-7S-v41">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -146,7 +146,7 @@
                             <outlet property="delegate" destination="Zf9-7w-nQh" id="u1j-vu-g3x"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select Stalkers" id="tc5-Fe-uEl">
+                    <navigationItem key="navigationItem" title="Select Guardians " id="tc5-Fe-uEl">
                         <barButtonItem key="leftBarButtonItem" title="Add Contact" id="WRq-XR-ELE">
                             <connections>
                                 <action selector="addContactButtonTapped:" destination="Zf9-7w-nQh" id="Ms5-nB-zeY"/>
@@ -199,7 +199,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="IR0-Kh-LAB"/>
                                 </constraints>
-                                <state key="normal" title="Start The Stalking"/>
+                                <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="startTrackingButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Kux-k8-f6k"/>
                                     <segue destination="opV-Et-HB6" kind="showDetail" id="1GB-aw-rgA"/>
@@ -277,7 +277,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GZg-2d-sgm" id="o0I-8z-THc">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -292,7 +292,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMj-gJ-1Uj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1995.5" y="2075.5"/>
+            <point key="canvasLocation" x="1183.5" y="2162.5"/>
         </scene>
         <!--Danger View Controller-->
         <scene sceneID="C0C-tn-hLz">
@@ -413,18 +413,18 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oew-9h-OuY" id="DZm-5Y-hea">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G5v-gY-kOV">
-                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="15" y="5" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zgG-kg-efW">
-                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="15" y="25" width="41" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -447,6 +447,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zlm-W4-Pjk"/>
+        <segue reference="5BP-g4-Qhp"/>
     </inferredMetricsTieBreakers>
 </document>

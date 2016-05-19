@@ -12,7 +12,7 @@ import CoreLocation
 
 class ContactTableViewController: UITableViewController, PassContactsDelegate {
     
-    func userDidSelectContacts(contacts: [CNContact]) {
+   func userDidSelectContacts(contacts: [CNContact]) {
         UserController.sharedController.selectedArray = contacts
     }
     
@@ -115,6 +115,15 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
         return cell
     }
     
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+
+            let contact = ContactsController.sharedController.contacts[indexPath.row]
+            ContactsController.sharedController.removeContact(contact)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+  
 }
 
 

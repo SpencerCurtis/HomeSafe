@@ -21,6 +21,7 @@ class ETAViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ETADatePicker.minimumDate = NSDate()
         ETADatePicker.addTarget(self, action: #selector(updateETALabel), forControlEvents: .ValueChanged)
         // Do any additional setup after loading the view.
     }
