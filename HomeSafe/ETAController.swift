@@ -52,7 +52,7 @@ class ETAController {
                 let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: uuid, recordID: String(record.recordID))
                 self.currentETA = eta
                 self.saveToPersistentStorage()
-                CloudKitController.sharedController.setupSubscriptionForUser(eta)
+                CloudKitController.sharedController.setupSubscriptionForETA(eta)
             } else {
                 print(error?.localizedDescription)
             }
