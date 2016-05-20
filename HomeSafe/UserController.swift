@@ -40,7 +40,7 @@ class UserController {
         publicDatabase.saveRecord(record) { (record, error) in
             let currentUser = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber)
             UserController.sharedController.saveToPersistentStorage()
-//            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser)
+            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser)
         }
     }
     

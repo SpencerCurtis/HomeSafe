@@ -16,21 +16,28 @@ class CloudKitController {
     
     let db = CKContainer.defaultContainer().publicCloudDatabase
     
+    var tempContactsArray: NSArray?
+    
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (user: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
         let operation = CKQueryOperation(query: query)
-        
-        operation.recordFetchedBlock = { (record) in
-            let name = record.valueForKey("name") as? String
-            let phoneNum = record.valueForKey("phoneNum") as? String
-            let safeLocation = record.valueForKey("safeLocation") as? CLLocation
-            let uuid = record.valueForKey("id") as? String
-            if let name = name, phoneNum = phoneNum, safeLocation = safeLocation, uuid = uuid {
-                let user = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNum, uuid: uuid)
-                completion(user: user)
+        db.performQuery(query, inZoneWithID: nil) { (results, error) in
+            if let record = results?.first {
+                let name = record.valueForKey("name") as? String
+                let phoneNum = record.valueForKey("phoneNum") as? String
+                let safeLocation = record.valueForKey("safeLocation") as? CLLocation
+                let uuid = record.recordID.recordName
+                if let name = name, phoneNum = phoneNum, safeLocation = safeLocation {
+                    let user = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNum, uuid: uuid)
+                    completion(user: user)
+                    self.tempContactsArray = record.valueForKey("contacts") as? NSArray
+                    
+                }
             }
         }
+        
+        
         
     }
     
@@ -64,20 +71,21 @@ class CloudKitController {
     func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String) {
         fetchUserForPhoneNumber(phoneNumber) { (user) in
             if let otherUser = user {
-                let record = CKRecord(recordType: "User", recordID: CKRecordID(recordName: otherUser.uuid!))
-                record.setValue(currentUser.phoneNumber, forKey: "contacts")
-                self.db.saveRecord(record, completionHandler: { (record, error) in
-                    if error != nil {
-                        print(error?.localizedDescription)
+                var array = NSArray(object: currentUser.phoneNumber!)
+                self.db.fetchRecordWithID(CKRecordID(recordName: otherUser.uuid!), completionHandler: { (record, error) in
+                    if let record = record {
+                        record.setObject(array, forKey: "contacts")
+                        self.db.saveRecord(record, completionHandler: { (record, error) in
+                            if error != nil {
+                                print(error?.localizedDescription)
+                            } else {
+                                print("Success")
+                            }
+                        })
                     }
                 })
-                
             }
-            
-            
         }
-        
-        
     }
     
     
