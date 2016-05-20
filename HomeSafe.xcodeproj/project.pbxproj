@@ -40,9 +40,9 @@
 
 /* Begin PBXFileReference section */
 		4617E0361CEA542F003EB3C1 /* HomeSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4617E0391CEA542F003EB3C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4617E0391CEA542F003EB3C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HomeSafe/AppDelegate.swift; sourceTree = "<group>"; };
 		4617E03E1CEA542F003EB3C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4617E0401CEA5430003EB3C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4617E0401CEA5430003EB3C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HomeSafe/Assets.xcassets; sourceTree = "<group>"; };
 		4617E0431CEA5430003EB3C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4617E0451CEA5430003EB3C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4617E04B1CEA5889003EB3C1 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +89,9 @@
 			isa = PBXGroup;
 			children = (
 				4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */,
+				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
+				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
+				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E0381CEA542F003EB3C1 /* HomeSafe */,
 				4617E0371CEA542F003EB3C1 /* Products */,
 			);
@@ -105,38 +108,59 @@
 		4617E0381CEA542F003EB3C1 /* HomeSafe */ = {
 			isa = PBXGroup;
 			children = (
-				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
-				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
-				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
-				E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
-				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
-				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
-				4659FF171CEBB3F100B02642 /* User.swift */,
-				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
+				462039DA1CEF67CD00DC29F6 /* Models + Core Data */,
+				462039D71CEF678200DC29F6 /* Controllers */,
+				462039D91CEF67A100DC29F6 /* View Controllers */,
+				4617E0421CEA5430003EB3C1 /* LaunchScreen.storyboard */,
+				4617E0451CEA5430003EB3C1 /* Info.plist */,
 				4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */,
-				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
+			);
+			path = HomeSafe;
+			sourceTree = "<group>";
+		};
+		462039D71CEF678200DC29F6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
-				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
-				4659FF1E1CEBB93300B02642 /* Stack.swift */,
+				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
-				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
-				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
 				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
 				4622D8B91CEB765500C2587F /* CloudKitController.swift */,
 				4659FF1A1CEBB52400B02642 /* ContactsController.swift */,
+				4659FF0F1CEB8CE900B02642 /* Colors.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		462039D91CEF67A100DC29F6 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
+				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
 				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
 				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
 				E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */,
 				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
-				4659FF0F1CEB8CE900B02642 /* Colors.swift */,
-				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
-				4617E0421CEA5430003EB3C1 /* LaunchScreen.storyboard */,
-				4617E0451CEA5430003EB3C1 /* Info.plist */,
 			);
-			path = HomeSafe;
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		462039DA1CEF67CD00DC29F6 /* Models + Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
+				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
+				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
+				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
+				E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
+				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
+				4659FF171CEBB3F100B02642 /* User.swift */,
+				4659FF1E1CEBB93300B02642 /* Stack.swift */,
+			);
+			name = "Models + Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +283,7 @@
 				4617E03E1CEA542F003EB3C1 /* Base */,
 			);
 			name = Main.storyboard;
+			path = HomeSafe;
 			sourceTree = "<group>";
 		};
 		4617E0421CEA5430003EB3C1 /* LaunchScreen.storyboard */ = {
