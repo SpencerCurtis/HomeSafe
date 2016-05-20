@@ -55,7 +55,7 @@ class ContactsController {
             publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: { (records, error) in
                 if let records = records {
                     for record in records {
-                        let phoneNum = record.valueForKey("phoneNum") as! String
+                        let phoneNum = record.valueForKey("phoneNum") as? String
                         if phoneNum == phoneNumber {
                             location = record.valueForKey("safeLocation") as? CLLocation
                             if let location = location {
