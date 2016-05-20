@@ -11,6 +11,8 @@ import CoreLocation
 
 class ETAViewController: UIViewController {
     
+    static let sharedInstance = ETAViewController()
+    
     @IBOutlet weak var ETADatePicker: UIDatePicker!
     @IBOutlet weak var ETALabel: UILabel!
     @IBOutlet weak var SelectDestinationButton: UIButton!
@@ -36,7 +38,7 @@ class ETAViewController: UIViewController {
     
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
-        
+
     }
     
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {
