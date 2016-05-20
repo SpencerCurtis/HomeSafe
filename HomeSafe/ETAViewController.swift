@@ -19,10 +19,11 @@ class ETAViewController: UIViewController {
     @IBOutlet weak var DestinationLabel: UILabel!
     @IBOutlet weak var startTrackingButton: UIButton!
     
-    var destination: CLLocation?
+    var destination: CLLocation? = CLLocation(latitude: 0.0, longitude: 0.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ETADatePicker.minimumDate = NSDate()
         ETADatePicker.addTarget(self, action: #selector(updateETALabel), forControlEvents: .ValueChanged)
         // Do any additional setup after loading the view.
     }

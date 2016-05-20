@@ -11,46 +11,55 @@ import Contacts
 import CoreLocation
 
 class ContactTableViewController: UITableViewController, PassContactsDelegate {
-    
-    func userDidSelectContacts(contacts: [CNContact]) {
-        selectedArray = contacts
+    //*********************//
+    //PROTOCOLS FUNCTION
+    //*******************//
+
+   func userDidSelectContacts(contacts: [CNContact]) {
+        UserController.sharedController.selectedArray = contacts
     }
-    
+    //**********************************************************************************************************//
+    //SHARED CONTROLLER. SELECTED CONTACTS ARRAY. VIEW DID LOAD IF USER WAS CREATED. SHOW VIEW. RELOAD TABLEVIEW.
+    //**********************************************************************************************************//
+
     static let sharedController = ContactTableViewController()
     
-    var selectedArray: [CNContact] = []
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
         if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(pageViewController, animated: true, completion: nil)
         }
+        self.tableView.allowsMultipleSelection = true
     }
     
     override func viewWillAppear(animated: Bool) {
-        ContactsController.sharedController.convertContactsToUsers(selectedArray) {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadData()
-            })
-            
-        }
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
     }
 
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func reloadTableView() {
+        self.tableView.reloadData()
     }
+    
+    
+    //************************************************************//
+    // MARK: - Calling Request for access Function.//
+    //IF ACCESS IS GRANTED, PROCEED. IF NOT, DO NOT PRESENT MODALLY
+    //************************************************************//
+    
     @IBAction func addContactButtonTapped(sender: AnyObject) {
         requestForAccess { (accessGranted) in
             if accessGranted {
-                guard let selectContacts = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("selectContacts") as? SelectContactTableViewController else {return}
+                guard let selectContactsNavController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("navController") as? UINavigationController,                 let selectContacts = selectContactsNavController.viewControllers[0] as? SelectContactTableViewController else {return}
                 selectContacts.delegate = self
-                self.presentViewController(selectContacts, animated: true, completion: {
+                self.presentViewController(selectContactsNavController, animated: true, completion: {
                     self.tableView.reloadData()
                 })
                 
@@ -71,6 +80,12 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
             }
         }
     }
+    
+    //*********************************************************************************//
+    // MARK: - Request For Access Function//
+    // CHECKS PERMISSION, IF GRANTED, PROCCEED. IF NOT, DO NOT. MUST CHANGE IN SETTINGS.
+    //*********************************************************************************//
+    
     func requestForAccess(completionHandler: (accessGranted: Bool) -> Void) {
         let authorizationStatus = CNContactStore.authorizationStatusForEntityType(.Contacts)
         
@@ -89,7 +104,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
                     if authorizationStatus == .Denied {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             let message = "\(accessError!.localizedDescription)\n\nPlease allow the app to access your contacts through the Settings."
-                            SelectContactTableViewController.sharedInstance.showMessage(message)
+                            self.showMessage(message)
                             self.dismissViewControllerAnimated(true, completion: nil)
                         })
                     }
@@ -100,6 +115,17 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
         }
     }
     
+    func showMessage(message: String) {
+        let alert = UIAlertController(title: "My Contacts", message: message, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alert.addAction(okAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    //*****************************//
+    //MARK: - TABLEVIEW DELEGATION CONTACTTABLEVIEWCONTROLLER
+    //*******************************************************//
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return ContactsController.sharedController.contacts.count
@@ -115,6 +141,29 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
         return cell
     }
     
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+
+            let contact = ContactsController.sharedController.contacts[indexPath.row]
+            ContactsController.sharedController.removeContact(contact)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        let selectedGuardians = ContactsController.sharedController.contacts[indexPath.row]
+        ContactsController.sharedController.selectedGuardians.append(selectedGuardians)
+        
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
+        let index = ContactsController.sharedController.selectedGuardians.indexOf(ContactsController.sharedController.contacts[indexPath.row])
+        ContactsController.sharedController.selectedGuardians.removeAtIndex(index!)
+
+    }
+  
 }
 
 

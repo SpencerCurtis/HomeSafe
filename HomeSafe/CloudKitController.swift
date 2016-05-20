@@ -26,7 +26,8 @@ class CloudKitController {
             let latitude = record["latitude"] as! Double
             let longitude = record["longitude"] as! Double
             let name = record["name"] as! String
-            let id = String(record.recordID)
+            let id = record["id"] as! String
+            
             
             ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id)
         }
@@ -42,14 +43,21 @@ class CloudKitController {
         CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
     }
     
-    
-    func setupSubscription(eta: EstimatedTimeOfArrival, user: User) {
-        let predicate = NSPredicate(format: "ETA")
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnce)
+    func setupSubscription(eta: EstimatedTimeOfArrival) {
+        let predicate = NSPredicate(format: "canceledETA = %d", 1)
+        let predicate2 = NSPredicate(format: "id = %@", eta.id!)
+        let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
+        
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
         
         let info = CKNotificationInfo()
-        info.alertBody = "\(user.name) will be home around \(eta.eta)"
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        if let eta = eta.eta {
+            let etaString = formatter.stringFromDate(eta)
         
+        info.alertBody = "Your friend will be home around \(etaString)"
+        }
         subscription.notificationInfo = info
         
         let db = CKContainer.defaultContainer().publicCloudDatabase
@@ -59,11 +67,27 @@ class CloudKitController {
                 print(error?.localizedDescription)
             }
         }
-        
-        
-        
-        
     }
+    
+//    func setupSubscription(eta: EstimatedTimeOfArrival, user: User) {
+//        let predicate = NSPredicate(format: "canceledETA = \(eta.canceledETA), recordName = \(eta.id)")
+//        //        let predicate2 = NSPredicate
+//        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnce)
+//        
+//        let info = CKNotificationInfo()
+//        info.alertBody = "\(user.name) will be home around \(eta.eta)"
+//        
+//        subscription.notificationInfo = info
+//        
+//        let db = CKContainer.defaultContainer().publicCloudDatabase
+//        
+//        db.saveSubscription(subscription) { (result, error) in
+//            if error != nil {
+//                print(error?.localizedDescription)
+//            }
+//        }
+//        
+//    }
     
     
     

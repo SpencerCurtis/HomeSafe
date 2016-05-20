@@ -15,6 +15,8 @@ class UserController {
     
     static let sharedController = UserController()
     
+    var selectedArray: [CNContact] = []
+
     var currentUser: CurrentUser? {
         let request = NSFetchRequest(entityName: "CurrentUser")
         
@@ -49,6 +51,7 @@ class UserController {
             print("Error saving Managed Object Context. Items not saved.")
         }
     }
+    
 }
 
 

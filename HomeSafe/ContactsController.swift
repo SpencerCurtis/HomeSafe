@@ -17,6 +17,8 @@ class ContactsController {
     
     static let sharedController = ContactsController()
     
+    var selectedGuardians: [User] = []
+
     var contacts: [User] {
         let request = NSFetchRequest(entityName: "User")
         
@@ -31,7 +33,12 @@ class ContactsController {
     func saveContact(contact: User) {
         saveToPersistentStorage()
     }
+    func removeContact(contact: User) {
+        contact.managedObjectContext?.deleteObject(contact)
+        saveToPersistentStorage()
+    }
     
+
     func convertContactsToUsers(contacts: [CNContact], completion: () -> Void) {
         for contact in contacts {
             let name = contact.givenName + " " + contact.familyName

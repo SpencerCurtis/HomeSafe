@@ -9,32 +9,53 @@
 import UIKit
 import Contacts
 
+protocol PassContactsDelegate {
+    func userDidSelectContacts(contacts: [CNContact])
+}
 
 class SelectContactTableViewController: UITableViewController {
+    //*****************************//
+    //VARIABLES FOR TABLEVIEW AND DELEGATE. SHARED PROPERTY OF TABLEVIEW.
+    //*****************************//
     
+    var delegate: PassContactsDelegate?
     var userContacts = [CNContact]()
     var contactStore = CNContactStore()
-    
+    var favoriteContacts: [CNContact] = []
+    var selectedFavoriteContactsArray: [CNContact] = []
+
     static let sharedInstance = SelectContactTableViewController()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.allowsMultipleSelection = true
         
+        
+        
+        
+        
+        
     }
+    
+    //*****************************//
+    // CALLS DELEGATE AND DISMISSES MODAL VIEW
+    //*****************************//
     @IBAction func done(sender: AnyObject) {
         if self.delegate != nil {
             let contacts: [CNContact] = self.selectedFavoriteContactsArray
             self.delegate?.userDidSelectContacts(contacts)
-            
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
-        self.tableView.reloadData()
-//        ContactTableViewController.sharedController.tableView.reloadData()
         
+        self.dismissViewControllerAnimated(true, completion: nil)
+        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
+            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
+        }
         
     }
+    //*****************************//
+    // RELOADS DATA IN TABLEVIEW.
+    //*****************************//
+    
     
     override func viewWillAppear(animated: Bool) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -46,14 +67,9 @@ class SelectContactTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         tableView.reloadData()
     }
-    
-    func showMessage(message: String) {
-        let alert = UIAlertController(title: "My Contacts", message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-        alert.addAction(okAction)
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
+    //*****************************//
+    //MARK: - TABLEVIEW DELEGATION SELECTCONTACTTABLEVIEWCONTROLLER
+    //*****************************//
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return userContacts.count
@@ -67,31 +83,16 @@ class SelectContactTableViewController: UITableViewController {
         
         return cell
     }
-    
-    var favoriteContacts: [CNContact] = []
-    var selectedFavoriteContactsArray: [CNContact] = []
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
         let selectedContacts = userContacts[indexPath.row]
-        
         selectedFavoriteContactsArray.append(selectedContacts)
-        
-        
     }
-    
-    
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
         let index = selectedFavoriteContactsArray.indexOf(userContacts[indexPath.row])
         selectedFavoriteContactsArray.removeAtIndex(index!)
-        
     }
-    var delegate: PassContactsDelegate?
-    
-}
-protocol PassContactsDelegate {
-    func userDidSelectContacts(contacts: [CNContact])
 }
 
 

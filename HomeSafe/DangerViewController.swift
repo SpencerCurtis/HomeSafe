@@ -37,6 +37,8 @@ class DangerViewController: UIViewController {
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         if let eta = ETAController.sharedController.currentETA {
             ETAController.sharedController.cancelETA(eta)
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
         }
     }
     
