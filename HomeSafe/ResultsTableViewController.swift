@@ -68,16 +68,16 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
     }
     
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let selectedContacts = userContacts[indexPath.row]
-        selectedFavoriteContactsArray.append(selectedContacts)
-    }
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = selectedFavoriteContactsArray.indexOf(userContacts[indexPath.row])
-        selectedFavoriteContactsArray.removeAtIndex(index!)
-    }
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+//        let selectedContacts = userContacts[indexPath.row]
+//        selectedFavoriteContactsArray.append(selectedContacts)
+//    }
+//    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+//        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
+//        let index = selectedFavoriteContactsArray.indexOf(userContacts[indexPath.row])
+//        selectedFavoriteContactsArray.removeAtIndex(index!)
+//    }
 
 
 

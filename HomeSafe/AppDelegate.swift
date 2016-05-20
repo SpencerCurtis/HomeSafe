@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         AppearanceController.initializeAppearance()
-        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "8015551234")
+//        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "8015551234")
 
         return true
     }
