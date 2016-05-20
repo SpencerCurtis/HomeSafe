@@ -147,6 +147,7 @@
 		462039DA1CEF67CD00DC29F6 /* Models + Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
 				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
 				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
@@ -154,7 +155,6 @@
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
 				4659FF171CEBB3F100B02642 /* User.swift */,
-				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 			);
 			name = "Models + Core Data";
