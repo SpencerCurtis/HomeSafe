@@ -31,7 +31,8 @@ class UserController {
     
     func createUser(name: String, safeLocation: CLLocation, phoneNumber: String) {
         let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
-        let record = CKRecord(recordType: "User")
+        let uuid = NSUUID().UUIDString
+        let record = CKRecord(recordType: "User", recordID: CKRecordID(recordName: uuid))
         record.setValue(name, forKey: "name")
         record.setValue(safeLocation, forKey: "safeLocation")
         record.setValue(phoneNumber, forKey: "phoneNum")
@@ -39,6 +40,7 @@ class UserController {
         publicDatabase.saveRecord(record) { (record, error) in
             let currentUser = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber)
             UserController.sharedController.saveToPersistentStorage()
+//            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser)
         }
     }
     
