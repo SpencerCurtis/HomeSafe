@@ -31,8 +31,7 @@ class UserController {
     
     func createUser(name: String, safeLocation: CLLocation, phoneNumber: String) {
         let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
-        let uuid = NSUUID().UUIDString
-        let record = CKRecord(recordType: "User", recordID: CKRecordID(recordName: uuid))
+        let record = CKRecord(recordType: "User")
         record.setValue(name, forKey: "name")
         record.setValue(safeLocation, forKey: "safeLocation")
         record.setValue(phoneNumber, forKey: "phoneNum")
@@ -40,7 +39,14 @@ class UserController {
         publicDatabase.saveRecord(record) { (record, error) in
             let currentUser = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber)
             UserController.sharedController.saveToPersistentStorage()
+<<<<<<< HEAD
+<<<<<<< HEAD
+            completion()
+=======
+>>>>>>> parent of 847ba23... Merge remote-tracking branch 'origin/master' into map
+=======
             CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser)
+>>>>>>> a4c67bcd6a08bacff67e6f88011b5943403e05ea
         }
     }
     

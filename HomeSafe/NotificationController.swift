@@ -29,12 +29,4 @@ class NotificationController {
             }
         }
     }
-    
-    
-    func simpleAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
-        alert.addAction(dismissAction)
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-    }
 }

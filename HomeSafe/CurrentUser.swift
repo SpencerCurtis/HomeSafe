@@ -12,7 +12,7 @@ import CoreData
 
 class CurrentUser: NSManagedObject {
 
-    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, uuid: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         let entity = NSEntityDescription.entityForName("CurrentUser", inManagedObjectContext: context)
         
         self.init(entity: entity!, insertIntoManagedObjectContext: context)
@@ -21,7 +21,6 @@ class CurrentUser: NSManagedObject {
         self.phoneNumber = phoneNumber
         self.latitude = latitude
         self.longitude = longitude
-        self.uuid = uuid
     }
 
 }
