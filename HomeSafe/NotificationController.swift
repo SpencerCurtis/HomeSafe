@@ -34,7 +34,9 @@ class NotificationController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
         alert.addAction(dismissAction)
-        alert.showViewController(alert, sender: self)
-//        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        alert.presentViewController(alert, animated: true) { 
+            
+        }
+//        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentedViewController!.presentViewController(alert, animated: true, completion: nil)
     }
 }

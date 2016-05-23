@@ -22,26 +22,21 @@ class CloudKitController {
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
-        //        let operation = CKQueryOperation(query: query)
-        
-        db.performQuery(query, inZoneWithID: nil) { (results, error) in
-            if let record = results?.first {
-                let name = record.valueForKey("name") as? String
-                let phoneNum = record.valueForKey("phoneNum") as? String
-                let safeLocation = record.valueForKey("safeLocation") as? CLLocation
-                let uuid = record.recordID.recordName
-                if let name = name, phoneNum = phoneNum, safeLocation = safeLocation {
-                    
-                    let user = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNum, uuid: uuid)
-                    
-                    completion(otherUser: user)
-                    
-                }
+        let operation = CKQueryOperation(query: query)
+        db.addOperation(operation)
+        operation.recordFetchedBlock = { (record) in
+            let name = record.valueForKey("name") as? String
+            let phoneNum = record.valueForKey("phoneNum") as? String
+            let safeLocation = record.valueForKey("safeLocation") as? CLLocation
+            let uuid = record.recordID.recordName
+            if let name = name, phoneNum = phoneNum, safeLocation = safeLocation {
+                
+                let user = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNum, uuid: uuid)
+                
+                completion(otherUser: user)
+                
             }
         }
-        
-        
-        
     }
     
     // This should be implemented as soon as an account (user) is made on the signup screen. It will set-up a subscription to check if any other user has added them as a contact (potential watcher)
@@ -55,6 +50,8 @@ class CloudKitController {
             let subscription = CKSubscription(recordType: "User", predicate: predicate, options: .FiresOnRecordUpdate)
             
             let info = CKNotificationInfo()
+            info.alertBody = "You have been added as someone's contact"
+            info.shouldSendContentAvailable = true
             subscription.notificationInfo = info
             
             self.db.saveSubscription(subscription) { (subscription, error) in
@@ -73,26 +70,27 @@ class CloudKitController {
             let predicate = NSPredicate(format: "uuid = %@", uuid)
             let query = CKQuery(recordType: "User", predicate: predicate)
             let operation = CKQueryOperation(query: query)
-            db.addOperation(operation)
+            
             operation.recordFetchedBlock = { (record) in
                 let contacts = record.valueForKey("contacts") as! [String]
                 for contact in contacts {
                     self.fetchUserForPhoneNumber(contact, completion: { (user) in
                         if let user = user {
-                            if UIApplication.sharedApplication().applicationState == .Active {
-                                NotificationController.sharedController.simpleAlert("You have been added as a contact", message: "\(user.name!) has added you as a contact")
-                            } else {
+//                            if UIApplication.sharedApplication().applicationState == .Active {
+//                                NotificationController.sharedController.simpleAlert("You have been added as a contact", message: "\(user.name!) has added you as a contact")
+//                            } else if UIApplication.sharedApplication().applicationState == .Background {
                                 let notification = UILocalNotification()
                                 notification.alertBody = "\(user.name!) has added you as a contact."
                                 notification.alertTitle = "You have been added as a contact"
                                 notification.fireDate = NSDate()
                                 UIApplication.sharedApplication().scheduleLocalNotification(notification)
-                            }
+//                            }
                         }
                         
                     })
                 }
             }
+            db.addOperation(operation)
         }
     }
     
@@ -128,6 +126,7 @@ class CloudKitController {
         
         let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: eta.recordID!))
         let info = CKNotificationInfo()
+        info.shouldSendContentAvailable = true
         let formatter = NSDateFormatter()
         formatter.timeStyle = .ShortStyle
         if let eta = record.valueForKey("ETA") as? NSDate {
@@ -151,6 +150,9 @@ class CloudKitController {
         let predicate = NSPredicate(format: "userPhoneNumber = %@", user.phoneNumber!)
         
         let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordCreation)
+        let info = CKNotificationInfo()
+        info.shouldSendContentAvailable = true
+        subscription.notificationInfo = info
         //        let record = CKRecord(recordType: "ETA")
         db.saveSubscription(subscription) { (subscription, error) in
             if error != nil {
