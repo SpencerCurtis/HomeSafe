@@ -93,6 +93,32 @@ class CloudKitController {
         
     }
     
+    func checkForNewContact(currentUser: CurrentUser) {
+        let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
+        let query = CKQuery(recordType: "User", predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        db.addOperation(operation)
+        operation.recordFetchedBlock = { (record) in
+            let contacts = record.valueForKey("contacts") as! [String]
+            if let last = contacts.last {
+                self.fetchUserForPhoneNumber(last, completion: { (user) in
+                    if let user = user {
+                        let notification = UILocalNotification()
+                        notification.alertBody = "\(user.name!) has added you as a contact."
+                        notification.alertTitle = "You have been added as a contact"
+                        notification.fireDate = NSDate()
+                        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                        
+                    }
+                    
+                })
+            }
+        }
+        
+    }
+    
+    
+    
     func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String) {
         fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
             if let otherUser = otherUser {
