@@ -22,7 +22,7 @@ class CloudKitController {
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
-        let operation = CKQueryOperation(query: query)
+        //        let operation = CKQueryOperation(query: query)
         
         db.performQuery(query, inZoneWithID: nil) { (results, error) in
             if let record = results?.first {
@@ -47,50 +47,53 @@ class CloudKitController {
     // This should be implemented as soon as an account (user) is made on the signup screen. It will set-up a subscription to check if any other user has added them as a contact (potential watcher)
     
     func subscribeToUsersAddingCurrentUserToContactList(currentUser: CurrentUser) {
-        
-        let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
-        //        let predicate2 = NSPredicate(value: <#T##Bool#>)
-        //        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
-        
-        let subscription = CKSubscription(recordType: "User", predicate: predicate, options: .FiresOnRecordUpdate)
-        
-        let info = CKNotificationInfo()
-        info.alertBody = "New Contact"
-        subscription.notificationInfo = info
-        
-        self.db.saveSubscription(subscription) { (subscription, error) in
-            if error != nil {
-                print(error?.localizedDescription)
-            } else {
-                print("Successfully subscribed")
+        if let uuid = currentUser.uuid {
+            let predicate = NSPredicate(format: "uuid = %@", uuid)
+            //        let predicate2 = NSPredicate(value: <#T##Bool#>)
+            //        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
+            
+            let subscription = CKSubscription(recordType: "User", predicate: predicate, options: .FiresOnRecordUpdate)
+            
+            let info = CKNotificationInfo()
+            subscription.notificationInfo = info
+            
+            self.db.saveSubscription(subscription) { (subscription, error) in
+                if error != nil {
+                    print(error?.localizedDescription)
+                } else {
+                    print("Successfully subscribed")
+                }
             }
         }
         
     }
     
     func checkForNewContacts(currentUser: CurrentUser) {
-        let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
-        let query = CKQuery(recordType: "User", predicate: predicate)
-        let operation = CKQueryOperation(query: query)
-        db.addOperation(operation)
-        operation.recordFetchedBlock = { (record) in
-            let contacts = record.valueForKey("contacts") as! [String]
-            for contact in contacts {
-                self.fetchUserForPhoneNumber(contact, completion: { (user) in
-                    
-                    if let user = user {
-                        let notification = UILocalNotification()
-                        notification.alertBody = "\(user.name!) has added you as a contact."
-                        notification.alertTitle = "You have been added as a contact"
-                        notification.fireDate = NSDate()
-                        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        if let uuid = currentUser.uuid {
+            let predicate = NSPredicate(format: "uuid = %@", uuid)
+            let query = CKQuery(recordType: "User", predicate: predicate)
+            let operation = CKQueryOperation(query: query)
+            db.addOperation(operation)
+            operation.recordFetchedBlock = { (record) in
+                let contacts = record.valueForKey("contacts") as! [String]
+                for contact in contacts {
+                    self.fetchUserForPhoneNumber(contact, completion: { (user) in
+                        if let user = user {
+                            if UIApplication.sharedApplication().applicationState == .Active {
+                                NotificationController.sharedController.simpleAlert("You have been added as a contact", message: "\(user.name!) has added you as a contact")
+                            } else {
+                                let notification = UILocalNotification()
+                                notification.alertBody = "\(user.name!) has added you as a contact."
+                                notification.alertTitle = "You have been added as a contact"
+                                notification.fireDate = NSDate()
+                                UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                            }
+                        }
                         
-                    }
-                    
-                })
+                    })
+                }
             }
         }
-        
     }
     
     func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String) {
