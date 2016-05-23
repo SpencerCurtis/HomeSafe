@@ -15,8 +15,8 @@ class CloudKitController {
     
     static let sharedController = CloudKitController()
     
-    let db = CKContainer.defaultContainer().publicCloudDatabase
     
+<<<<<<< HEAD
     var tempContactsArray: [String] = []
     
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
@@ -111,58 +111,7 @@ class CloudKitController {
                 })
             }
         }
-    }
-    
-    
-    // This is to subscribe to a specific ETA.
-    
-    func setupSubscriptionForETA(eta: EstimatedTimeOfArrival) {
-        let predicate = NSPredicate(format: "canceledETA = %d", 1)
-        let predicate2 = NSPredicate(format: "id = %@", eta.id!)
-        let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
-        
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
-        
-        let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: eta.recordID!))
-        let info = CKNotificationInfo()
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
-        if let eta = record.valueForKey("ETA") as? NSDate {
-            let etaString = formatter.stringFromDate(eta)
-            
-            info.alertBody = "Your friend will be home around \(etaString)"
-        }
-        subscription.notificationInfo = info
-        NSUserDefaults.standardUserDefaults().setValue(subscription.subscriptionID, forKey: "ownSubscription")
-        
-        db.saveSubscription(subscription) { (result, error) in
-            if error != nil {
-                print(error?.localizedDescription)
-            }
-        }
-    }
-    
-    // General subscription by user to check if said user has made a new ETA.
-    
-    func setupSubscriptionForUser(user: User) {
-        let predicate = NSPredicate(format: "userPhoneNumber = %@", user.phoneNumber!)
-        
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordCreation)
-        //        let record = CKRecord(recordType: "ETA")
-        db.saveSubscription(subscription) { (subscription, error) in
-            if error != nil {
-                print(error?.localizedDescription)
-                // Handle the crap out of the error, like send an alert or something.
-            } else {
-                
-            }
-        }
-        
-        
-    }
-    
-    
-    
+=======
     func loadETAForUser(user: User) {
         let predicate = NSPredicate(format: "\(user.phoneNumber)")
         let query = CKQuery(recordType: "ETA", predicate: predicate)
@@ -177,7 +126,7 @@ class CloudKitController {
             let id = record["id"] as! String
             
             
-            ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id, recordID: String(record.recordID))
+            ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id)
         }
         operation.queryCompletionBlock = { (cursor, error) in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -189,7 +138,60 @@ class CloudKitController {
             })
         }
         CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
+>>>>>>> parent of 847ba23... Merge remote-tracking branch 'origin/master' into map
     }
+    
+    func setupSubscription(eta: EstimatedTimeOfArrival) {
+        let predicate = NSPredicate(format: "canceledETA = %d", 1)
+        let predicate2 = NSPredicate(format: "id = %@", eta.id!)
+        let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
+        
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        
+        let info = CKNotificationInfo()
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        if let eta = eta.eta {
+            let etaString = formatter.stringFromDate(eta)
+        
+        info.alertBody = "Your friend will be home around \(etaString)"
+        }
+        subscription.notificationInfo = info
+<<<<<<< HEAD
+        NSUserDefaults.standardUserDefaults().setValue(subscription.subscriptionID, forKey: "ownSubscription")
+=======
+        
+        let db = CKContainer.defaultContainer().publicCloudDatabase
+>>>>>>> parent of 847ba23... Merge remote-tracking branch 'origin/master' into map
+        
+        db.saveSubscription(subscription) { (result, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+//    func setupSubscription(eta: EstimatedTimeOfArrival, user: User) {
+//        let predicate = NSPredicate(format: "canceledETA = \(eta.canceledETA), recordName = \(eta.id)")
+//        //        let predicate2 = NSPredicate
+//        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnce)
+//        
+//        let info = CKNotificationInfo()
+//        info.alertBody = "\(user.name) will be home around \(eta.eta)"
+//        
+//        subscription.notificationInfo = info
+//        
+//        let db = CKContainer.defaultContainer().publicCloudDatabase
+//        
+//        db.saveSubscription(subscription) { (result, error) in
+//            if error != nil {
+//                print(error?.localizedDescription)
+//            }
+//        }
+//        
+//    }
+    
+    
     
     
 }

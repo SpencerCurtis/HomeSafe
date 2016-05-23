@@ -26,8 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             CloudKitController.sharedController.checkForNewContacts(currentUser)
         }
         AppearanceController.initializeAppearance()
+<<<<<<< HEAD
         
 //        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "18019952468")
+=======
+>>>>>>> parent of 847ba23... Merge remote-tracking branch 'origin/master' into map
 
         return true
     }

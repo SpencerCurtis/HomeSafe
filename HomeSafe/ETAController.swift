@@ -30,11 +30,11 @@ class ETAController {
     }
     
     let publicDatabate = CKContainer.defaultContainer().publicCloudDatabase
+    let record = CKRecord(recordType: "ETA")
     
     
     func createETA(ETATime: NSDate, latitude: Double, longitude: Double, name: String, canceledETA: Bool, inDanger: Bool) {
         let uuid = NSUUID().UUIDString
-        let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: uuid))
         record.setValue(ETATime, forKey: "ETA")
         record.setValue(latitude, forKey: "latitude")
         record.setValue(longitude, forKey: "longitude")
@@ -46,13 +46,12 @@ class ETAController {
         
         
         
-        
         publicDatabate.saveRecord(record) { (record, error) in
             if let record = record {
-                let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: uuid, recordID: String(record.recordID))
+                let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: uuid)
                 self.currentETA = eta
                 self.saveToPersistentStorage()
-                CloudKitController.sharedController.setupSubscriptionForETA(eta)
+                CloudKitController.sharedController.setupSubscription(eta)
             } else {
                 print(error?.localizedDescription)
             }

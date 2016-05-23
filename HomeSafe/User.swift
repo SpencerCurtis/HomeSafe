@@ -23,18 +23,6 @@ class User: NSManagedObject {
         self.longitude = longitude
     }
     
-    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, uuid: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
-        let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
-        
-        self.init(entity: entity!, insertIntoManagedObjectContext: context)
-        
-        self.name = name
-        self.phoneNumber = phoneNumber
-        self.latitude = latitude
-        self.longitude = longitude
-        self.uuid = uuid
-    }
-    
     convenience init(name: String, phoneNumber: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
         self.init(entity: entity!, insertIntoManagedObjectContext: context)
