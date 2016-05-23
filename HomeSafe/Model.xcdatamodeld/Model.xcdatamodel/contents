@@ -5,7 +5,6 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="EstimatedTimeOfArrival" representedClassName=".EstimatedTimeOfArrival" syncable="YES">
         <attribute name="canceledETA" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -15,7 +14,6 @@
         <attribute name="inDanger" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName=".User" syncable="YES">
@@ -23,11 +21,10 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CurrentUser" positionX="-54" positionY="63" width="128" height="120"/>
-        <element name="EstimatedTimeOfArrival" positionX="-63" positionY="9" width="128" height="180"/>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="EstimatedTimeOfArrival" positionX="-63" positionY="9" width="128" height="165"/>
+        <element name="CurrentUser" positionX="-54" positionY="63" width="128" height="105"/>
     </elements>
 </model>
