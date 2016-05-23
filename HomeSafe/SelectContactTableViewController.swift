@@ -13,29 +13,39 @@ protocol PassContactsDelegate {
     func userDidSelectContacts(contacts: [CNContact])
 }
 
-class SelectContactTableViewController: UITableViewController {
+class SelectContactTableViewController: UITableViewController{
     //*****************************//
     //VARIABLES FOR TABLEVIEW AND DELEGATE. SHARED PROPERTY OF TABLEVIEW.
     //*****************************//
     
     var delegate: PassContactsDelegate?
-    var userContacts = [CNContact]()
+    var userContacts = [CNContact]() // dataArray
     var contactStore = CNContactStore()
     var favoriteContacts: [CNContact] = []
     var selectedFavoriteContactsArray: [CNContact] = []
-
-    static let sharedInstance = SelectContactTableViewController()
+  
+        var searchController: UISearchController!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tableView.allowsMultipleSelection = true
-        
-        
-        
-        
-        
-        
-    }
+        func configureSearchController() {
+            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
+                searchController = UISearchController(searchResultsController: vc)
+                vc.searchController = searchController
+                vc.results = userContacts
+                searchController.dimsBackgroundDuringPresentation = true
+                searchController.searchBar.placeholder = "Search For Guardians"
+                searchController.searchBar.sizeToFit()
+                tableView.tableHeaderView = searchController.searchBar
+            }
+        }
+
+        static let sharedInstance = SelectContactTableViewController()
+    
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            self.tableView.allowsMultipleSelection = true
+            configureSearchController()
+    
+        }
     
     //*****************************//
     // CALLS DELEGATE AND DISMISSES MODAL VIEW
@@ -71,8 +81,8 @@ class SelectContactTableViewController: UITableViewController {
     //MARK: - TABLEVIEW DELEGATION SELECTCONTACTTABLEVIEWCONTROLLER
     //*****************************//
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return userContacts.count
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -83,6 +93,8 @@ class SelectContactTableViewController: UITableViewController {
         
         return cell
     }
+    
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
         let selectedContacts = userContacts[indexPath.row]
@@ -94,29 +106,6 @@ class SelectContactTableViewController: UITableViewController {
         selectedFavoriteContactsArray.removeAtIndex(index!)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

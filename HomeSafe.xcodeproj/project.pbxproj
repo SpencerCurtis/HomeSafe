@@ -30,8 +30,7 @@
 		4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1A1CEBB52400B02642 /* ContactsController.swift */; };
 		4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1E1CEBB93300B02642 /* Stack.swift */; };
 		4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */; };
-		844010BB1CEF7D6A002A8E46 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844010BA1CEF7D6A002A8E46 /* DetailMapViewController.swift */; };
-		844010BD1CEF7EED002A8E46 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844010BC1CEF7EED002A8E46 /* LocationTableViewController.swift */; };
+		E5777ADC1CEFA66200B7ADF1 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */; };
 		E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */; };
 		E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */; };
 		E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */; };
@@ -66,8 +65,7 @@
 		4659FF1A1CEBB52400B02642 /* ContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
 		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
-		844010BA1CEF7D6A002A8E46 /* DetailMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
-		844010BC1CEF7EED002A8E46 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
+		E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApperanceController.swift; sourceTree = "<group>"; };
 		E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -142,6 +140,7 @@
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
 				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
 				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
+				E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */,
 				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
@@ -275,6 +274,7 @@
 				E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */,
 				E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
+				E5777ADC1CEFA66200B7ADF1 /* ResultsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,7 +394,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HomeSafe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -410,7 +410,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HomeSafe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
