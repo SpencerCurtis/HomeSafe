@@ -55,9 +55,8 @@ class CloudKitController {
         let subscription = CKSubscription(recordType: "User", predicate: predicate, options: .FiresOnRecordUpdate)
         
         let info = CKNotificationInfo()
-        info.shouldSendContentAvailable = true
+        info.alertBody = "New Contact"
         subscription.notificationInfo = info
-        
         
         self.db.saveSubscription(subscription) { (subscription, error) in
             if error != nil {
