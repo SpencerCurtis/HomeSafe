@@ -40,7 +40,7 @@
 
 /* Begin PBXFileReference section */
 		4617E0361CEA542F003EB3C1 /* HomeSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4617E0391CEA542F003EB3C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HomeSafe/AppDelegate.swift; sourceTree = "<group>"; };
+		4617E0391CEA542F003EB3C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4617E03E1CEA542F003EB3C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4617E0401CEA5430003EB3C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HomeSafe/Assets.xcassets; sourceTree = "<group>"; };
 		4617E0431CEA5430003EB3C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -91,7 +91,6 @@
 				4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
 				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
-				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E0381CEA542F003EB3C1 /* HomeSafe */,
 				4617E0371CEA542F003EB3C1 /* Products */,
 			);
@@ -153,13 +152,14 @@
 		462039DA1CEF67CD00DC29F6 /* Models + Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
 				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
 				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
 				E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
+				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
 				4659FF171CEBB3F100B02642 /* User.swift */,
+				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 			);
 			name = "Models + Core Data";
