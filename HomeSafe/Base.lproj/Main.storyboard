@@ -90,7 +90,7 @@
         <!--Map View Controller-->
         <scene sceneID="cXH-CW-bh8">
             <objects>
-                <viewController id="ydj-Gj-Ang" customClass="MapViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapSearchView" id="ydj-Gj-Ang" customClass="MapViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ihz-vp-tyO"/>
                         <viewControllerLayoutGuide type="bottom" id="r8r-s3-dlR"/>
@@ -121,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3OF-Nl-CA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1650.5" y="536.5"/>
+            <point key="canvasLocation" x="1649.5" y="536.5"/>
         </scene>
         <!--Select Guardians -->
         <scene sceneID="FZA-cK-XGm">
@@ -210,7 +210,7 @@
                                 <state key="normal" title="Select Destination"/>
                                 <connections>
                                     <action selector="SelectDestinationButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Zoo-ls-6xr"/>
-                                    <segue destination="ydj-Gj-Ang" kind="presentation" id="5BP-g4-Qhp"/>
+                                    <segue destination="rKz-cL-Ytp" kind="show" id="yOe-hW-evk"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your destination is:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n77-Vi-Y2a">
@@ -285,7 +285,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMj-gJ-1Uj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1995.5" y="2024.5"/>
+            <point key="canvasLocation" x="1729.5" y="2064.5"/>
         </scene>
         <!--Danger View Controller-->
         <scene sceneID="C0C-tn-hLz">
@@ -454,10 +454,43 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ae-uj-V3q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1183" y="2024"/>
+            <point key="canvasLocation" x="565" y="2044"/>
+        </scene>
+        <!--Results Table View Controller-->
+        <scene sceneID="6Cd-Dl-t68">
+            <objects>
+                <tableViewController storyboardIdentifier="results" id="XFW-E8-0QL" customClass="ResultsTableViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="r2l-gb-3An">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchedContactCell" id="LdC-UI-SbB">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LdC-UI-SbB" id="kks-ko-YK9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="XFW-E8-0QL" id="oSI-FC-QbJ"/>
+                            <outlet property="delegate" destination="XFW-E8-0QL" id="Zrg-C8-j1c"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="m1C-Qe-vCD">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Gye-1m-d2X">
+                            <connections>
+                                <action selector="done:" destination="XFW-E8-0QL" id="cYx-Em-khb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vvZ-Gz-SSo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2157.5" y="2064.5"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="5BP-g4-Qhp"/>
-    </inferredMetricsTieBreakers>
 </document>

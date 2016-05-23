@@ -19,14 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
         let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
-        
         application.registerUserNotificationSettings(pushNotificationSettings)
         application.registerForRemoteNotifications()
-        if let currentUser = UserController.sharedController.currentUser {
-            CloudKitController.sharedController.checkForNewContacts(currentUser)
-        }
+
         AppearanceController.initializeAppearance()
-        
 //        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "18019952468")
 
         return true
@@ -56,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         if let currentUser = UserController.sharedController.currentUser {
+            print(userInfo)
             CloudKitController.sharedController.checkForNewContacts(currentUser)
         }
     }

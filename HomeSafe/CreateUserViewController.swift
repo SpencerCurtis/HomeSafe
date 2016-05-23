@@ -38,9 +38,8 @@ class CreateUserViewController: UIViewController {
     
     @IBAction func createUserButtonTapped(sender: AnyObject) {
         if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
-        UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
-            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(UserController.sharedController.currentUser!)
-        })
+        UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber)
+            UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
