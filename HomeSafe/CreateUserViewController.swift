@@ -7,13 +7,28 @@
 //
 
 import UIKit
+import CoreLocation
 
 class CreateUserViewController: UIViewController {
-
+    
+    static let sharedController = CreateUserViewController()
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var safeLocationLabel: UILabel!
+    
+    var selectedSafeLocation: CLLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+    }
+     
+    override func viewWillAppear(animated: Bool) {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.safeLocationLabel.text = LocationController.sharedController.address
+        })
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +36,21 @@ class CreateUserViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func createUserButtonTapped(sender: AnyObject) {
+        if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
+        UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
+            if let currentUser = UserController.sharedController.currentUser {
+            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser)
+            }
+        })
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+    }
 
+    
+    
+    
     /*
     // MARK: - Navigation
 

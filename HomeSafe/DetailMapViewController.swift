@@ -1,8 +1,8 @@
 //
-//  MapViewController.swift
+//  DetailMapViewController.swift
 //  HomeSafe
 //
-//  Created by Spencer Curtis on 5/16/16.
+//  Created by admin on 5/20/16.
 //  Copyright © 2016 Spencer Curtis. All rights reserved.
 //
 
@@ -10,11 +10,11 @@ import UIKit
 import MapKit
 import CoreLocation
 
-protocol HandleMapSearch {
+protocol MapSearch {
     func dropPinOnSelectedLocation(placemark: MKPlacemark)
 }
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -39,11 +39,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-        let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
-        createAnnotation.minimumPressDuration = 1
-        mapView.addGestureRecognizer(createAnnotation)
+        /*
+         let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
+         createAnnotation.minimumPressDuration = 1
+         mapView.addGestureRecognizer(createAnnotation)
+         */
         
-        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("LocationSearchTableViewController") as? LocationSearchTableViewController
+        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("locationTableViewController") as? LocationTableViewController
         resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultsSearchController?.searchResultsUpdater = locationSearchTable
         
@@ -56,7 +58,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         definesPresentationContext = true
         
         locationSearchTable?.mapView = mapView
-        locationSearchTable?.handleMapSearchDelegate = self
+        locationSearchTable?.mapSearchDelegate = self
         
     }
     
@@ -79,15 +81,47 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print("Error: \(error.localizedDescription)")
     }
     
-    func dropLocationPin(gestureRecognizer: UIGestureRecognizer) {
-        let touchPoint = gestureRecognizer.locationInView(mapView)
-        let newCoordinate: CLLocationCoordinate2D = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = newCoordinate
-        annotation.title = "New Destination"
-        annotation.subtitle = ""
-        mapView.addAnnotation(annotation)
-    }
+    /* Long Press Function
+     
+     func dropLocationPin(gestureRecognizer: UIGestureRecognizer) {
+     let touchPoint = gestureRecognizer.locationInView(mapView)
+     let newCoordinate: CLLocationCoordinate2D = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+     let annotation = MKPointAnnotation()
+     annotation.coordinate = newCoordinate
+     annotation.title = "New Destination"
+     mapView.addAnnotation(annotation)
+     
+     // Attempt to pull address info from dropped pin //
+     
+     let num = (newCoordinate.latitude as NSNumber).floatValue
+     let formatter = NSNumberFormatter()
+     formatter.maximumFractionDigits = 4
+     formatter.minimumFractionDigits = 4
+     _ = formatter.stringFromNumber(num)
+     
+     let num1 = (newCoordinate.longitude as NSNumber).floatValue
+     let formatter1 = NSNumberFormatter()
+     formatter1.maximumFractionDigits = 4
+     formatter1.minimumFractionDigits = 4
+     _ = formatter1.stringFromNumber(num1)
+     
+     let geoCoder = CLGeocoder()
+     let location = CLLocation(latitude: newCoordinate.latitude, longitude: newCoordinate.longitude)
+     geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
+     let placeArray = placemarks as [CLPlacemark]!
+     var placeMark: CLPlacemark
+     placeMark = placeArray[0]
+     
+     guard let locationName = placeMark.addressDictionary?["Name"],
+     let street = placeMark.addressDictionary?["Throughfare"],
+     let city = placeMark.addressDictionary?["City"],
+     let zip = placeMark.addressDictionary?["ZIP"],
+     let country = placeMark.addressDictionary?["Country"] as? NSString else {return}
+     print(locationName, street, city, zip, country)
+     
+     }
+     } */
+    
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
@@ -117,10 +151,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if let annotation = self.selectedSafeZonePin {
             let coordinate = annotation.coordinate
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            LocationController.sharedController.selectedSafeLocation = location
+            ETAViewController.sharedInstance.destination = location
             navigationController?.popViewControllerAnimated(true)
-            
         }
+        
     }
     
     
@@ -137,7 +171,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
 }
 
-extension MapViewController: HandleMapSearch {
+extension DetailMapViewController: MapSearch {
     
     func dropPinOnSelectedLocation(placemark: MKPlacemark) {
         selectedSafeZonePin = placemark
@@ -157,36 +191,3 @@ extension MapViewController: HandleMapSearch {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

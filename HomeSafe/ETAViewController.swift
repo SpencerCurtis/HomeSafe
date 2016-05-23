@@ -7,29 +7,53 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ETAViewController: UIViewController {
-
+    
+    static let sharedInstance = ETAViewController()
+    
+    @IBOutlet weak var ETADatePicker: UIDatePicker!
+    @IBOutlet weak var ETALabel: UILabel!
+    @IBOutlet weak var SelectDestinationButton: UIButton!
+    @IBOutlet weak var DestinationLabel: UILabel!
+    @IBOutlet weak var startTrackingButton: UIButton!
+    
+    var destination: CLLocation? = CLLocation(latitude: 0.0, longitude: 0.0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ETADatePicker.minimumDate = NSDate()
+        ETADatePicker.addTarget(self, action: #selector(updateETALabel), forControlEvents: .ValueChanged)
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func updateETALabel() {
+        ETALabel.text = "Your ETA is \(ETADatePicker.date.formatted)"
     }
-    */
+    
+    
+    @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
 
+    }
+    
+    @IBAction func startTrackingButtonTapped(sender: AnyObject) {
+        if let name = UserController.sharedController.currentUser?.name, destination = destination {
+        ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
+        }
+    }
 }
+
+extension NSDate {
+    var formatted: String {
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        return formatter.stringFromDate(self)
+    }
+}
+
