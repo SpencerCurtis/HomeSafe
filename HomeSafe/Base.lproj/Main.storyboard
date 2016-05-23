@@ -90,7 +90,7 @@
         <!--Map View Controller-->
         <scene sceneID="cXH-CW-bh8">
             <objects>
-                <viewController id="ydj-Gj-Ang" customClass="MapViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapSearchView" id="ydj-Gj-Ang" customClass="MapViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ihz-vp-tyO"/>
                         <viewControllerLayoutGuide type="bottom" id="r8r-s3-dlR"/>
@@ -121,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3OF-Nl-CA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1650.5" y="536.5"/>
+            <point key="canvasLocation" x="1649.5" y="536.5"/>
         </scene>
         <!--Select Guardians -->
         <scene sceneID="FZA-cK-XGm">
@@ -210,7 +210,7 @@
                                 <state key="normal" title="Select Destination"/>
                                 <connections>
                                     <action selector="SelectDestinationButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Zoo-ls-6xr"/>
-                                    <segue destination="ydj-Gj-Ang" kind="presentation" id="5BP-g4-Qhp"/>
+                                    <segue destination="rKz-cL-Ytp" kind="show" id="yOe-hW-evk"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your destination is:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n77-Vi-Y2a">
@@ -454,7 +454,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ae-uj-V3q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1183" y="2024"/>
+            <point key="canvasLocation" x="565" y="2044"/>
         </scene>
         <!--Results Table View Controller-->
         <scene sceneID="6Cd-Dl-t68">
@@ -493,7 +493,4 @@
             <point key="canvasLocation" x="2157.5" y="2064.5"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="5BP-g4-Qhp"/>
-    </inferredMetricsTieBreakers>
 </document>

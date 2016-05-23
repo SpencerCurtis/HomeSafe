@@ -144,6 +144,8 @@
 				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
+				844010BA1CEF7D6A002A8E46 /* DetailMapViewController.swift */,
+				844010BC1CEF7EED002A8E46 /* LocationTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -257,6 +259,8 @@
 				4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */,
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
 				4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */,
+				844010BB1CEF7D6A002A8E46 /* DetailMapViewController.swift in Sources */,
+				844010BD1CEF7EED002A8E46 /* LocationTableViewController.swift in Sources */,
 				4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */,
 				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
 				4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */,
