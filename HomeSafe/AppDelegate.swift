@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppearanceController.initializeAppearance()
         
 //        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "18019952468")
+//        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "8015551234")
 
         return true
     }
@@ -55,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
         if let currentUser = UserController.sharedController.currentUser {
             CloudKitController.sharedController.checkForNewContacts(currentUser)
         }
