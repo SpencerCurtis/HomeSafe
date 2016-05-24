@@ -29,7 +29,7 @@ class DangerViewController: UIViewController {
     @IBAction func dangerButtonTapped(sender: AnyObject) {
         if let eta = ETAController.sharedController.currentETA {
             ETAController.sharedController.inDanger(eta)
-            // Dismiss VC or perform segue here?
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         
     }
