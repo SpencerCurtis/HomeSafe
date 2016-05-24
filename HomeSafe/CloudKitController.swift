@@ -43,8 +43,8 @@ class CloudKitController {
     
     func subscribeToUsersAddingCurrentUserToContactList(currentUser: CurrentUser) {
         if let uuid = currentUser.uuid {
-            let predicate = NSPredicate(format: "uuid = %@", uuid)
-            let subscription = CKSubscription(recordType: "User", predicate: predicate, options: .FiresOnRecordUpdate)
+            let predicate = NSPredicate(format: "userUUID = %@", uuid)
+            let subscription = CKSubscription(recordType: "Contacts", predicate: predicate, options: .FiresOnRecordUpdate)
             
             let info = CKNotificationInfo()
             info.alertBody = "You have been added as someone's contact"
@@ -61,6 +61,30 @@ class CloudKitController {
         }
         
     }
+    
+    func subscribeToUsersAddingCurrentUserToNewETA(currentUser: CurrentUser) {
+        if let uuid = currentUser.uuid {
+            let predicate = NSPredicate(format: "userUUID = %@", uuid)
+            let subscription = CKSubscription(recordType: "userNewETA", predicate: predicate, options: .FiresOnRecordUpdate)
+            
+            let info = CKNotificationInfo()
+            info.alertBody = "Someone has begun an ETA and wants to you be their watcher."
+            info.shouldSendContentAvailable = true
+            subscription.notificationInfo = info
+            
+            self.db.saveSubscription(subscription) { (subscription, error) in
+                if error != nil {
+                    print(error?.localizedDescription)
+                } else {
+                    print("Successfully subscribed")
+                }
+            }
+        }
+        
+    }
+    
+    
+    
     
     func checkForNewContacts(currentUser: CurrentUser) {
         if let uuid = currentUser.uuid {
@@ -112,7 +136,84 @@ class CloudKitController {
     }
     
     
-    // This is to subscribe to a specific ETA.
+    
+    // General subscription by user to check if said user has made a new ETA.
+    // Not sure if we need this though if the user is going to select the users to notify.
+    
+    func setupSubscriptionForUser(user: User) {
+        let predicate = NSPredicate(format: "userPhoneNumber = %@", user.phoneNumber!)
+        
+        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordCreation)
+        let info = CKNotificationInfo()
+        info.alertBody = "\(user.name!) has begun a new ETA"
+        info.shouldSendContentAvailable = true
+        subscription.notificationInfo = info
+        //        let record = CKRecord(recordType: "ETA")
+        db.saveSubscription(subscription) { (subscription, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+                // Handle the crap out of the error, like send an alert or something.
+            } else {
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    func notifySelectedUsersOfNewETA(users: [User], currentUser: CurrentUser) {
+        for user in users {
+            if let uuid = user.uuid, phoneNumber = currentUser.phoneNumber {
+                let predicate = NSPredicate(format: "uuid = %@", uuid)
+                let query = CKQuery(recordType: "User", predicate: predicate)
+                let operation = CKQueryOperation(query: query)
+                operation.recordFetchedBlock = { (record) in
+                    record.setValue(phoneNumber, forKey: "userNewETA")
+                    self.db.saveRecord(record, completionHandler: { (record, error) in
+                        if error != nil {
+                            print(error?.localizedDescription)
+                        } else {
+                            print("\(user.name!) has been notified successfully")
+                        }
+                    })
+                }
+                db.addOperation(operation)
+            }
+        }
+    }
+    
+    
+    func loadETAForUser(user: User) {
+        let predicate = NSPredicate(format: "\(user.phoneNumber)")
+        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        var ETA: EstimatedTimeOfArrival?
+        let operation = CKQueryOperation(query: query)
+        
+        operation.recordFetchedBlock = { (record) in
+            let eta = record["ETA"] as! NSDate
+            let latitude = record["latitude"] as! Double
+            let longitude = record["longitude"] as! Double
+            let name = record["name"] as! String
+            let id = record["id"] as! String
+            
+            
+            ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id, recordID: String(record.recordID))
+        }
+        operation.queryCompletionBlock = { (cursor, error) in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if error == nil {
+                    if ETA != nil {
+                        ETAController.sharedController.saveToPersistentStorage()
+                    }
+                }
+            })
+        }
+        CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
+    }
+    
     func subscribeToCanceledETAChanges(eta: EstimatedTimeOfArrival) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let predicate2 = NSPredicate(format: "canceledETA = %d", 1)
@@ -213,82 +314,4 @@ class CloudKitController {
             }
         }
     }
-    
-    // General subscription by user to check if said user has made a new ETA. Not sure if we need this though if the user is going to select the users to notify.
-    
-    func setupSubscriptionForUser(user: User) {
-        let predicate = NSPredicate(format: "userPhoneNumber = %@", user.phoneNumber!)
-        
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordCreation)
-        let info = CKNotificationInfo()
-        info.alertBody = "\(user.name!) has begun a new ETA"
-        info.shouldSendContentAvailable = true
-        subscription.notificationInfo = info
-        //        let record = CKRecord(recordType: "ETA")
-        db.saveSubscription(subscription) { (subscription, error) in
-            if error != nil {
-                print(error?.localizedDescription)
-                // Handle the crap out of the error, like send an alert or something.
-            } else {
-                
-            }
-        }
-        
-        
-    }
-    
-    
-    
-    
-    func notifySelectedUsersOfNewETA(users: [User], currentUser: CurrentUser) {
-        for user in users {
-            if let uuid = user.uuid, phoneNumber = currentUser.phoneNumber {
-                let predicate = NSPredicate(format: "uuid = %@", uuid)
-                let query = CKQuery(recordType: "User", predicate: predicate)
-                let operation = CKQueryOperation(query: query)
-                operation.recordFetchedBlock = { (record) in
-                    record.setValue(phoneNumber, forKey: "userNewETA")
-                    self.db.saveRecord(record, completionHandler: { (record, error) in
-                        if error != nil {
-                            print(error?.localizedDescription)
-                        } else {
-                            print("\(user.name!) has been notified successfully")
-                        }
-                    })
-                }
-                db.addOperation(operation)
-            }
-        }
-    }
-    
-    
-    func loadETAForUser(user: User) {
-        let predicate = NSPredicate(format: "\(user.phoneNumber)")
-        let query = CKQuery(recordType: "ETA", predicate: predicate)
-        var ETA: EstimatedTimeOfArrival?
-        let operation = CKQueryOperation(query: query)
-        
-        operation.recordFetchedBlock = { (record) in
-            let eta = record["ETA"] as! NSDate
-            let latitude = record["latitude"] as! Double
-            let longitude = record["longitude"] as! Double
-            let name = record["name"] as! String
-            let id = record["id"] as! String
-            
-            
-            ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id, recordID: String(record.recordID))
-        }
-        operation.queryCompletionBlock = { (cursor, error) in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if error == nil {
-                    if ETA != nil {
-                        ETAController.sharedController.saveToPersistentStorage()
-                    }
-                }
-            })
-        }
-        CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
-    }
-    
-    
 }

@@ -16,7 +16,7 @@ class UserController {
     static let sharedController = UserController()
     
     var selectedArray: [CNContact] = []
-
+    
     var currentUser: CurrentUser? {
         let request = NSFetchRequest(entityName: "CurrentUser")
         
@@ -38,11 +38,26 @@ class UserController {
         record.setValue(phoneNumber, forKey: "phoneNum")
         record.setValue(uuid, forKey: "uuid")
         
+        let contactsRecord = CKRecord(recordType: "Contacts")
+        contactsRecord.setValue(uuid, forKey: "userUUID")
+        
+        let newETARecord = CKRecord(recordType: "userNewETA")
+        newETARecord.setValue(uuid, forKey: "userUUID")
+        
+        
         publicDatabase.saveRecord(record) { (record, error) in
             let currentUser = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
             UserController.sharedController.saveToPersistentStorage()
             completion()
+            
+            
         }
+        publicDatabase.saveRecord(contactsRecord, completionHandler: { (record, error) in
+            
+        })
+        publicDatabase.saveRecord(newETARecord, completionHandler: { (record, error) in
+            
+        })
     }
     
     
