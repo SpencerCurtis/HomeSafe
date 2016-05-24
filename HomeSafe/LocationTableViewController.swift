@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-
 class LocationTableViewController: UITableViewController {
     
     static let sharedController = LocationTableViewController()
@@ -27,7 +26,6 @@ class LocationTableViewController: UITableViewController {
     }
     
 }
-
 extension LocationTableViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         guard let mapView = mapView,
@@ -45,7 +43,6 @@ extension LocationTableViewController: UISearchResultsUpdating {
         }
     }
 }
-
 extension LocationTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,7 +59,6 @@ extension LocationTableViewController {
     
     
 }
-
 extension LocationTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedItem = matchingLocations[indexPath.row].placemark

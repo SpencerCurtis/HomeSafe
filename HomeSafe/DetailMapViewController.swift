@@ -5,15 +5,12 @@
 //  Created by admin on 5/20/16.
 //  Copyright © 2016 Spencer Curtis. All rights reserved.
 //
-
 import UIKit
 import MapKit
 import CoreLocation
-
 protocol MapSearch {
     func dropPinOnSelectedLocation(placemark: MKPlacemark)
 }
-
 class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
@@ -170,7 +167,6 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
      */
     
 }
-
 extension DetailMapViewController: MapSearch {
     
     func dropPinOnSelectedLocation(placemark: MKPlacemark) {
