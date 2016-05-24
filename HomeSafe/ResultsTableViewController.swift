@@ -12,7 +12,8 @@ import Contacts
 class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
     var results: [CNContact] = []
-    var filteredArray = [CNContact]()
+    var filteredArray: [CNContact] = []
+    var selectedResultsArray = SelectContactTableViewController.sharedInstance.selectedFavoriteContactsArray
     var shouldShowResults = false
     var searchController: UISearchController!
 
@@ -34,8 +35,7 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         searchController.searchBar.resignFirstResponder()
     }
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text,
-            resultsVC = searchController.searchResultsUpdater as? ResultsTableViewController else {return}
+        guard let searchText = searchController.searchBar.text else {return}
             self.filteredArray =  results.filter { $0.givenName.lowercaseString.containsString(searchText.lowercaseString) }
         tableView.reloadData()
     }
@@ -58,26 +58,25 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("searchedContactCell", forIndexPath: indexPath)
-        let contact = results[indexPath.row]
+        let contacts = filteredArray.count > 0 ? filteredArray[indexPath.row]: results[indexPath.row]
         if shouldShowResults {
-            cell.textLabel?.text = contact.givenName + " " + contact.familyName
-        } else {
-            cell.textLabel?.text = contact.givenName + " " + contact.familyName
+            cell.textLabel?.text = contacts.givenName + " " + contacts.familyName
         }
         return cell
+     
     }
     
 
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-//        let selectedContacts = userContacts[indexPath.row]
-//        selectedFavoriteContactsArray.append(selectedContacts)
-//    }
-//    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-//        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-//        let index = selectedFavoriteContactsArray.indexOf(userContacts[indexPath.row])
-//        selectedFavoriteContactsArray.removeAtIndex(index!)
-//    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        let selectedContacts = results[indexPath.row]
+        selectedResultsArray.append(selectedContacts)
+    }
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
+        let index = selectedResultsArray.indexOf(results[indexPath.row])
+        selectedResultsArray.removeAtIndex(index!)
+    }
 
 
 
