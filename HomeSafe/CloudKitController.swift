@@ -41,10 +41,10 @@ class CloudKitController {
     
     // This should be implemented as soon as an account (user) is made on the signup screen. It will set-up a subscription to check if any other user has added them as a contact (potential watcher)
     
-    func subscribeToUsersAddingCurrentUserToContactList(currentUser: CurrentUser) {
+    func subscribeToUsersAddingCurrentUserToContactList(currentUser: CurrentUser, completion: () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
-            let subscription = CKSubscription(recordType: "Contacts", predicate: predicate, options: .FiresOnRecordUpdate)
+            let subscription = CKSubscription(recordType: "contacts", predicate: predicate, options: .FiresOnRecordUpdate)
             
             let info = CKNotificationInfo()
             info.alertBody = "You have been added as someone's contact"
@@ -55,14 +55,18 @@ class CloudKitController {
                 if error != nil {
                     print(error?.localizedDescription)
                 } else {
-                    print("Successfully subscribed")
+                    print("Successfully subscribed to current user's contacts record")
+                    completion()
                 }
             }
         }
-        
     }
     
-    func subscribeToUsersAddingCurrentUserToNewETA(currentUser: CurrentUser) {
+    
+    
+    
+    
+    func subscribeToUsersAddingCurrentUserToNewETA(currentUser: CurrentUser, completion: () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
             let subscription = CKSubscription(recordType: "userNewETA", predicate: predicate, options: .FiresOnRecordUpdate)
@@ -76,14 +80,12 @@ class CloudKitController {
                 if error != nil {
                     print(error?.localizedDescription)
                 } else {
-                    print("Successfully subscribed")
+                    print("Successfully subscribed to current user's userNewETA record")
+                    completion()
                 }
             }
         }
-        
     }
-    
-    
     
     
     func checkForNewContacts(currentUser: CurrentUser) {

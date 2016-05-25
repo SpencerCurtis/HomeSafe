@@ -40,8 +40,11 @@ class CreateUserViewController: UIViewController {
         if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
             UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
                 if let currentUser = UserController.sharedController.currentUser {
-                    CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser)
-                    CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser)
+                    CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
+                        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
+                        })
+                    })
+                    
                 }
             })
             self.dismissViewControllerAnimated(true, completion: nil)

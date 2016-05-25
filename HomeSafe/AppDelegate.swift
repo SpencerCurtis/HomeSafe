@@ -52,10 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        if let currentUser = UserController.sharedController.currentUser {
-            print(userInfo)
-            CloudKitController.sharedController.checkForNewContacts(currentUser)
-        }
+        print(userInfo)
+        
+//        if let currentUser = UserController.sharedController.currentUser {
+//            print(userInfo)
+//            CloudKitController.sharedController.checkForNewContacts(currentUser)
+//        }
     }
 
 
