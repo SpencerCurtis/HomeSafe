@@ -47,6 +47,7 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         super.viewDidLoad()
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        tableView.allowsMultipleSelection = true
 
     }
     
@@ -64,6 +65,7 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         let contacts = filteredArray.count > 0 ? filteredArray[indexPath.row] : results[indexPath.row]
         if shouldShowResults {
             cell.textLabel?.text = contacts.givenName + " " + contacts.familyName
+            cell.selectionStyle = .None
         }
         return cell
      

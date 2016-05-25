@@ -31,7 +31,7 @@ class SelectContactTableViewController: UITableViewController{
                 searchController = UISearchController(searchResultsController: vc)
                 vc.searchController = searchController
                 vc.results = userContacts
-                searchController.dimsBackgroundDuringPresentation = true
+                searchController.dimsBackgroundDuringPresentation = false
                 searchController.searchBar.placeholder = "Search For Guardians"
                 searchController.searchBar.sizeToFit()
                 tableView.tableHeaderView = searchController.searchBar
