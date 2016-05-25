@@ -28,15 +28,21 @@ class SelectContactTableViewController: UITableViewController{
     
         func configureSearchController() {
             if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
+                
                 searchController = UISearchController(searchResultsController: vc)
                 vc.searchController = searchController
                 vc.results = userContacts
                 searchController.dimsBackgroundDuringPresentation = false
                 searchController.searchBar.placeholder = "Search For Guardians"
                 searchController.searchBar.sizeToFit()
+                
                 tableView.tableHeaderView = searchController.searchBar
+                
             }
+            
+            
         }
+    
 
         static let sharedInstance = SelectContactTableViewController()
     
@@ -51,15 +57,11 @@ class SelectContactTableViewController: UITableViewController{
     // CALLS DELEGATE AND DISMISSES MODAL VIEW
     //*****************************//
     @IBAction func done(sender: AnyObject) {
-        if self.delegate != nil {
-            let contacts: [CNContact] = self.selectedFavoriteContactsArray
-            self.delegate?.userDidSelectContacts(contacts)
-        }
         
         self.dismissViewControllerAnimated(true, completion: nil)
-        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
-            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
-        }
+//        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
+//            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
+//        }
         
     }
     //*****************************//
@@ -98,12 +100,12 @@ class SelectContactTableViewController: UITableViewController{
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
         let selectedContacts = userContacts[indexPath.row]
-        selectedFavoriteContactsArray.append(selectedContacts)
+        UserController.sharedController.selectedArray.append(selectedContacts)
     }
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = selectedFavoriteContactsArray.indexOf(userContacts[indexPath.row])
-        selectedFavoriteContactsArray.removeAtIndex(index!)
+        let index = UserController.sharedController.selectedArray.indexOf(userContacts[indexPath.row])
+        UserController.sharedController.selectedArray.removeAtIndex(index!)
     }
 }
 

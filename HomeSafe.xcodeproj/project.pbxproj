@@ -32,6 +32,7 @@
 		4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */; };
 		46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */; };
 		46F538611CF4B7B300D63D17 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */; };
+		E521CAD71CF52A92000F3E23 /* DoneCutomViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521CAD61CF52A92000F3E23 /* DoneCutomViewClass.swift */; };
 		E5777ADC1CEFA66200B7ADF1 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */; };
 		E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */; };
 		E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */; };
@@ -69,6 +70,7 @@
 		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
 		46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
+		E521CAD61CF52A92000F3E23 /* DoneCutomViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneCutomViewClass.swift; sourceTree = "<group>"; };
 		E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApperanceController.swift; sourceTree = "<group>"; };
 		E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */,
 				4617E03D1CEA542F003EB3C1 /* Main.storyboard */,
+				E521CAD61CF52A92000F3E23 /* DoneCutomViewClass.swift */,
 				4617E0401CEA5430003EB3C1 /* Assets.xcassets */,
 				4617E0391CEA542F003EB3C1 /* AppDelegate.swift */,
 				4617E0381CEA542F003EB3C1 /* HomeSafe */,
@@ -142,9 +145,9 @@
 			children = (
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
-				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
 				46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */,
 				46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */,
+				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
 				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
 				E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */,
 				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
@@ -274,6 +277,7 @@
 				E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */,
 				E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
+				E521CAD71CF52A92000F3E23 /* DoneCutomViewClass.swift in Sources */,
 				4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */,
 				E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */,
 				E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */,
