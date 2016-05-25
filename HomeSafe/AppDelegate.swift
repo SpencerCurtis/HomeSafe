@@ -23,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         AppearanceController.initializeAppearance()
+        CloudKitController.sharedController.fetchUserForPhoneNumber("18019952468") { (otherUser) in
+            CloudKitController.sharedController.loadETAForUser(otherUser!, completion: { (eta) in
+                CloudKitController.sharedController.setupSubscriptionForETA(eta)
+            })
+        }
 //        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(UserController.sharedController.currentUser!)
 //        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "18019952468")
 

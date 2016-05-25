@@ -66,6 +66,7 @@ class CloudKitController {
     
     
     
+    
     func subscribeToUsersAddingCurrentUserToNewETA(currentUser: CurrentUser, completion: () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
@@ -99,15 +100,12 @@ class CloudKitController {
                 for contact in contacts {
                     self.fetchUserForPhoneNumber(contact, completion: { (user) in
                         if let user = user {
-                            //                            if UIApplication.sharedApplication().applicationState == .Active {
-                            //                                NotificationController.sharedController.simpleAlert("You have been added as a contact", message: "\(user.name!) has added you as a contact")
-                            //                            } else if UIApplication.sharedApplication().applicationState == .Background {
+                            
                             let notification = UILocalNotification()
                             notification.alertBody = "\(user.name!) has added you as a contact."
                             notification.alertTitle = "You have been added as a contact"
                             notification.fireDate = NSDate()
                             UIApplication.sharedApplication().scheduleLocalNotification(notification)
-                            //                            }
                         }
                         
                     })
@@ -116,6 +114,9 @@ class CloudKitController {
             db.addOperation(operation)
         }
     }
+    
+    // Make an alert that will call this function when the user gets a notification saying they've been added as _'s contact.
+    // Call this function if they want to add the contact back.
     
     func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String) {
         fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
@@ -159,8 +160,6 @@ class CloudKitController {
                 
             }
         }
-        
-        
     }
     
     
@@ -188,8 +187,8 @@ class CloudKitController {
     }
     
     
-    func loadETAForUser(user: User) {
-        let predicate = NSPredicate(format: "\(user.phoneNumber)")
+    func loadETAForUser(user: User, completion: (eta: EstimatedTimeOfArrival) -> Void) {
+        let predicate = NSPredicate(format: "id = %@", user.uuid!)
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         var ETA: EstimatedTimeOfArrival?
         let operation = CKQueryOperation(query: query)
@@ -207,8 +206,10 @@ class CloudKitController {
         operation.queryCompletionBlock = { (cursor, error) in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 if error == nil {
-                    if ETA != nil {
+                    if let eta = ETA {
+                        print(eta.userName)
                         ETAController.sharedController.saveToPersistentStorage()
+                        completion(eta: eta)
                     }
                 }
             })
@@ -216,12 +217,51 @@ class CloudKitController {
         CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
     }
     
-    func subscribeToCanceledETAChanges(eta: EstimatedTimeOfArrival) {
+    func setupSubscriptionForETA(eta: EstimatedTimeOfArrival) {
+        
+        let predicate = NSPredicate(format: "id = %@", eta.id!)
+        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordUpdate)
+        
+        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.recordFetchedBlock = { (record) in
+            
+            
+            let info = CKNotificationInfo()
+            info.desiredKeys = ["canceledETA", "homeSafe", "inDanger"]
+            info.shouldSendContentAvailable = true
+            let formatter = NSDateFormatter()
+            formatter.timeStyle = .ShortStyle
+            if let etaDate = record.valueForKey("ETA") as? NSDate {
+                let etaString = formatter.stringFromDate(etaDate)
+                
+                info.alertBody = "Your friend will be home around \(etaString)"
+                
+                subscription.notificationInfo = info
+                NSUserDefaults.standardUserDefaults().setValue(subscription.subscriptionID, forKey: "ownSubscription")
+                
+                self.db.saveSubscription(subscription) { (result, error) in
+                    if error != nil {
+                        print(error?.localizedDescription)
+                    } else {
+                        self.ETASubscriptions(eta, completion: {
+                            print("Successfully subscribed to \(eta.userName)'s ETA")
+                            
+                        })
+                        
+                    }
+                }
+            }
+        }
+        db.addOperation(operation)
+    }
+    
+    func subscribeToCanceledETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let predicate2 = NSPredicate(format: "canceledETA = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["canceledETA"]
@@ -231,20 +271,20 @@ class CloudKitController {
         db.saveSubscription(subscription) { (subscription, error) in
             if error != nil {
                 print(error?.localizedDescription)
+                completion()
             } else {
                 print("Sucessfully subscribed to canceledETA changes")
+                completion()
             }
         }
-        
-        
     }
     
-    func subscribeToHomeSafeETAChanges(eta: EstimatedTimeOfArrival) {
+    func subscribeToHomeSafeETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let predicate2 = NSPredicate(format: "homeSafe = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["homeSafe"]
@@ -254,20 +294,20 @@ class CloudKitController {
         db.saveSubscription(subscription) { (subscription, error) in
             if error != nil {
                 print(error?.localizedDescription)
+                completion()
             } else {
                 print("Sucessfully subscribed to homeSafe ETA changes")
+                completion()
             }
         }
-        
-        
     }
     
-    func subscribeToInDangerETAChanges(eta: EstimatedTimeOfArrival) {
+    func subscribeToInDangerETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let predicate2 = NSPredicate(format: "inDanger = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["inDanger"]
@@ -277,43 +317,23 @@ class CloudKitController {
         db.saveSubscription(subscription) { (subscription, error) in
             if error != nil {
                 print(error?.localizedDescription)
+                completion()
             } else {
                 print("Sucessfully subscribed to inDanger ETA changes")
+                completion()
             }
         }
-        
-        
     }
     
-    func setupSubscriptionForETA(eta: EstimatedTimeOfArrival) {
-        
-        let predicate = NSPredicate(format: "id = %@", eta.id!)
-        
-        
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordUpdate)
-        
-        let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: eta.recordID!))
-        let info = CKNotificationInfo()
-        info.desiredKeys = ["canceledETA", "homeSafe", "inDanger"]
-        info.shouldSendContentAvailable = true
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
-        if let eta = record.valueForKey("ETA") as? NSDate {
-            let etaString = formatter.stringFromDate(eta)
-            
-            info.alertBody = "Your friend will be home around \(etaString)"
-        }
-        subscription.notificationInfo = info
-        NSUserDefaults.standardUserDefaults().setValue(subscription.subscriptionID, forKey: "ownSubscription")
-        
-        db.saveSubscription(subscription) { (result, error) in
-            if error != nil {
-                print(error?.localizedDescription)
-            } else {
-                self.subscribeToCanceledETAChanges(eta)
-                self.subscribeToHomeSafeETAChanges(eta)
-                self.subscribeToInDangerETAChanges(eta)
-            }
+    func ETASubscriptions(eta: EstimatedTimeOfArrival, completion: () -> Void) {
+        subscribeToCanceledETAChanges(eta) {
+            self.subscribeToHomeSafeETAChanges(eta, completion: {
+                self.subscribeToInDangerETAChanges(eta, completion: {
+                    completion()
+                })
+            })
         }
     }
+    
+    
 }
