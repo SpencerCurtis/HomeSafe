@@ -34,4 +34,5 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         
     }
     
+    
 }

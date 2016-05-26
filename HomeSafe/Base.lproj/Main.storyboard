@@ -19,6 +19,7 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fvR-X0-uAx">
                                 <rect key="frame" x="16" y="135" width="343" height="30"/>
+                                <color key="backgroundColor" red="0.29803921568627451" green="0.86274509803921573" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
@@ -46,6 +47,7 @@
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number (e.g. 15555555555)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X93-zV-Hya">
                                 <rect key="frame" x="16" y="173" width="343" height="30"/>
+                                <color key="backgroundColor" red="0.29803921568627451" green="0.86274509803921573" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
@@ -77,9 +79,11 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="createAccountLabel" destination="Req-uU-vXD" id="b3Z-B0-9cY"/>
                         <outlet property="nameTextField" destination="fvR-X0-uAx" id="sCL-I5-U2C"/>
                         <outlet property="phoneNumberTextField" destination="X93-zV-Hya" id="2O7-dN-lrY"/>
                         <outlet property="safeLocationLabel" destination="Urp-L7-w8a" id="nfM-AH-4aK"/>
+                        <outlet property="selectSafePlaceButton" destination="sqU-GD-YAh" id="mfc-a0-Lsa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

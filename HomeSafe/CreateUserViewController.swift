@@ -13,6 +13,8 @@ class CreateUserViewController: UIViewController {
     
     static let sharedController = CreateUserViewController()
     
+    @IBOutlet weak var selectSafePlaceButton: UIButton!
+    @IBOutlet weak var createAccountLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var safeLocationLabel: UILabel!
@@ -21,6 +23,13 @@ class CreateUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createAccountLabel.center.x = self.view.frame.width - 570
+        nameTextField.center.x = self.view.frame.width - 570
+        phoneNumberTextField.center.x = self.view.frame.width - 570
+        selectSafePlaceButton.center.x = self.view.frame.width - 570
+
+
+        bounceAnimation()
         // Do any additional setup after loading the view.
     }
      
@@ -46,6 +55,21 @@ class CreateUserViewController: UIViewController {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
+    }
+    
+    func bounceAnimation() {
+        UIView.animateWithDuration(2.5, delay: 0.5, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+            self.createAccountLabel.center.x = self.view.frame.width / 2
+        }), completion: nil)
+        UIView.animateWithDuration(2.5, delay: 0.8, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+            self.nameTextField.center.x = self.view.frame.width / 2
+        }), completion: nil)
+        UIView.animateWithDuration(2.5, delay: 1.1, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+            self.phoneNumberTextField.center.x = self.view.frame.width / 2
+        }), completion: nil)
+        UIView.animateWithDuration(2.5, delay: 1.4, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+            self.selectSafePlaceButton.center.x = self.view.frame.width / 2
+        }), completion: nil)
     }
 
     
