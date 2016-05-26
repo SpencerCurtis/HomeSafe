@@ -61,6 +61,7 @@ class CreateUserViewController: UIViewController {
         
     }
     
+<<<<<<< HEAD
     func bounceAnimation() {
         UIView.animateWithDuration(2.5, delay: 0.5, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
             self.createAccountLabel.center.x = self.view.frame.width / 2
@@ -76,7 +77,8 @@ class CreateUserViewController: UIViewController {
         }), completion: nil)
     }
 
-    
+=======
+>>>>>>> 7e870f7dda69c5d6eb5c4a893ddc23775982d4e1
     
     
     

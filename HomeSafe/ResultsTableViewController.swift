@@ -9,16 +9,22 @@
 import UIKit
 import Contacts
 
+protocol PassSearchedContactsDelegate {
+    func userDidSelectSearchedContacts(contacts: [CNContact])
+}
+
 class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 
     var results: [CNContact] = []
     var filteredArray: [CNContact] = []
-    var selectedResultsArray = SelectContactTableViewController.sharedInstance.selectedFavoriteContactsArray
+    var selectedResultsArray: [CNContact] = []
     var shouldShowResults = false
     var searchController: UISearchController!
+    var delegate: PassSearchedContactsDelegate?
 
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         shouldShowResults = true
+        filteredArray = []
         tableView.reloadData()
     }
     
@@ -34,19 +40,33 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         }
         searchController.searchBar.resignFirstResponder()
     }
+    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else {return}
             self.filteredArray =  results.filter { $0.givenName.lowercaseString.containsString(searchText.lowercaseString) }
-        tableView.reloadData()
+            shouldShowResults = true
+            tableView.reloadData()
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        tableView.allowsMultipleSelection = true
+
+        self.tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
 
     }
+    
+    @IBAction func secondDoneButtonTapped(sender: AnyObject) {
+        print("\n\(UserController.sharedController.selectedArray)\n")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if shouldShowResults {
             return filteredArray.count
@@ -58,9 +78,10 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("searchedContactCell", forIndexPath: indexPath)
-        let contacts = filteredArray.count > 0 ? filteredArray[indexPath.row]: results[indexPath.row]
+        let contacts = filteredArray.count > 0 ? filteredArray[indexPath.row] : results[indexPath.row]
         if shouldShowResults {
             cell.textLabel?.text = contacts.givenName + " " + contacts.familyName
+            cell.selectionStyle = .None
         }
         return cell
      
@@ -69,16 +90,16 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let selectedContacts = results[indexPath.row]
-        selectedResultsArray.append(selectedContacts)
+        let selectedContacts = filteredArray[indexPath.row]
+        UserController.sharedController.selectedArray.append(selectedContacts)
+        print("\n\(UserController.sharedController.selectedArray)\n")
     }
+    
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = selectedResultsArray.indexOf(results[indexPath.row])
-        selectedResultsArray.removeAtIndex(index!)
+        let index = UserController.sharedController.selectedArray.indexOf(filteredArray[indexPath.row])
+        UserController.sharedController.selectedArray.removeAtIndex(index!)
+        print("\n\(UserController.sharedController.selectedArray)\n")
     }
 
-
-
-   
 }
