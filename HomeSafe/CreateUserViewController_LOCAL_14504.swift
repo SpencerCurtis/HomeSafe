@@ -32,14 +32,14 @@ class CreateUserViewController: UIViewController {
         bounceAnimation()
         // Do any additional setup after loading the view.
     }
-    
+     
     override func viewWillAppear(animated: Bool) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.safeLocationLabel.text = LocationController.sharedController.address
         })
         
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -47,15 +47,11 @@ class CreateUserViewController: UIViewController {
     
     @IBAction func createUserButtonTapped(sender: AnyObject) {
         if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
-            UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
-                if let currentUser = UserController.sharedController.currentUser {
-                    CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
-                        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
-                        })
-                    })
-                    
-                }
-            })
+        UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
+            if let currentUser = UserController.sharedController.currentUser {
+            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser)
+            }
+        })
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
@@ -79,15 +75,14 @@ class CreateUserViewController: UIViewController {
     
     
     
-    
     /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }

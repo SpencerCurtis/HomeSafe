@@ -81,11 +81,16 @@ class ETAController {
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
             record.setValue(true, forKey: "inDanger")
+            let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            self.db.addOperation(operation)
+            self.resetChangedFields(eta)
         }
         db.addOperation(operation)
         eta.inDanger = true
         saveToPersistentStorage()
+        
     }
+    
     
     func cancelETA(eta: EstimatedTimeOfArrival) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
@@ -93,6 +98,10 @@ class ETAController {
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
             record.setValue(true, forKey: "canceledETA")
+            let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            self.db.addOperation(operation)
+            self.resetChangedFields(eta)
+
         }
         db.addOperation(operation)
         eta.canceledETA = true
@@ -105,6 +114,9 @@ class ETAController {
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
             record.setValue(true, forKey: "homeSafe")
+            let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            self.db.addOperation(operation)
+            self.resetChangedFields(eta)
         }
         db.addOperation(operation)
         eta.homeSafe = true
@@ -113,7 +125,20 @@ class ETAController {
     
     
     
-    
+    func resetChangedFields(eta: EstimatedTimeOfArrival) {
+        let predicate = NSPredicate(format: "id = %@", eta.id!)
+        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.recordFetchedBlock = { (record) in
+            record.setValue(false, forKey: "inDanger")
+            record.setValue(false, forKey: "canceledETA")
+            record.setValue(false, forKey: "homeSafe")
+            let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            self.db.addOperation(operation)
+        }
+        db.addOperation(operation)
+    }
+
     
     func saveToPersistentStorage() {
         
