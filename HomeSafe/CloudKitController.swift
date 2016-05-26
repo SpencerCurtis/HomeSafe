@@ -120,7 +120,7 @@ class CloudKitController {
     
     func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String) {
         fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
-            if let otherUser = otherUser, uuid = otherUser.uuid ,phoneNumber = currentUser.phoneNumber {
+            if let otherUser = otherUser, uuid = otherUser.uuid, phoneNumber = currentUser.phoneNumber {
                 self.tempContactsArray.append(phoneNumber)
                 self.db.fetchRecordWithID(CKRecordID(recordName: uuid), completionHandler: { (record, error) in
                     if let record = record {
@@ -138,53 +138,37 @@ class CloudKitController {
         }
     }
     
-    func addUsersToContactList(currentUser: CurrentUser, users: [User]) {
+    // DO I EVEN NEED THIS FUNCTION JEEZ WHAT AM I THINKING?
+    
+    func addUsersToContactList(currentUser: CurrentUser, users: [User] ) {
         for user in users {
             self.fetchUserForPhoneNumber(user.phoneNumber!, completion: { (otherUser) in
                 if let otherUser = otherUser {
                     let predicate = NSPredicate(format: "uuid = %@", otherUser.uuid!)
                     let query = CKQuery(recordType: "contacts", predicate: predicate)
                     let operation = CKQueryOperation(query: query)
-                    var contactArray: [String] = []
                     operation.recordFetchedBlock = { (record) in
+                        var contactArray: [String] = []
                         let contacts = record.valueForKey("contacts") as! [String]
                         for contact in contacts {
                             contactArray.append(contact)
                         }
-        
+                        
                         contactArray.append(currentUser.phoneNumber!)
                         record.setValue(contactArray, forKey: "contacts")
                         
-                        let saveOperation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-                        saveOperation.savePolicy = .ChangedKeys
+                        self.db.saveRecord(record, completionHandler: { (record, error) in
+                            guard error == nil else { print(error?.localizedDescription); return }
+                            
+                            print("success")
+                        })
                     }
-                }
-            })
-        }
-    }
-    
-    // THIS IS A TEST FUNCTION
-    func addPhoneNumber(currentUser: CurrentUser) {
-        let predicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
-        let query = CKQuery(recordType: "contacts", predicate: predicate)
-        let operation = CKQueryOperation(query: query)
-        operation.recordFetchedBlock = { (record) in
-            var contacts: [String] = []
-            let newContacts = record.valueForKey("contacts") as! [String]
-            for contact in newContacts {
-                contacts.append(contact)
-            }
-            contacts.append(currentUser.phoneNumber!)
-            record.setValue(contacts, forKey: "contacts")
-            self.db.saveRecord(record, completionHandler: { (record, error) in
-                if error != nil {
-                    print(error?.localizedDescription)
                 } else {
-                    print("success")
+                    print("User with phone number: \(otherUser!.phoneNumber!) is not in the HomeSafe database")
+                    // Create a method to send an SMS to invite them?
                 }
             })
         }
-        db.addOperation(operation)
     }
     
     // General subscription by user to check if said user has made a new ETA.
@@ -232,8 +216,10 @@ class CloudKitController {
                             }
                         })
                     }
+                    
                     NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForContacts")
                 }
+                
                 self.db.addOperation(contactsOperation)
                 record.setValue(0, forKey: "contacts")
                 let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
@@ -254,16 +240,14 @@ class CloudKitController {
                             }
                         })
                     }
+                    
                     NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForETA")
                 }
+                
                 self.db.addOperation(ETAOperation)
                 record.setValue(0, forKey: "userNewETA")
                 let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
                 self.db.addOperation(operation)
-
-                
-                
-                
             }
             
         }

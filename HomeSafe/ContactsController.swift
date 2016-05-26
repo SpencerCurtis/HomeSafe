@@ -40,12 +40,13 @@ class ContactsController {
     
 
     func convertContactsToUsers(contacts: [CNContact], completion: () -> Void) {
+        var userArray: [User] = []
+
         for contact in contacts {
             let name = contact.givenName + " " + contact.familyName
             let value = contact.phoneNumbers.first?.value as! CNPhoneNumber
             let string = value.stringValue
             let phoneNumber = plainPhoneNumber(string)
-            
             var latitude: Double = 0.0
             var longitude: Double = 0.0
             var location: CLLocation?
@@ -62,6 +63,7 @@ class ContactsController {
                                 latitude = location.coordinate.latitude
                                 longitude = location.coordinate.longitude
                                 let newUserContact = User(name: name, latitude: latitude, longitude: longitude, phoneNumber: phoneNumber)
+                                userArray.append(newUserContact)
                                 self.saveToPersistentStorage()
                                 completion()
                             }
@@ -70,6 +72,7 @@ class ContactsController {
                 }
             })
         }
+        
     }
     
     
