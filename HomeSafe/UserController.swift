@@ -44,6 +44,11 @@ class UserController {
         let newETARecord = CKRecord(recordType: "userNewETA")
         newETARecord.setValue(uuid, forKey: "userUUID")
         
+        let notificationsRecord = CKRecord(recordType: "notifications")
+        notificationsRecord.setValue(false, forKey: "contacts")
+        notificationsRecord.setValue(false, forKey: "userNewETA")
+        notificationsRecord.setValue(uuid, forKey: "uuid")
+        
         //        let recordsToSave = [record, contactsRecord, newETARecord]
         //        let operation = CKModifyRecordsOperation(recordsToSave: recordsToSave, recordIDsToDelete: nil)
         //        operation.savePolicy = .AllKeys
@@ -69,7 +74,13 @@ class UserController {
                             if error != nil {
                                 print(error?.localizedDescription)
                             } else {
-                                completion()
+                                publicDatabase.saveRecord(notificationsRecord, completionHandler: { (record, error) in
+                                    if error != nil {
+                                        print(error?.localizedDescription)
+                                    } else {
+                                        completion()
+                                    }
+                                })
                             }
                             
                         })

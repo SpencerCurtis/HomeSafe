@@ -36,5 +36,10 @@ class NotificationController {
         alert.addAction(dismissAction)
         alert.showViewController(alert, sender: self)
 //        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        
     }
+    
+    
+    
+    
 }

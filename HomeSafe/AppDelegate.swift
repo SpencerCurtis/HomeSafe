@@ -23,11 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         AppearanceController.initializeAppearance()
-        CloudKitController.sharedController.fetchUserForPhoneNumber("18019952468") { (otherUser) in
-            CloudKitController.sharedController.loadETAForUser(otherUser!, completion: { (eta) in
-                CloudKitController.sharedController.setupSubscriptionForETA(eta)
-            })
-        }
+        CloudKitController.sharedController.addPhoneNumber(UserController.sharedController.currentUser!)
+//        CloudKitController.sharedController.fetchUserForPhoneNumber("18019952468") { (otherUser) in
+//            CloudKitController.sharedController.loadETAForUser(otherUser!, completion: { (eta) in
+//                CloudKitController.sharedController.setupSubscriptionForETA(eta)
+//            })
+//        }
 //        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(UserController.sharedController.currentUser!)
 //        CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(UserController.sharedController.currentUser!, phoneNumber: "18019952468")
 
@@ -50,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {
