@@ -30,6 +30,11 @@
 		4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1A1CEBB52400B02642 /* ContactsController.swift */; };
 		4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1E1CEBB93300B02642 /* Stack.swift */; };
 		4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */; };
+		46A0F6FB1CF89EEF0024F507 /* InstructionsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F6FA1CF89EEF0024F507 /* InstructionsPageViewController.swift */; };
+		46A0F6FD1CF89F0C0024F507 /* FirstInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F6FC1CF89F0C0024F507 /* FirstInstructionalViewController.swift */; };
+		46A0F6FF1CF89F230024F507 /* SecondInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */; };
+		46A0F7011CF89F390024F507 /* ThirdInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */; };
+		46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */; };
 		46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */; };
 		46F538611CF4B7B300D63D17 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */; };
 		E521CAD71CF52A92000F3E23 /* DoneCutomViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521CAD61CF52A92000F3E23 /* DoneCutomViewClass.swift */; };
@@ -68,6 +73,11 @@
 		4659FF1A1CEBB52400B02642 /* ContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
 		4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
+		46A0F6FA1CF89EEF0024F507 /* InstructionsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsPageViewController.swift; sourceTree = "<group>"; };
+		46A0F6FC1CF89F0C0024F507 /* FirstInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstInstructionalViewController.swift; sourceTree = "<group>"; };
+		46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondInstructionalViewController.swift; sourceTree = "<group>"; };
+		46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdInstructionalViewController.swift; sourceTree = "<group>"; };
+		46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthInstructionalViewController.swift; sourceTree = "<group>"; };
 		46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
 		46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		E521CAD61CF52A92000F3E23 /* DoneCutomViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneCutomViewClass.swift; sourceTree = "<group>"; };
@@ -131,6 +141,11 @@
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
+				46A0F6FA1CF89EEF0024F507 /* InstructionsPageViewController.swift */,
+				46A0F6FC1CF89F0C0024F507 /* FirstInstructionalViewController.swift */,
+				46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */,
+				46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */,
+				46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */,
 				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
 				4622D8B91CEB765500C2587F /* CloudKitController.swift */,
@@ -262,11 +277,14 @@
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
+				46A0F6FB1CF89EEF0024F507 /* InstructionsPageViewController.swift in Sources */,
 				4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */,
 				4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */,
+				46A0F7011CF89F390024F507 /* ThirdInstructionalViewController.swift in Sources */,
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
 				4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */,
 				46F538611CF4B7B300D63D17 /* LocationTableViewController.swift in Sources */,
+				46A0F6FF1CF89F230024F507 /* SecondInstructionalViewController.swift in Sources */,
 				4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */,
 				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
 				4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */,
@@ -275,10 +293,12 @@
 				46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */,
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
 				E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */,
+				46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */,
 				E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
 				E521CAD71CF52A92000F3E23 /* DoneCutomViewClass.swift in Sources */,
 				4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */,
+				46A0F6FD1CF89F0C0024F507 /* FirstInstructionalViewController.swift in Sources */,
 				E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */,
 				E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,

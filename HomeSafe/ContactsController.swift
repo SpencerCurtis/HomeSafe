@@ -42,6 +42,7 @@ class ContactsController {
     func convertContactsToUsers(contacts: [CNContact], completion: () -> Void) {
         var userArray: [User] = []
 
+        print(contacts)
         for contact in contacts {
             let name = contact.givenName + " " + contact.familyName
             let value = contact.phoneNumbers.first?.value as! CNPhoneNumber

@@ -221,7 +221,7 @@ class CloudKitController {
                 }
                 
                 self.db.addOperation(contactsOperation)
-                record.setValue(0, forKey: "contacts")
+                record.setValue(" ", forKey: "contacts") // May need to change the value here
                 let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
                 self.db.addOperation(operation)
             }
@@ -245,7 +245,7 @@ class CloudKitController {
                 }
                 
                 self.db.addOperation(ETAOperation)
-                record.setValue(0, forKey: "userNewETA")
+                record.setValue(" ", forKey: "userNewETA") // May need to change the value here
                 let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
                 self.db.addOperation(operation)
             }
