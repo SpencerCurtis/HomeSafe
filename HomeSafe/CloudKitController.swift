@@ -128,32 +128,40 @@ class CloudKitController {
         fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
             if let otherUser = otherUser, uuid = otherUser.uuid, phoneNumber = currentUser.phoneNumber {
                 tempContactsArray.append(phoneNumber)
-                self.db.fetchRecordWithID(CKRecordID(recordName: uuid), completionHandler: { (record, error) in
-                    if let record = record {
-                        let recordArray = record.valueForKey("contacts") as? [String]
-                        print(recordArray)
-                        if let recordArray = recordArray {
-                            for contact in recordArray {
-                                tempContactsArray.append(contact)
-                            }
+                self.fetchContactsForUserUUID(uuid, completion: { (contactsRecord) in
+                    
+                    let contacts = contactsRecord.valueForKey("contacts") as? [String]
+                    tempContactsArray = contacts ?? []
+                    tempContactsArray.append(phoneNumber)
+                    
+                    contactsRecord.setObject(tempContactsArray, forKey: "contacts")
+                    let op = CKModifyRecordsOperation(recordsToSave: [contactsRecord], recordIDsToDelete: nil)
+                    op.perRecordCompletionBlock = { (record, error) in
+                        if error != nil {
+                            print(error?.localizedDescription)
+                        } else {
+                            print("Success")
                         }
-                        record.setValue(tempContactsArray, forKey: "contacts")
-                        let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-                        op.perRecordCompletionBlock = { (record, error) in
-                            if error != nil {
-                                print(error?.localizedDescription)
-                            } else {
-                                print("Success")
-                            }
-                        }
-                        self.db.addOperation(op)
                     }
+                    self.db.addOperation(op)
+                    
                 })
+                
             }
         }
     }
     
-    // DO I EVEN NEED THIS FUNCTION JEEZ WHAT AM I THINKING?
+    
+    func fetchContactsForUserUUID(uuid: String, completion: (contactsRecord: CKRecord) -> Void) {
+        let predicate = NSPredicate(format: "userUUID == %@", uuid)
+        let query = CKQuery(recordType: "contacts", predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.recordFetchedBlock = { (record) in
+            completion(contactsRecord: record)
+        }
+        self.db.addOperation(operation)
+    }
+    // DO I EVEN NEED THIS FUNCTION?
     
     func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String] ) {
         for phoneNumber in phoneNumbers {
@@ -273,7 +281,7 @@ class CloudKitController {
     
     func fetchETAAndSubscribe(phoneNumber: String) {
         let predicate = NSPredicate(format: "userPhoneNumber = %@", phoneNumber)
-
+        
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let op = CKQueryOperation(query: query)
         op.recordFetchedBlock = { (record) in
@@ -286,10 +294,10 @@ class CloudKitController {
             let recordID = record.recordID.recordName
             let eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: userName, id: id, recordID: recordID)
             
-            self.ETASubscriptions(eta, completion: { 
+            self.ETASubscriptions(eta, completion: {
                 print("You have been successfully subscribed to the ETA")
             })
-    
+            
         }
     }
     
