@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "485972679.471576"
+            timestampString = "486057472.476209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "485972679.471576"
+            timestampString = "486057472.476209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "loadETAForUser(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>

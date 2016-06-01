@@ -48,6 +48,7 @@ class SelectContactTableViewController: UITableViewController{
     
         override func viewDidLoad() {
             super.viewDidLoad()
+            self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.286, green: 0.749, blue: 0.063, alpha: 1.00)
             self.tableView.allowsMultipleSelection = true
             configureSearchController()
     
