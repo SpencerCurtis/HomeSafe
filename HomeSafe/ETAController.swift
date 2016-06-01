@@ -83,7 +83,7 @@ class ETAController {
             record.setValue(true, forKey: "inDanger")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             self.db.addOperation(operation)
-            self.resetChangedFields(eta)
+//            self.resetChangedFields(eta)
         }
         db.addOperation(operation)
         eta.inDanger = true

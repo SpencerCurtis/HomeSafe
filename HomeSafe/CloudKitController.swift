@@ -17,13 +17,12 @@ class CloudKitController {
     
     let db = CKContainer.defaultContainer().publicCloudDatabase
     
-    var tempContactsArray: [String] = []
     
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
         let operation = CKQueryOperation(query: query)
-        db.addOperation(operation)
+        
         operation.recordFetchedBlock = { (record) in
             let name = record.valueForKey("name") as? String
             let phoneNum = record.valueForKey("phoneNum") as? String
@@ -37,6 +36,7 @@ class CloudKitController {
                 
             }
         }
+        db.addOperation(operation)
     }
     
     // This should be implemented as soon as an account (user) is made on the signup screen. It will set-up a subscription to check if any other user has added them as a contact (potential watcher)
@@ -44,6 +44,8 @@ class CloudKitController {
     func subscribeToUsersAddingCurrentUserToContactList(currentUser: CurrentUser, completion: () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
+            //            let predicate2 = NSPredicate(format: "contacts != %@", [])
+            //            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
             let subscription = CKSubscription(recordType: "contacts", predicate: predicate, options: .FiresOnRecordUpdate)
             
             let info = CKNotificationInfo()
@@ -106,6 +108,9 @@ class CloudKitController {
                             notification.alertTitle = "You have been added as a contact"
                             notification.fireDate = NSDate()
                             UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                            
+                            let alert = NotificationController.sharedController.simpleAlert("\(user.name) has added you as a contact", message: "")
+                            
                         }
                         
                     })
@@ -119,19 +124,29 @@ class CloudKitController {
     // Call this function if they want to add the contact back.
     
     func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String) {
+        var tempContactsArray: [String] = []
         fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
             if let otherUser = otherUser, uuid = otherUser.uuid, phoneNumber = currentUser.phoneNumber {
-                self.tempContactsArray.append(phoneNumber)
+                tempContactsArray.append(phoneNumber)
                 self.db.fetchRecordWithID(CKRecordID(recordName: uuid), completionHandler: { (record, error) in
                     if let record = record {
-                        record.setValue(self.tempContactsArray, forKey: "contacts")
-                        self.db.saveRecord(record, completionHandler: { (record, error) in
+                        let recordArray = record.valueForKey("contacts") as? [String]
+                        print(recordArray)
+                        if let recordArray = recordArray {
+                            for contact in recordArray {
+                                tempContactsArray.append(contact)
+                            }
+                        }
+                        record.setValue(tempContactsArray, forKey: "contacts")
+                        let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+                        op.perRecordCompletionBlock = { (record, error) in
                             if error != nil {
                                 print(error?.localizedDescription)
                             } else {
                                 print("Success")
                             }
-                        })
+                        }
+                        self.db.addOperation(op)
                     }
                 })
             }
@@ -140,9 +155,9 @@ class CloudKitController {
     
     // DO I EVEN NEED THIS FUNCTION JEEZ WHAT AM I THINKING?
     
-    func addUsersToContactList(currentUser: CurrentUser, users: [User] ) {
-        for user in users {
-            self.fetchUserForPhoneNumber(user.phoneNumber!, completion: { (otherUser) in
+    func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String] ) {
+        for phoneNumber in phoneNumbers {
+            self.fetchUserForPhoneNumber(phoneNumber, completion: { (otherUser) in
                 if let otherUser = otherUser {
                     let predicate = NSPredicate(format: "uuid = %@", otherUser.uuid!)
                     let query = CKQuery(recordType: "contacts", predicate: predicate)
@@ -193,7 +208,7 @@ class CloudKitController {
         }
     }
     
-    func checkForNewNotifications(currentUser: CurrentUser) {
+    func checkForNewNotifications(currentUser: CurrentUser, completion: () -> Void) {
         let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
         let query = CKQuery(recordType: "notifications", predicate: predicate)
         let operation = CKQueryOperation(query: query)
@@ -218,6 +233,7 @@ class CloudKitController {
                     }
                     
                     NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForContacts")
+                    completion()
                 }
                 
                 self.db.addOperation(contactsOperation)
@@ -242,6 +258,8 @@ class CloudKitController {
                     }
                     
                     NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForETA")
+                    completion()
+                    
                 }
                 
                 self.db.addOperation(ETAOperation)
@@ -253,25 +271,56 @@ class CloudKitController {
         }
     }
     
+    func fetchETAAndSubscribe(phoneNumber: String) {
+        let predicate = NSPredicate(format: "userPhoneNumber = %@", phoneNumber)
+
+        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        let op = CKQueryOperation(query: query)
+        op.recordFetchedBlock = { (record) in
+            
+            let etaTime = record.valueForKey("ETA") as! NSDate
+            let latitude = record.valueForKey("latitude") as! Double
+            let longitude = record.valueForKey("longitude") as! Double
+            let userName = record.valueForKey("name") as! String
+            let id = record.valueForKey("id") as! String
+            let recordID = record.recordID.recordName
+            let eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: userName, id: id, recordID: recordID)
+            
+            self.ETASubscriptions(eta, completion: { 
+                print("You have been successfully subscribed to the ETA")
+            })
+    
+        }
+    }
     
     func notifySelectedUsersOfNewETA(users: [User], currentUser: CurrentUser) {
         for user in users {
-            if let uuid = user.uuid, phoneNumber = currentUser.phoneNumber {
-                let predicate = NSPredicate(format: "uuid = %@", uuid)
-                let query = CKQuery(recordType: "userNewETA", predicate: predicate)
-                let operation = CKQueryOperation(query: query)
-                operation.recordFetchedBlock = { (record) in
-                    record.setValue(phoneNumber, forKey: "newETA")
-                    self.db.saveRecord(record, completionHandler: { (record, error) in
-                        if error != nil {
-                            print(error?.localizedDescription)
-                        } else {
-                            print("\(user.name!) has been notified successfully")
+            fetchUserForPhoneNumber(user.phoneNumber!, completion: { (otherUser) in
+                if let uuid = otherUser!.uuid, phoneNumber = currentUser.phoneNumber {
+                    let predicate = NSPredicate(format: "userUUID = %@", uuid)
+                    let query = CKQuery(recordType: "userNewETA", predicate: predicate)
+                    let operation = CKQueryOperation(query: query)
+                    operation.recordFetchedBlock = { (record) in
+                        var phoneNumbers = record.valueForKey("newETA") as? [String] ?? []
+                        print(phoneNumbers)
+                        phoneNumbers.append(phoneNumber)
+                        print(phoneNumbers)
+                        record.setValue(phoneNumbers, forKey: "newETA")
+                        print(record)
+                        let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+                        op.perRecordCompletionBlock = { (record, error) in
+                            if error != nil {
+                                print(error?.localizedDescription)
+                            } else {
+                                print("Successfully sent to \(user.name!)!")
+                            }
                         }
-                    })
+                        self.db.addOperation(op)
+                    }
+                    self.db.addOperation(operation)
                 }
-                db.addOperation(operation)
-            }
+                
+            })
         }
     }
     

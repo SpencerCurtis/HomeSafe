@@ -10,6 +10,8 @@ import UIKit
 import Contacts
 import CoreLocation
 
+// THIS IS THE FIRST VIEW CONTROLLER PRESENTED WHEN OPENING THE APP.
+
 class ContactTableViewController: UITableViewController, PassContactsDelegate, PassSearchedContactsDelegate {
     //*********************//
     //PROTOCOLS FUNCTION
@@ -33,6 +35,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        CloudKitController.sharedController.checkForNewContacts()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
         if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -46,7 +49,6 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         super.viewWillAppear(animated)
         ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) { 
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                UserController.sharedController.selectedArray = []
                 self.tableView.reloadData()
             })
         }

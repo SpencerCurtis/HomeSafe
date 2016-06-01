@@ -55,11 +55,15 @@ class UserController {
         //        operation.modifyRecordsCompletionBlock = { (savedRecords, deletedRecordIDs, error) in
         //            if error != nil {
         //                print(error?.localizedDescription)
+        ////                completion()
         //            } else {
         //                print("Successfully saved all records")
         //                completion()
         //            }
         //            publicDatabase.addOperation(operation)
+        //        }
+        
+        
         publicDatabase.saveRecord(record) { (record, error) in
             if error != nil {
                 print(error?.localizedDescription)
@@ -91,6 +95,7 @@ class UserController {
     }
     
     
+    
     func saveToPersistentStorage() {
         
         do {
@@ -99,9 +104,8 @@ class UserController {
             print("Error saving Managed Object Context. Items not saved.")
         }
     }
+    
 }
-
-
 
 
 

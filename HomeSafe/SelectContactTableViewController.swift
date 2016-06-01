@@ -8,6 +8,7 @@
 
 import UIKit
 import Contacts
+import CloudKit
 
 protocol PassContactsDelegate {
     func userDidSelectContacts(contacts: [CNContact])
@@ -23,36 +24,37 @@ class SelectContactTableViewController: UITableViewController{
     var contactStore = CNContactStore()
     var favoriteContacts: [CNContact] = []
     var selectedFavoriteContactsArray: [CNContact] = []
-  
-        var searchController: UISearchController!
+    var tempContacts: [User] = []
     
-        func configureSearchController() {
-            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
-                
-                searchController = UISearchController(searchResultsController: vc)
-                vc.searchController = searchController
-                vc.results = userContacts
-                searchController.dimsBackgroundDuringPresentation = false
-                searchController.searchBar.placeholder = "Search For Guardians"
-                searchController.searchBar.sizeToFit()
-                
-                tableView.tableHeaderView = searchController.searchBar
-                
-            }
+    var searchController: UISearchController!
+    
+    func configureSearchController() {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
             
+            searchController = UISearchController(searchResultsController: vc)
+            vc.searchController = searchController
+            vc.results = userContacts
+            searchController.dimsBackgroundDuringPresentation = false
+            searchController.searchBar.placeholder = "Search For Guardians"
+            searchController.searchBar.sizeToFit()
+            
+            tableView.tableHeaderView = searchController.searchBar
             
         }
+        
+        
+    }
     
-
-        static let sharedInstance = SelectContactTableViewController()
     
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.286, green: 0.749, blue: 0.063, alpha: 1.00)
-            self.tableView.allowsMultipleSelection = true
-            configureSearchController()
+    static let sharedInstance = SelectContactTableViewController()
     
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.286, green: 0.749, blue: 0.063, alpha: 1.00)
+        self.tableView.allowsMultipleSelection = true
+        configureSearchController()
+        
+    }
     
     //*****************************//
     // CALLS DELEGATE AND DISMISSES MODAL VIEW
@@ -60,11 +62,45 @@ class SelectContactTableViewController: UITableViewController{
     @IBAction func done(sender: AnyObject) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
-//        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
-//            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
-//        }
+        if let currentUser = UserController.sharedController.currentUser {
+            contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
+                
+                //                UserController.sharedController.selectedArray = []
+                for phoneNumber in phoneNumbers {
+                CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(currentUser, phoneNumber: phoneNumber)
+                }
+            })
+            
+        }
+        //        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
+        //            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
+        //        }
         
     }
+    
+    func plainPhoneNumber(string: String) -> String {
+        let filter = NSCharacterSet.alphanumericCharacterSet()
+        let result = String(string.utf16.filter { filter.characterIsMember($0) }.map { Character(UnicodeScalar($0)) })
+        
+        return result
+    }
+    
+    
+    func contactsToPhoneNumber(contacts: [CNContact], completion: (phoneNumbers: [String]) -> Void) {
+        var phoneNumbers: [String] = []
+        for contact in contacts {
+            let value = contact.phoneNumbers.first?.value as! CNPhoneNumber
+            let string = value.stringValue
+            let phoneNumber = plainPhoneNumber(string)
+            phoneNumbers.append(phoneNumber)
+            
+        }
+        completion(phoneNumbers: phoneNumbers)
+        
+    }
+    
+    
+    
     //*****************************//
     // RELOADS DATA IN TABLEVIEW.
     //*****************************//
