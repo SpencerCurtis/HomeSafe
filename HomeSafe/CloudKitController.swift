@@ -322,24 +322,44 @@ class CloudKitController {
     //    }
     
     func fetchETAAndSubscribe(phoneNumber: String) {
-        let predicate = NSPredicate(format: "userPhoneNumber = %@", phoneNumber)
         
-        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
+            if let otherUser = otherUser {
+                let currentETAID = otherUser.valueForKey("currentETAID") as! String
+                let predicate = NSPredicate(format: "id = %@", currentETAID)
+                
+                let query = CKQuery(recordType: "ETA", predicate: predicate)
+                let op = CKQueryOperation(query: query)
+                op.recordFetchedBlock = { (record) in
+                    
+                    let etaTime = record.valueForKey("ETA") as! NSDate
+                    let latitude = record.valueForKey("latitude") as! Double
+                    let longitude = record.valueForKey("longitude") as! Double
+                    let userName = record.valueForKey("name") as! String
+                    let id = record.valueForKey("id") as! String
+                    let recordID = record.recordID.recordName
+                    let eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: userName, id: id, recordID: recordID)
+                    
+                    self.ETASubscriptions(eta, completion: {
+                        print("You have been successfully subscribed to the ETA")
+                    })
+                    
+                }
+                self.db.addOperation(op)
+            }
+        }
+        
+    }
+    
+    func setCurrentETA(currentUser: CurrentUser, etaID: String) {
+        let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
+        let query = CKQuery(recordType: "User", predicate: predicate)
         let op = CKQueryOperation(query: query)
         op.recordFetchedBlock = { (record) in
+            record.setValue(etaID, forKey: "currentETAID")
             
-            let etaTime = record.valueForKey("ETA") as! NSDate
-            let latitude = record.valueForKey("latitude") as! Double
-            let longitude = record.valueForKey("longitude") as! Double
-            let userName = record.valueForKey("name") as! String
-            let id = record.valueForKey("id") as! String
-            let recordID = record.recordID.recordName
-            let eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: userName, id: id, recordID: recordID)
-            
-            self.ETASubscriptions(eta, completion: {
-                print("You have been successfully subscribed to the ETA")
-            })
-            
+            let saveOp = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+            self.db.addOperation(saveOp)
         }
         db.addOperation(op)
     }

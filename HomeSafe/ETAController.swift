@@ -56,6 +56,7 @@ class ETAController {
                     let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: recordID, recordID: recordID)
                     self.currentETA = eta
                     print(self.currentETA)
+                    CloudKitController.sharedController.setCurrentETA(currentUser, etaID: eta.recordID!)
                     self.saveToPersistentStorage()
                     CloudKitController.sharedController.notifySelectedUsersOfNewETA(ContactsController.sharedController.selectedGuardians, currentUser: currentUser)
                 } else {
