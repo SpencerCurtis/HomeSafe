@@ -53,10 +53,10 @@ class ETAController {
             
             publicDatabate.saveRecord(record) { (record, error) in
                 if let record = record {
-                    let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: uuid, recordID: String(record.recordID))
+                    let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: recordID, recordID: recordID)
                     self.currentETA = eta
+                    print(self.currentETA)
                     self.saveToPersistentStorage()
-                    //                CloudKitController.sharedController.setupSubscriptionForETA(eta)
                     CloudKitController.sharedController.notifySelectedUsersOfNewETA(ContactsController.sharedController.selectedGuardians, currentUser: currentUser)
                 } else {
                     print(error?.localizedDescription)
@@ -99,7 +99,7 @@ class ETAController {
             record.setValue(true, forKey: "canceledETA")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             self.db.addOperation(operation)
-            self.resetChangedFields(eta)
+//            self.resetChangedFields(eta)
 
         }
         db.addOperation(operation)
