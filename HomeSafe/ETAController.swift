@@ -45,7 +45,7 @@ class ETAController {
             record.setValue(false, forKey: "homeSafe")
             record.setValue(false, forKey: "inDanger")
             record.setValue(false, forKey: "canceledETA")
-            record.setValue(uuid, forKey: "id")
+            record.setValue(recordID, forKey: "id")
             record.setValue(phoneNumber, forKey: "userPhoneNumber")
             
             

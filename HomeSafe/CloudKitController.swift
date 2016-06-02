@@ -232,7 +232,7 @@ class CloudKitController {
                             print(otherUser.phoneNumber!) // Remove later.
                             print(otherUser.name) // Remove later.
                             NSUserDefaults.standardUserDefaults().setValue(phoneNumberArray, forKey: "phoneNumberArrayForETA")
-                            record.setValue([""], forKey: "newETA") // May need to change the value here
+                            record.setValue([], forKey: "newETA") // May need to change the value here
                             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
                             operation.perRecordCompletionBlock = { (record, error) in
                                 if error != nil {
@@ -450,7 +450,7 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "canceledETA = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: [.FiresOnce, .FiresOnRecordUpdate])
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["canceledETA"]
@@ -473,7 +473,7 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "homeSafe = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: [.FiresOnce, .FiresOnRecordUpdate])
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["homeSafe"]
@@ -496,7 +496,7 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "inDanger = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: [.FiresOnce, .FiresOnRecordUpdate])
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["inDanger"]
