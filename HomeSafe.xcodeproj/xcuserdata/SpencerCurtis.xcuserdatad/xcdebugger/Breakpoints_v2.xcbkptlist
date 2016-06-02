@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "loadETAForUser(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/ETAController.swift"
-            timestampString = "486497215.348835"
+            timestampString = "486589498.902385"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "inDanger(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/ETAController.swift"
-            timestampString = "485902360.294406"
+            timestampString = "486589498.902385"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "inDanger(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -140,7 +140,7 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/ContactsController.swift"
-                  timestampString = "486514115.081203"
+                  timestampString = "486590374.505574"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "20"
@@ -155,7 +155,7 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/ContactsController.swift"
-                  timestampString = "486514115.08129"
+                  timestampString = "486590374.50567"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "20"
@@ -170,7 +170,7 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/ContactsController.swift"
-                  timestampString = "486514115.081365"
+                  timestampString = "486590374.505743"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "20"
@@ -187,11 +187,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
             <Locations>
@@ -203,11 +203,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "486514115.082123"
+                  timestampString = "486590374.506541"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "319"
-                  endingLineNumber = "319"
+                  startingLineNumber = "362"
+                  endingLineNumber = "362"
                   offsetFromSymbolStart = "1308">
                </Location>
                <Location
@@ -218,11 +218,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "486514115.082324"
+                  timestampString = "486590374.506632"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "320"
-                  endingLineNumber = "320"
+                  startingLineNumber = "363"
+                  endingLineNumber = "363"
                   offsetFromSymbolStart = "28">
                </Location>
             </Locations>
@@ -235,11 +235,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -251,11 +251,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -267,11 +267,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -283,11 +283,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -299,11 +299,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
             <Locations>
@@ -315,11 +315,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "486514115.084855"
+                  timestampString = "486590374.508867"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "319"
-                  endingLineNumber = "319"
+                  startingLineNumber = "362"
+                  endingLineNumber = "362"
                   offsetFromSymbolStart = "1308">
                </Location>
                <Location
@@ -330,11 +330,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "486514115.084947"
+                  timestampString = "486590374.508953"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "320"
-                  endingLineNumber = "320"
+                  startingLineNumber = "363"
+                  endingLineNumber = "363"
                   offsetFromSymbolStart = "28">
                </Location>
             </Locations>
@@ -347,11 +347,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -363,11 +363,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486514068.97246"
+            timestampString = "486589923.395237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
             landmarkName = "notifySelectedUsersOfNewETA(_:currentUser:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -474,22 +474,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HomeSafe/AppDelegate.swift"
-            timestampString = "486511633.407092"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "application(_:didReceiveRemoteNotification:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
             timestampString = "486514068.97246"
             startingColumnNumber = "9223372036854775807"
@@ -539,12 +523,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486586681.583726"
+            timestampString = "486588558.648719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "checkForNewETA(_:completion:)"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
+            landmarkName = "fetchETAAndSubscribe(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -555,11 +539,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "486586682.58322"
+            timestampString = "486590008.717826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "fetchETAAndSubscribe(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.CloudKitController.(fetchETAAndSubscribe (Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
+                  timestampString = "486590374.51417"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "339"
+                  endingLineNumber = "339"
+                  offsetFromSymbolStart = "1704">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.CloudKitController.(fetchETAAndSubscribe (Swift.String) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
+                  timestampString = "486590374.514261"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "340"
+                  endingLineNumber = "340"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/CloudKitController.swift"
+            timestampString = "486590063.533538"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "checkForNewETA(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>

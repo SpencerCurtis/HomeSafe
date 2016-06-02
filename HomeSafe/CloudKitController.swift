@@ -221,297 +221,308 @@ class CloudKitController {
         let ETAQuery = CKQuery(recordType: "userNewETA", predicate: ETAPredicate)
         let ETAOperation = CKQueryOperation(query: ETAQuery)
         ETAOperation.recordFetchedBlock = { (record) in
+            print(record)
             var phoneNumberArray: [String] = []
-            let contactsArray = record.valueForKey("contacts") as! [String]
-            for contact in contactsArray {
-                self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
-                    if let otherUser = otherUser {
-                        phoneNumberArray.append(otherUser.phoneNumber!)
-                        print(otherUser.phoneNumber!) // Remove later.
-                        print(otherUser.name) // Remove later.
-                    }
-                })
-                
-                
-                NSUserDefaults.standardUserDefaults().setValue(phoneNumberArray, forKey: "phoneNumberArrayForETA")
-                completion()
-                
-            }
-            
-            self.db.addOperation(ETAOperation)
-            record.setValue("", forKey: "userNewETA") // May need to change the value here
-            let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-            self.db.addOperation(operation)
-        }
-    }
-    
-        
-        
-        
-        //    func checkForNewNotifications(currentUser: CurrentUser, completion: () -> Void) {
-        //        let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
-        //        let query = CKQuery(recordType: "notifications", predicate: predicate)
-        //        let operation = CKQueryOperation(query: query)
-        //
-        //        operation.recordFetchedBlock = { (record) in
-        //            let contacts = record.valueForKey("contacts") as! Int
-        //            let userNewETA = record.valueForKeyPath("userNewETA") as! Int
-        //            if contacts == 1 {
-        //
-        //                let contactsPredicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
-        //                let contactsQuery = CKQuery(recordType: "contacts", predicate: contactsPredicate)
-        //                let contactsOperation = CKQueryOperation(query: contactsQuery)
-        //                contactsOperation.recordFetchedBlock = { (record) in
-        //                    var nameArray: [String] = []
-        //                    let contactsArray = record.valueForKey("contacts") as! [String]
-        //                    for contact in contactsArray {
-        //                        self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
-        //                            if let otherUser = otherUser {
-        //                                nameArray.append(otherUser.name!)
-        //                            }
-        //                        })
-        //                    }
-        //
-        //                    NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForContacts")
-        //                    completion()
-        //                }
-        //
-        //                self.db.addOperation(contactsOperation)
-        //                record.setValue(" ", forKey: "contacts") // May need to change the value here
-        //                let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-        //                self.db.addOperation(operation)
-        //            }
-        //
-        //            if userNewETA == 1 {
-        //                let ETAPredicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
-        //                let ETAQuery = CKQuery(recordType: "userNewETA", predicate: ETAPredicate)
-        //                let ETAOperation = CKQueryOperation(query: ETAQuery)
-        //                ETAOperation.recordFetchedBlock = { (record) in
-        //                    var nameArray: [String] = []
-        //                    let contactsArray = record.valueForKey("contacts") as! [String]
-        //                    for contact in contactsArray {
-        //                        self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
-        //                            if let otherUser = otherUser {
-        //                                nameArray.append(otherUser.name!)
-        //                            }
-        //                        })
-        //                    }
-        //
-        //                    NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForETA")
-        //                    completion()
-        //
-        //                }
-        //
-        //                self.db.addOperation(ETAOperation)
-        //                record.setValue(" ", forKey: "userNewETA") // May need to change the value here
-        //                let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-        //                self.db.addOperation(operation)
-        //            }
-        //
-        //        }
-        //    }
-        
-        func fetchETAAndSubscribe(phoneNumber: String) {
-            let predicate = NSPredicate(format: "userPhoneNumber = %@", phoneNumber)
-            
-            let query = CKQuery(recordType: "ETA", predicate: predicate)
-            let op = CKQueryOperation(query: query)
-            op.recordFetchedBlock = { (record) in
-                
-                let etaTime = record.valueForKey("ETA") as! NSDate
-                let latitude = record.valueForKey("latitude") as! Double
-                let longitude = record.valueForKey("longitude") as! Double
-                let userName = record.valueForKey("name") as! String
-                let id = record.valueForKey("id") as! String
-                let recordID = record.recordID.recordName
-                let eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: userName, id: id, recordID: recordID)
-                
-                self.ETASubscriptions(eta, completion: {
-                    print("You have been successfully subscribed to the ETA")
-                })
-                
-            }
-        }
-        
-        func notifySelectedUsersOfNewETA(users: [User], currentUser: CurrentUser) {
-            for user in users {
-                fetchUserForPhoneNumber(user.phoneNumber!, completion: { (otherUser) in
-                    if let uuid = otherUser!.uuid, phoneNumber = currentUser.phoneNumber {
-                        let predicate = NSPredicate(format: "userUUID = %@", uuid)
-                        let query = CKQuery(recordType: "userNewETA", predicate: predicate)
-                        let operation = CKQueryOperation(query: query)
-                        operation.recordFetchedBlock = { (record) in
-                            var phoneNumbers = record.valueForKey("newETA") as? [String] ?? []
-                            print(phoneNumbers)
-                            phoneNumbers.append(phoneNumber)
-                            print(phoneNumbers)
-                            record.setValue(phoneNumbers, forKey: "newETA")
-                            print(record)
-                            let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-                            op.perRecordCompletionBlock = { (record, error) in
+            let contactsArray = record.valueForKey("newETA") as? [String]
+            if let contactsArray = contactsArray {
+                for contact in contactsArray {
+                    self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
+                        if let otherUser = otherUser {
+                            phoneNumberArray.append(otherUser.phoneNumber!)
+                            print(otherUser.phoneNumber!) // Remove later.
+                            print(otherUser.name) // Remove later.
+                            NSUserDefaults.standardUserDefaults().setValue(phoneNumberArray, forKey: "phoneNumberArrayForETA")
+                            record.setValue([""], forKey: "newETA") // May need to change the value here
+                            let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+                            operation.perRecordCompletionBlock = { (record, error) in
                                 if error != nil {
                                     print(error?.localizedDescription)
                                 } else {
-                                    print("Successfully sent to \(user.name!)!")
+                                    print("Record's newETA value has been changed back to nothing.")
+                                    completion()
                                 }
                             }
-                            self.db.addOperation(op)
-                        }
-                        self.db.addOperation(operation)
-                    }
-                    
-                })
-            }
-        }
-        
-        
-        func loadETAForUser(user: User, completion: (eta: EstimatedTimeOfArrival) -> Void) {
-            let predicate = NSPredicate(format: "id = %@", user.uuid!)
-            let query = CKQuery(recordType: "ETA", predicate: predicate)
-            var ETA: EstimatedTimeOfArrival?
-            let operation = CKQueryOperation(query: query)
-            
-            operation.recordFetchedBlock = { (record) in
-                let eta = record["ETA"] as! NSDate
-                let latitude = record["latitude"] as! Double
-                let longitude = record["longitude"] as! Double
-                let name = record["name"] as! String
-                let id = record["id"] as! String
-                
-                
-                ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id, recordID: String(record.recordID))
-            }
-            operation.queryCompletionBlock = { (cursor, error) in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    if error == nil {
-                        if let eta = ETA {
-                            print(eta.userName)
-                            ETAController.sharedController.saveToPersistentStorage()
-                            completion(eta: eta)
-                        }
-                    }
-                })
-            }
-            CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
-        }
-        
-        func setupSubscriptionForETA(eta: EstimatedTimeOfArrival) {
-            
-            let predicate = NSPredicate(format: "id = %@", eta.id!)
-            let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordUpdate)
-            
-            let query = CKQuery(recordType: "ETA", predicate: predicate)
-            let operation = CKQueryOperation(query: query)
-            operation.recordFetchedBlock = { (record) in
-                
-                
-                let info = CKNotificationInfo()
-                info.desiredKeys = ["canceledETA", "homeSafe", "inDanger"]
-                info.shouldSendContentAvailable = true
-                let formatter = NSDateFormatter()
-                formatter.timeStyle = .ShortStyle
-                if let etaDate = record.valueForKey("ETA") as? NSDate {
-                    let etaString = formatter.stringFromDate(etaDate)
-                    
-                    info.alertBody = "Your friend will be home around \(etaString)"
-                    
-                    subscription.notificationInfo = info
-                    NSUserDefaults.standardUserDefaults().setValue(subscription.subscriptionID, forKey: "ownSubscription")
-                    
-                    self.db.saveSubscription(subscription) { (result, error) in
-                        if error != nil {
-                            print(error?.localizedDescription)
-                        } else {
-                            self.ETASubscriptions(eta, completion: {
-                                print("Successfully subscribed to \(eta.userName)'s ETA")
-                                
-                            })
+                            self.db.addOperation(operation)
+                            
                             
                         }
+                    })
+                    
+                    
+                }
+            }
+        }
+        self.db.addOperation(ETAOperation)
+    }
+    
+    
+    
+    
+    //    func checkForNewNotifications(currentUser: CurrentUser, completion: () -> Void) {
+    //        let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
+    //        let query = CKQuery(recordType: "notifications", predicate: predicate)
+    //        let operation = CKQueryOperation(query: query)
+    //
+    //        operation.recordFetchedBlock = { (record) in
+    //            let contacts = record.valueForKey("contacts") as! Int
+    //            let userNewETA = record.valueForKeyPath("userNewETA") as! Int
+    //            if contacts == 1 {
+    //
+    //                let contactsPredicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
+    //                let contactsQuery = CKQuery(recordType: "contacts", predicate: contactsPredicate)
+    //                let contactsOperation = CKQueryOperation(query: contactsQuery)
+    //                contactsOperation.recordFetchedBlock = { (record) in
+    //                    var nameArray: [String] = []
+    //                    let contactsArray = record.valueForKey("contacts") as! [String]
+    //                    for contact in contactsArray {
+    //                        self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
+    //                            if let otherUser = otherUser {
+    //                                nameArray.append(otherUser.name!)
+    //                            }
+    //                        })
+    //                    }
+    //
+    //                    NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForContacts")
+    //                    completion()
+    //                }
+    //
+    //                self.db.addOperation(contactsOperation)
+    //                record.setValue(" ", forKey: "contacts") // May need to change the value here
+    //                let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+    //                self.db.addOperation(operation)
+    //            }
+    //
+    //            if userNewETA == 1 {
+    //                let ETAPredicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
+    //                let ETAQuery = CKQuery(recordType: "userNewETA", predicate: ETAPredicate)
+    //                let ETAOperation = CKQueryOperation(query: ETAQuery)
+    //                ETAOperation.recordFetchedBlock = { (record) in
+    //                    var nameArray: [String] = []
+    //                    let contactsArray = record.valueForKey("contacts") as! [String]
+    //                    for contact in contactsArray {
+    //                        self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
+    //                            if let otherUser = otherUser {
+    //                                nameArray.append(otherUser.name!)
+    //                            }
+    //                        })
+    //                    }
+    //
+    //                    NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForETA")
+    //                    completion()
+    //
+    //                }
+    //
+    //                self.db.addOperation(ETAOperation)
+    //                record.setValue(" ", forKey: "userNewETA") // May need to change the value here
+    //                let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+    //                self.db.addOperation(operation)
+    //            }
+    //
+    //        }
+    //    }
+    
+    func fetchETAAndSubscribe(phoneNumber: String) {
+        let predicate = NSPredicate(format: "userPhoneNumber = %@", phoneNumber)
+        
+        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        let op = CKQueryOperation(query: query)
+        op.recordFetchedBlock = { (record) in
+            
+            let etaTime = record.valueForKey("ETA") as! NSDate
+            let latitude = record.valueForKey("latitude") as! Double
+            let longitude = record.valueForKey("longitude") as! Double
+            let userName = record.valueForKey("name") as! String
+            let id = record.valueForKey("id") as! String
+            let recordID = record.recordID.recordName
+            let eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: userName, id: id, recordID: recordID)
+            
+            self.ETASubscriptions(eta, completion: {
+                print("You have been successfully subscribed to the ETA")
+            })
+            
+        }
+        db.addOperation(op)
+    }
+    
+    func notifySelectedUsersOfNewETA(users: [User], currentUser: CurrentUser) {
+        for user in users {
+            fetchUserForPhoneNumber(user.phoneNumber!, completion: { (otherUser) in
+                if let uuid = otherUser!.uuid, phoneNumber = currentUser.phoneNumber {
+                    let predicate = NSPredicate(format: "userUUID = %@", uuid)
+                    let query = CKQuery(recordType: "userNewETA", predicate: predicate)
+                    let operation = CKQueryOperation(query: query)
+                    operation.recordFetchedBlock = { (record) in
+                        var phoneNumbers = record.valueForKey("newETA") as? [String] ?? []
+                        print(phoneNumbers)
+                        phoneNumbers.append(phoneNumber)
+                        print(phoneNumbers)
+                        record.setValue(phoneNumbers, forKey: "newETA")
+                        print(record)
+                        let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+                        op.perRecordCompletionBlock = { (record, error) in
+                            if error != nil {
+                                print(error?.localizedDescription)
+                            } else {
+                                print("Successfully sent to \(user.name!)!")
+                            }
+                        }
+                        self.db.addOperation(op)
+                    }
+                    self.db.addOperation(operation)
+                }
+                
+            })
+        }
+    }
+    
+    
+    func loadETAForUser(user: User, completion: (eta: EstimatedTimeOfArrival) -> Void) {
+        let predicate = NSPredicate(format: "id = %@", user.uuid!)
+        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        var ETA: EstimatedTimeOfArrival?
+        let operation = CKQueryOperation(query: query)
+        
+        operation.recordFetchedBlock = { (record) in
+            let eta = record["ETA"] as! NSDate
+            let latitude = record["latitude"] as! Double
+            let longitude = record["longitude"] as! Double
+            let name = record["name"] as! String
+            let id = record["id"] as! String
+            
+            
+            ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id, recordID: String(record.recordID))
+        }
+        operation.queryCompletionBlock = { (cursor, error) in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if error == nil {
+                    if let eta = ETA {
+                        print(eta.userName)
+                        ETAController.sharedController.saveToPersistentStorage()
+                        completion(eta: eta)
+                    }
+                }
+            })
+        }
+        CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
+    }
+    
+    func setupSubscriptionForETA(eta: EstimatedTimeOfArrival) {
+        
+        let predicate = NSPredicate(format: "id = %@", eta.id!)
+        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordUpdate)
+        
+        let query = CKQuery(recordType: "ETA", predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.recordFetchedBlock = { (record) in
+            
+            
+            let info = CKNotificationInfo()
+            info.desiredKeys = ["canceledETA", "homeSafe", "inDanger"]
+            info.shouldSendContentAvailable = true
+            let formatter = NSDateFormatter()
+            formatter.timeStyle = .ShortStyle
+            if let etaDate = record.valueForKey("ETA") as? NSDate {
+                let etaString = formatter.stringFromDate(etaDate)
+                
+                info.alertBody = "Your friend will be home around \(etaString)"
+                
+                subscription.notificationInfo = info
+                NSUserDefaults.standardUserDefaults().setValue(subscription.subscriptionID, forKey: "ownSubscription")
+                
+                self.db.saveSubscription(subscription) { (result, error) in
+                    if error != nil {
+                        print(error?.localizedDescription)
+                    } else {
+                        self.ETASubscriptions(eta, completion: {
+                            print("Successfully subscribed to \(eta.userName)'s ETA")
+                            
+                        })
+                        
                     }
                 }
             }
-            db.addOperation(operation)
         }
+        db.addOperation(operation)
+    }
+    
+    func subscribeToCanceledETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
+        let predicate = NSPredicate(format: "id = %@", eta.id!)
+        let predicate2 = NSPredicate(format: "canceledETA = %d", 1)
+        let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        func subscribeToCanceledETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
-            let predicate = NSPredicate(format: "id = %@", eta.id!)
-            let predicate2 = NSPredicate(format: "canceledETA = %d", 1)
-            let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
-            
-            let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
-            
-            let info = CKNotificationInfo()
-            info.desiredKeys = ["canceledETA"]
-            info.alertBody = "\(eta.userName!) has canceled their ETA"
-            info.shouldSendContentAvailable = true
-            subscription.notificationInfo = info
-            db.saveSubscription(subscription) { (subscription, error) in
-                if error != nil {
-                    print(error?.localizedDescription)
-                    completion()
-                } else {
-                    print("Sucessfully subscribed to canceledETA changes")
-                    completion()
-                }
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
+        
+        let info = CKNotificationInfo()
+        info.desiredKeys = ["canceledETA"]
+        info.alertBody = "\(eta.userName!) has canceled their ETA"
+        info.shouldSendContentAvailable = true
+        subscription.notificationInfo = info
+        db.saveSubscription(subscription) { (subscription, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+                completion()
+            } else {
+                print("Sucessfully subscribed to canceledETA changes")
+                completion()
             }
         }
+    }
+    
+    func subscribeToHomeSafeETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
+        let predicate = NSPredicate(format: "id = %@", eta.id!)
+        let predicate2 = NSPredicate(format: "homeSafe = %d", 1)
+        let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        func subscribeToHomeSafeETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
-            let predicate = NSPredicate(format: "id = %@", eta.id!)
-            let predicate2 = NSPredicate(format: "homeSafe = %d", 1)
-            let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
-            
-            let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
-            
-            let info = CKNotificationInfo()
-            info.desiredKeys = ["homeSafe"]
-            info.alertBody = "\(eta.userName!) has arrived at their safe location."
-            info.shouldSendContentAvailable = true
-            subscription.notificationInfo = info
-            db.saveSubscription(subscription) { (subscription, error) in
-                if error != nil {
-                    print(error?.localizedDescription)
-                    completion()
-                } else {
-                    print("Sucessfully subscribed to homeSafe ETA changes")
-                    completion()
-                }
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
+        
+        let info = CKNotificationInfo()
+        info.desiredKeys = ["homeSafe"]
+        info.alertBody = "\(eta.userName!) has arrived at their safe location."
+        info.shouldSendContentAvailable = true
+        subscription.notificationInfo = info
+        db.saveSubscription(subscription) { (subscription, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+                completion()
+            } else {
+                print("Sucessfully subscribed to homeSafe ETA changes")
+                completion()
             }
         }
+    }
+    
+    func subscribeToInDangerETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
+        let predicate = NSPredicate(format: "id = %@", eta.id!)
+        let predicate2 = NSPredicate(format: "inDanger = %d", 1)
+        let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        func subscribeToInDangerETAChanges(eta: EstimatedTimeOfArrival, completion: () -> Void) {
-            let predicate = NSPredicate(format: "id = %@", eta.id!)
-            let predicate2 = NSPredicate(format: "inDanger = %d", 1)
-            let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
-            
-            let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
-            
-            let info = CKNotificationInfo()
-            info.desiredKeys = ["inDanger"]
-            info.alertBody = "\(eta.userName!) is in danger! Please make contact"
-            info.shouldSendContentAvailable = true
-            subscription.notificationInfo = info
-            db.saveSubscription(subscription) { (subscription, error) in
-                if error != nil {
-                    print(error?.localizedDescription)
-                    completion()
-                } else {
-                    print("Sucessfully subscribed to inDanger ETA changes")
-                    completion()
-                }
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnce)
+        
+        let info = CKNotificationInfo()
+        info.desiredKeys = ["inDanger"]
+        info.alertBody = "\(eta.userName!) is in danger! Please make contact"
+        info.shouldSendContentAvailable = true
+        subscription.notificationInfo = info
+        db.saveSubscription(subscription) { (subscription, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+                completion()
+            } else {
+                print("Sucessfully subscribed to inDanger ETA changes")
+                completion()
             }
         }
-        
-        func ETASubscriptions(eta: EstimatedTimeOfArrival, completion: () -> Void) {
-            subscribeToCanceledETAChanges(eta) {
-                self.subscribeToHomeSafeETAChanges(eta, completion: {
-                    self.subscribeToInDangerETAChanges(eta, completion: {
-                        completion()
-                    })
+    }
+    
+    func ETASubscriptions(eta: EstimatedTimeOfArrival, completion: () -> Void) {
+        subscribeToCanceledETAChanges(eta) {
+            self.subscribeToHomeSafeETAChanges(eta, completion: {
+                self.subscribeToInDangerETAChanges(eta, completion: {
+                    completion()
                 })
-            }
+            })
         }
-        
-        
+    }
+    
+    
 }

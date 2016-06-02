@@ -35,10 +35,9 @@ class ETAController {
     
     
     func createETA(ETATime: NSDate, latitude: Double, longitude: Double, name: String, canceledETA: Bool, inDanger: Bool) {
-        let uuid = NSUUID().UUIDString
-        let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: uuid))
-        if let currentUser = UserController.sharedController.currentUser, phoneNumber = currentUser.phoneNumber {
-            
+        let recordID = NSUUID().UUIDString
+        if let currentUser = UserController.sharedController.currentUser, phoneNumber = currentUser.phoneNumber, uuid = currentUser.uuid {
+            let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: recordID))
             record.setValue(ETATime, forKey: "ETA")
             record.setValue(latitude, forKey: "latitude")
             record.setValue(longitude, forKey: "longitude")
