@@ -1,18 +1,18 @@
  //
-//  ETAController.swift
-//  HomeSafe
-//
-//  Created by Spencer Curtis on 5/16/16.
-//  Copyright © 2016 Spencer Curtis. All rights reserved.
-//
-
-import Foundation
-import UIKit
-import CoreLocation
-import CloudKit
-import CoreData
-
-class ETAController {
+ //  ETAController.swift
+ //  HomeSafe
+ //
+ //  Created by Spencer Curtis on 5/16/16.
+ //  Copyright © 2016 Spencer Curtis. All rights reserved.
+ //
+ 
+ import Foundation
+ import UIKit
+ import CoreLocation
+ import CloudKit
+ import CoreData
+ 
+ class ETAController {
     
     static let sharedController = ETAController()
     
@@ -47,6 +47,8 @@ class ETAController {
             record.setValue(false, forKey: "canceledETA")
             record.setValue(recordID, forKey: "id")
             record.setValue(phoneNumber, forKey: "userPhoneNumber")
+            let contacts = ContactsController.sharedController.selectedGuardians
+            record.setValue(contacts, forKey: "followers")
             
             
             
@@ -83,7 +85,7 @@ class ETAController {
             record.setValue(true, forKey: "inDanger")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             self.db.addOperation(operation)
-//            self.resetChangedFields(eta)
+            //            self.resetChangedFields(eta)
         }
         db.addOperation(operation)
         eta.inDanger = true
@@ -100,8 +102,8 @@ class ETAController {
             record.setValue(true, forKey: "canceledETA")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             self.db.addOperation(operation)
-//            self.resetChangedFields(eta)
-
+            //            self.resetChangedFields(eta)
+            
         }
         db.addOperation(operation)
         eta.canceledETA = true
@@ -138,7 +140,7 @@ class ETAController {
         }
         db.addOperation(operation)
     }
-
+    
     
     func saveToPersistentStorage() {
         
@@ -151,4 +153,4 @@ class ETAController {
     
     
     
-}
+ }
