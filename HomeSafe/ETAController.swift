@@ -48,7 +48,18 @@
             record.setValue(recordID, forKey: "id")
             record.setValue(phoneNumber, forKey: "userPhoneNumber")
             let contacts = ContactsController.sharedController.selectedGuardians
-            record.setValue(contacts, forKey: "followers")
+            var followerPhoneNumbers: [String] = []
+            let group = dispatch_group_create()
+            let queue = dispatch_queue_create("contactQueue", nil)
+            for contact in contacts {
+                dispatch_group_enter(group)
+                followerPhoneNumbers.append(contact.phoneNumber!)
+                dispatch_group_leave(group)
+            }
+            
+            dispatch_group_notify(group, queue, { 
+                record.setValue(followerPhoneNumbers, forKey: "followers")
+            })
             
             
             
@@ -118,6 +129,7 @@
             record.setValue(true, forKey: "homeSafe")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             self.db.addOperation(operation)
+            print("homeSafely")
             self.resetChangedFields(eta)
         }
         db.addOperation(operation)

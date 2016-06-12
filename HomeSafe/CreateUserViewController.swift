@@ -27,8 +27,8 @@ class CreateUserViewController: UIViewController {
         nameTextField.center.x = self.view.frame.width - 570
         phoneNumberTextField.center.x = self.view.frame.width - 570
         selectSafePlaceButton.center.x = self.view.frame.width - 570
-
-
+        
+        
         bounceAnimation()
         // Do any additional setup after loading the view.
     }
@@ -49,11 +49,12 @@ class CreateUserViewController: UIViewController {
         if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
             UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
                 if let currentUser = UserController.sharedController.currentUser {
-                    CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
-                        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
+//                    CloudKitController.sharedController.fetchSubscriptions({
+                        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
+                            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
+                            })
                         })
-                    })
-                    
+//                    })
                 }
             })
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -75,7 +76,7 @@ class CreateUserViewController: UIViewController {
             self.selectSafePlaceButton.center.x = self.view.frame.width / 2
         }), completion: nil)
     }
-
+    
     
     
     

@@ -38,7 +38,7 @@ class UserController {
         record.setValue(phoneNumber, forKey: "phoneNum")
         record.setValue(uuid, forKey: "uuid")
         
-        let contactsRecord = CKRecord(recordType: "Contacts")
+        let contactsRecord = CKRecord(recordType: "contacts")
         contactsRecord.setValue(uuid, forKey: "userUUID")
         
         let newETARecord = CKRecord(recordType: "userNewETA")

@@ -13,7 +13,7 @@ import CloudKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    // TODO: - Container view for map view!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -21,6 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         application.registerUserNotificationSettings(pushNotificationSettings)
         application.registerForRemoteNotifications()
+        
+        //        if let currentUser = UserController.sharedController.currentUser {
+        //            CloudKitController.sharedController.etaTest(currentUser.phoneNumber!, completion: {
+        //
+        //            })
+        //        }
+        
         
         AppearanceController.initializeAppearance()
         return true
@@ -41,12 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
-//         Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        //         Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let currentUser = UserController.sharedController.currentUser {
             CloudKitController.sharedController.checkForNewETA(currentUser, completion: {
                 let phoneNumberArray = NSUserDefaults.standardUserDefaults().valueForKey("phoneNumberArrayForETA") as! [String]
                 for phoneNumber in phoneNumberArray {
-                CloudKitController.sharedController.fetchETAAndSubscribe(phoneNumber)
+                    CloudKitController.sharedController.fetchETAAndSubscribe(phoneNumber)
                 }
             })
         }
@@ -58,12 +65,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         print(userInfo)
+        handleRemoteNotification(userInfo)
         
-        //        if let currentUser = UserController.sharedController.currentUser {
-        //            print(userInfo)
-        //            CloudKitController.sharedController.checkForNewContacts(currentUser)
-        //        }
+        
     }
+    
+    func handleRemoteNotification(userInfo: [NSObject: AnyObject]) {
+        let info = userInfo["aps"] as! [String: AnyObject]
+        let alertText = info["alert"] as! String
+        switch alertText {
+        case "You have been added as someone's contact":
+            NSUserDefaults.standardUserDefaults().setValue("newContact", forKey: "newContact")
+            if let currentUser = UserController.sharedController.currentUser {
+                CloudKitController.sharedController.checkForNewContacts(currentUser, completion: { (users) in
+                    for user in users {
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            let alert = NotificationController.sharedController.simpleAlert("\(user.name!) has added you as a contact" , message: "")
+                            self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                        })
+                        
+                        
+                    }
+                })
+            }
+        case "Someone has begun an ETA and wants to you be their watcher.":
+            print("idk yet")
+        default:
+            break
+        }
+    }
+    
     
     
 }

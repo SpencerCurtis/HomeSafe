@@ -16,8 +16,8 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     //*********************//
     //PROTOCOLS FUNCTION
     //*******************//
-
-   func userDidSelectContacts(contacts: [CNContact]) {
+    
+    func userDidSelectContacts(contacts: [CNContact]) {
         UserController.sharedController.selectedArray = contacts
     }
     
@@ -27,15 +27,19 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     //**********************************************************************************************************//
     //SHARED CONTROLLER. SELECTED CONTACTS ARRAY. VIEW DID LOAD IF USER WAS CREATED. SHOW VIEW. RELOAD TABLEVIEW.
     //**********************************************************************************************************//
-
+    
     static let sharedController = ContactTableViewController()
     
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        CloudKitController.sharedController.checkForNewContacts()
+        if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
+            if let currentUser = UserController.sharedController.currentUser {
+//                CloudKitController.sharedController.checkForNewContacts(currentUser)
+            }
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
         if UserController.sharedController.currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -47,13 +51,13 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) { 
+        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadData()
             })
         }
     }
-
+    
     func reloadTableView() {
         self.tableView.reloadData()
     }
@@ -131,11 +135,11 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         alert.addAction(okAction)
         presentViewController(alert, animated: true, completion: nil)
     }
-
+    
     //*****************************//
     //MARK: - TABLEVIEW DELEGATION CONTACTTABLEVIEWCONTROLLER
     //*******************************************************//
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return ContactsController.sharedController.contacts.count
@@ -153,7 +157,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-
+            
             let contact = ContactsController.sharedController.contacts[indexPath.row]
             ContactsController.sharedController.removeContact(contact)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
@@ -171,9 +175,9 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
         let index = ContactsController.sharedController.selectedGuardians.indexOf(ContactsController.sharedController.contacts[indexPath.row])
         ContactsController.sharedController.selectedGuardians.removeAtIndex(index!)
-
+        
     }
-  
+    
 }
 
 

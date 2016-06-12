@@ -30,11 +30,12 @@ class NotificationController {
         }
     }
     
-    func simpleAlert(title: String, message: String) {
+    func simpleAlert(title: String, message: String) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
         alert.addAction(dismissAction)
         alert.showViewController(alert, sender: self)
+        return alert
 //        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
         
     }
