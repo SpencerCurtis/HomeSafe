@@ -25,6 +25,7 @@
 		4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D8B91CEB765500C2587F /* CloudKitController.swift */; };
 		4636E5DA1D0F6E75007F45BC /* ContainerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */; };
 		4636E5DC1D0FBEF0007F45BC /* SmallMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */; };
+		4636E5DE1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4636E5DD1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift */; };
 		4659FF101CEB8CE900B02642 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF0F1CEB8CE900B02642 /* Colors.swift */; };
 		4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF111CEBB31300B02642 /* Model.xcdatamodeld */; };
 		4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */; };
@@ -70,6 +71,7 @@
 		4622D8B91CEB765500C2587F /* CloudKitController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
 		4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewViewController.swift; sourceTree = "<group>"; };
 		4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallMapViewController.swift; sourceTree = "<group>"; };
+		4636E5DD1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallLocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		4659FF0F1CEB8CE900B02642 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4659FF121CEBB31300B02642 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */,
 				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
+				4636E5DD1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
 				4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */,
 			);
@@ -282,6 +285,7 @@
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4636E5DA1D0F6E75007F45BC /* ContainerViewViewController.swift in Sources */,
+				4636E5DE1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift in Sources */,
 				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
 				46A0F6FB1CF89EEF0024F507 /* InstructionsPageViewController.swift in Sources */,

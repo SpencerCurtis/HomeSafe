@@ -15,6 +15,7 @@ class ETAViewController: UIViewController {
     
     static let sharedInstance = ETAViewController()
     
+    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var containerV: UIView!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var ETADatePicker: UIDatePicker!
@@ -25,9 +26,14 @@ class ETAViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showMapContainerView), name: "locationPicked", object: nil)
         self.view.sendSubviewToBack(backgroundView)
+        self.container.layer.cornerRadius = 12
+        self.container.layer.masksToBounds = true
+        self.containerV.layer.cornerRadius = 12
+        self.searchContainerView.layer.cornerRadius = 12
         ETADatePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
-        ETADatePicker.performSelector("setHighlightsToday:", withObject: UIColor.whiteColor())
+//        ETADatePicker.performSelector("setHighlightsToday:", withObject: UIColor.whiteColor())
 
         
         let gradient = AppearanceController.sharedController.gradientBackground()
@@ -68,10 +74,16 @@ class ETAViewController: UIViewController {
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
         container.hidden = false
-        containerV.hidden = false
+        containerV.hidden = true
+        searchContainerView.hidden = false
         ETADatePicker.hidden = true
     }
     
+    func showMapContainerView() {
+        containerV.hidden = false
+        searchContainerView.hidden = true
+        
+    }
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {
         if let name = UserController.sharedController.currentUser?.name, destination = destination {
         ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)

@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import UIKit
 import CloudKit
+import MapKit
 
 class LocationController: NSObject, CLLocationManagerDelegate {
     
@@ -20,6 +21,8 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     var selectedSafeLocation: CLLocation?
     
     var address: String = ""
+    
+    var destination: MKPlacemark?
     
     override init() {
         super.init()
