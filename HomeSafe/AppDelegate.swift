@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        }
         
         
-        AppearanceController.initializeAppearance()
+        AppearanceController.sharedController.initializeAppearance()
         return true
     }
     

@@ -23,6 +23,8 @@
 		4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */; };
 		4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0661CEA7DE8003EB3C1 /* LocationController.swift */; };
 		4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D8B91CEB765500C2587F /* CloudKitController.swift */; };
+		4636E5DA1D0F6E75007F45BC /* ContainerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */; };
+		4636E5DC1D0FBEF0007F45BC /* SmallMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */; };
 		4659FF101CEB8CE900B02642 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF0F1CEB8CE900B02642 /* Colors.swift */; };
 		4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF111CEBB31300B02642 /* Model.xcdatamodeld */; };
 		4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */; };
@@ -66,6 +68,8 @@
 		4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		4617E0661CEA7DE8003EB3C1 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		4622D8B91CEB765500C2587F /* CloudKitController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
+		4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewViewController.swift; sourceTree = "<group>"; };
+		4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallMapViewController.swift; sourceTree = "<group>"; };
 		4659FF0F1CEB8CE900B02642 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4659FF121CEBB31300B02642 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 		462039D91CEF67A100DC29F6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
 				46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */,
@@ -168,6 +173,7 @@
 				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,
+				4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
+				4636E5DA1D0F6E75007F45BC /* ContainerViewViewController.swift in Sources */,
 				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
 				46A0F6FB1CF89EEF0024F507 /* InstructionsPageViewController.swift in Sources */,
@@ -296,6 +303,7 @@
 				46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */,
 				E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
+				4636E5DC1D0FBEF0007F45BC /* SmallMapViewController.swift in Sources */,
 				E521CAD71CF52A92000F3E23 /* DoneCutomViewClass.swift in Sources */,
 				4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */,
 				46A0F6FD1CF89F0C0024F507 /* FirstInstructionalViewController.swift in Sources */,

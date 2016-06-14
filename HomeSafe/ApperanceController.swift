@@ -10,17 +10,30 @@ import UIKit
 
 class AppearanceController {
     
+    static let sharedController = AppearanceController()
+    
     var color = Colors()
     
-    static func initializeAppearance() {
-        
-        UINavigationBar.appearance().barTintColor = UIColor(red: 0.184, green: 0.835, blue: 0.400, alpha: 1)
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    func initializeAppearance() {
         UINavigationBar.appearance().barStyle = UIBarStyle.Default
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        
         UIBarButtonItem.appearance().tintColor = UIColor.whiteColor()
         
-        
+        let textAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        UINavigationBar.appearance().titleTextAttributes = textAttributes
     }
+    
+    func gradientBackground() -> CAGradientLayer {
+        let colorTop = UIColor(red: 0.314, green: 0.749, blue: 0.000, alpha: 1.00).CGColor
+        let colorBottom = UIColor(red: 0.000, green: 0.741, blue: 0.702, alpha: 1.00).CGColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.locations = [0.0, 1.0]
+        return gradientLayer
+    }
+    
+    
+    
+    
 }

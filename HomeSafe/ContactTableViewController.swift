@@ -13,9 +13,6 @@ import CoreLocation
 // THIS IS THE FIRST VIEW CONTROLLER PRESENTED WHEN OPENING THE APP.
 
 class ContactTableViewController: UITableViewController, PassContactsDelegate, PassSearchedContactsDelegate {
-    //*********************//
-    //PROTOCOLS FUNCTION
-    //*******************//
     
     func userDidSelectContacts(contacts: [CNContact]) {
         UserController.sharedController.selectedArray = contacts
@@ -24,9 +21,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     func userDidSelectSearchedContacts(contacts: [CNContact]) {
         UserController.sharedController.selectedArray = contacts
     }
-    //**********************************************************************************************************//
-    //SHARED CONTROLLER. SELECTED CONTACTS ARRAY. VIEW DID LOAD IF USER WAS CREATED. SHOW VIEW. RELOAD TABLEVIEW.
-    //**********************************************************************************************************//
+
     
     static let sharedController = ContactTableViewController()
     
@@ -35,6 +30,9 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        hideTransparentNavigationBar()
+        
         if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
             if let currentUser = UserController.sharedController.currentUser {
 //                CloudKitController.sharedController.checkForNewContacts(currentUser)
@@ -47,6 +45,13 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             self.presentViewController(pageViewController, animated: true, completion: nil)
         }
         self.tableView.allowsMultipleSelection = true
+    }
+    
+    func hideTransparentNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = UIColor.clearColor()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -151,6 +156,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         let favoriteContact = ContactsController.sharedController.contacts[indexPath.row]
         cell.selectionStyle = .None
         cell.textLabel?.text = favoriteContact.name
+        cell.textLabel?.textColor = UIColor.whiteColor()
         
         return cell
     }

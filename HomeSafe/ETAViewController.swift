@@ -11,23 +11,33 @@ import CoreLocation
 
 class ETAViewController: UIViewController {
     
+    @IBOutlet weak var backgroundView: UIView!
+    
     static let sharedInstance = ETAViewController()
     
+    @IBOutlet weak var containerV: UIView!
+    @IBOutlet weak var container: UIView!
     @IBOutlet weak var ETADatePicker: UIDatePicker!
-    @IBOutlet weak var ETALabel: UILabel!
     @IBOutlet weak var SelectDestinationButton: UIButton!
-    @IBOutlet weak var DestinationLabel: UILabel!
     @IBOutlet weak var startTrackingButton: UIButton!
     
     var destination: CLLocation? = CLLocation(latitude: 0.0, longitude: 0.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.sendSubviewToBack(backgroundView)
+        ETADatePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
+        ETADatePicker.performSelector("setHighlightsToday:", withObject: UIColor.whiteColor())
+
+        
+        let gradient = AppearanceController.sharedController.gradientBackground()
+        gradient.frame = self.view.bounds
+        backgroundView.layer.addSublayer(gradient)
+        
+        
         ETADatePicker.minimumDate = NSDate()
-        ETADatePicker.addTarget(self, action: #selector(updateETALabel), forControlEvents: .ValueChanged)
-        //customGradientBackgroundColor()
-        //self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.286, green: 0.749, blue: 0.063, alpha: 1.00)
-                // Do any additional setup after loading the view.
+//        ETADatePicker.addTarget(self, action: #selector(updateETALabel), forControlEvents: .ValueChanged)
+
     }
     
     func customGradientBackgroundColor() {
@@ -41,7 +51,7 @@ class ETAViewController: UIViewController {
         gradientLayer.colors = gradientColors
         gradientLayer.locations = gradientLocations
         gradientLayer.frame = self.view.bounds
-        self.view.layer.insertSublayer(gradientLayer, atIndex: 0)
+        self.backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
     }
 
     
@@ -50,13 +60,16 @@ class ETAViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func updateETALabel() {
-        ETALabel.text = "Your ETA is \(ETADatePicker.date.formatted)"
+    @IBAction func SelectDateButtonTapped(sender: AnyObject) {
+        ETADatePicker.hidden = false
+        container.hidden = true
+        containerV.hidden = true
     }
     
-    
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
-
+        container.hidden = false
+        containerV.hidden = false
+        ETADatePicker.hidden = true
     }
     
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {

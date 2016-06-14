@@ -49,7 +49,7 @@ extension LocationSearchTableViewController: UISearchResultsUpdating {
 extension LocationSearchTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchingLocations.count
+        return matchingLocations.count ?? 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
