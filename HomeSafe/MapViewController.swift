@@ -33,7 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         mapView.delegate = self
         mapView.showsUserLocation = true
-        
+        hideTransparentNavigationBar()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -58,6 +58,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationSearchTable?.mapView = mapView
         locationSearchTable?.handleMapSearchDelegate = self
         
+    }
+    
+    
+    func hideTransparentNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = UIColor.clearColor()
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

@@ -38,6 +38,8 @@ class ETAViewController: UIViewController {
         self.container.layer.masksToBounds = true
         self.containerV.layer.cornerRadius = 12
         self.searchContainerView.layer.cornerRadius = 12
+        self.container.layer.borderWidth = 0.4
+        self.container.layer.borderColor = UIColor.whiteColor().CGColor
         
         ETADatePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
         
@@ -53,6 +55,10 @@ class ETAViewController: UIViewController {
     }
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
+        self.container.frame.size.height = 0
+        UIView.animateWithDuration(0.3) {
+            self.container.frame.size.height = 272
+        }
         container.hidden = false
         containerV.hidden = true
         searchContainerView.hidden = false

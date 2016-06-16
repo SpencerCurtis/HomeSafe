@@ -17,6 +17,24 @@ class CloudKitController {
     
     let db = CKContainer.defaultContainer().publicCloudDatabase
     
+    func checkForPrivateUserData(completion: () -> Void) {
+        let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "User", predicate: predicate)
+        let op = CKQueryOperation(query: query)
+        op.recordFetchedBlock = { (record) in
+            let name = record.valueForKey("name") as! String
+            let phoneNumber = record.valueForKey("phoneNum") as! String
+            let safeLocation = record.valueForKey("safeLocation") as! CLLocation
+            let uuid = record.valueForKey("uuid") as! String
+            
+            UserController.sharedController.createUserFromFetchedData(name, safeLocation: safeLocation, phoneNumber: phoneNumber, uuid: uuid)
+            completion()
+        }
+        
+        privateDatabase.addOperation(op)
+    }
+    
     
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
@@ -369,8 +387,9 @@ class CloudKitController {
                 self.db.addOperation(op)
             }
         }
-        
     }
+    
+    
     
     func setCurrentETA(currentUser: CurrentUser, etaID: String) {
         let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)

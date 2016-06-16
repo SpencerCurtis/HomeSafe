@@ -39,11 +39,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             }
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
-        if UserController.sharedController.currentUser == nil {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
-            self.presentViewController(pageViewController, animated: true, completion: nil)
-        }
+
         self.tableView.allowsMultipleSelection = true
     }
     

@@ -13,6 +13,7 @@ class CreateUserViewController: UIViewController {
     
     static let sharedController = CreateUserViewController()
     
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var selectSafePlaceButton: UIButton!
     @IBOutlet weak var createAccountLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
@@ -23,14 +24,30 @@ class CreateUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+            hideTransparentNavigationBar()
+        bounceAnimation()
+        // Do any additional setup after loading the view.
+    }
+    
+    func setupViews() {
         createAccountLabel.center.x = self.view.frame.width - 570
         nameTextField.center.x = self.view.frame.width - 570
         phoneNumberTextField.center.x = self.view.frame.width - 570
         selectSafePlaceButton.center.x = self.view.frame.width - 570
         
         
-        bounceAnimation()
-        // Do any additional setup after loading the view.
+        self.view.sendSubviewToBack(backgroundView)
+        let gradient = AppearanceController.sharedController.gradientBackground()
+        gradient.frame = self.view.bounds
+        backgroundView.layer.addSublayer(gradient)
+    }
+    
+    func hideTransparentNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = UIColor.clearColor()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -49,12 +66,12 @@ class CreateUserViewController: UIViewController {
         if let name = nameTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
             UserController.sharedController.createUser(name, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
                 if let currentUser = UserController.sharedController.currentUser {
-//                    CloudKitController.sharedController.fetchSubscriptions({
-                        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
-                            CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
-                            })
+                    //                    CloudKitController.sharedController.fetchSubscriptions({
+                    CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
+                        CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
                         })
-//                    })
+                    })
+                    //                    })
                 }
             })
             self.dismissViewControllerAnimated(true, completion: nil)

@@ -28,15 +28,22 @@ class UserController {
         }
     }
     
+    func createUserFromFetchedData(name: String, safeLocation: CLLocation, phoneNumber: String, uuid: String) {
+        let user = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
+        saveToPersistentStorage()
+    }
+    
     
     func createUser(name: String, safeLocation: CLLocation, phoneNumber: String, completion: () -> Void) {
         let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
+        let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
+        
         let uuid = NSUUID().UUIDString
-        let record = CKRecord(recordType: "User", recordID: CKRecordID(recordName: uuid))
-        record.setValue(name, forKey: "name")
-        record.setValue(safeLocation, forKey: "safeLocation")
-        record.setValue(phoneNumber, forKey: "phoneNum")
-        record.setValue(uuid, forKey: "uuid")
+        let userRecord = CKRecord(recordType: "User", recordID: CKRecordID(recordName: uuid))
+        userRecord.setValue(name, forKey: "name")
+        userRecord.setValue(safeLocation, forKey: "safeLocation")
+        userRecord.setValue(phoneNumber, forKey: "phoneNum")
+        userRecord.setValue(uuid, forKey: "uuid")
         
         let contactsRecord = CKRecord(recordType: "contacts")
         contactsRecord.setValue(uuid, forKey: "userUUID")
@@ -49,22 +56,16 @@ class UserController {
         notificationsRecord.setValue(false, forKey: "userNewETA")
         notificationsRecord.setValue(uuid, forKey: "uuid")
         
-        //        let recordsToSave = [record, contactsRecord, newETARecord]
-        //        let operation = CKModifyRecordsOperation(recordsToSave: recordsToSave, recordIDsToDelete: nil)
-        //        operation.savePolicy = .AllKeys
-        //        operation.modifyRecordsCompletionBlock = { (savedRecords, deletedRecordIDs, error) in
-        //            if error != nil {
-        //                print(error?.localizedDescription)
-        ////                completion()
-        //            } else {
-        //                print("Successfully saved all records")
-        //                completion()
-        //            }
-        //            publicDatabase.addOperation(operation)
-        //        }
         
+        privateDatabase.saveRecord(userRecord, completionHandler: { (record, error) in
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                print("Successfully saved user's data to the private database.")
+            }
+        })
         
-        publicDatabase.saveRecord(record) { (record, error) in
+        publicDatabase.saveRecord(userRecord) { (record, error) in
             if error != nil {
                 print(error?.localizedDescription)
             } else {

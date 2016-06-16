@@ -46,9 +46,9 @@
             record.setValue(latitude, forKey: "latitude")
             record.setValue(longitude, forKey: "longitude")
             record.setValue(name, forKey: "name")
-            record.setValue(false, forKey: "homeSafe")
-            record.setValue(false, forKey: "inDanger")
-            record.setValue(false, forKey: "canceledETA")
+            record.setValue(0, forKey: "homeSafe")
+            record.setValue(0, forKey: "inDanger")
+            record.setValue(0, forKey: "canceledETA")
             record.setValue(recordID, forKey: "id")
             record.setValue(phoneNumber, forKey: "userPhoneNumber")
             let contacts = ContactsController.sharedController.selectedGuardians
@@ -151,9 +151,9 @@
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
-            record.setValue(false, forKey: "inDanger")
-            record.setValue(false, forKey: "canceledETA")
-            record.setValue(false, forKey: "homeSafe")
+            record.setValue(0, forKey: "inDanger")
+            record.setValue(0, forKey: "canceledETA")
+            record.setValue(0, forKey: "homeSafe")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             self.db.addOperation(operation)
         }
