@@ -125,8 +125,8 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         
         let smallSquare = CGSize(width: 30, height: 30)
         let button = UIButton(frame: CGRect(origin: CGPointZero, size: smallSquare))
-        button.setBackgroundImage(UIImage(named: "goArrow") ?? UIImage(), forState: .Normal)
-        button.addTarget(self, action: #selector(selectSafeZone), forControlEvents: .TouchUpInside)
+//        button.setBackgroundImage(UIImage(named: "goArrow") ?? UIImage(), forState: .Normal)
+//        button.addTarget(self, action: #selector(selectSafeZone), forControlEvents: .TouchUpInside)
         // Get the address from the pin.
         pinView?.rightCalloutAccessoryView = button
         self.selectedDestinationPin = annotation
@@ -134,16 +134,15 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         return pinView
         
     }
-    
-    func selectSafeZone() {
-        if let annotation = self.selectedDestinationPin {
-            let coordinate = annotation.coordinate
-            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            LocationController.sharedController.selectedSafeLocation = location
-            navigationController?.popViewControllerAnimated(true)
-            
-        }
-    }
+//    
+//    func selectSafeZone() {
+//        if let annotation = self.selectedDestinationPin {
+//            let coordinate = annotation.coordinate
+//            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//            LocationController.sharedController.destination = location
+//            
+//        }
+//    }
     
     
     

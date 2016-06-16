@@ -46,7 +46,7 @@ class SelectContactTableViewController: UITableViewController{
     }
     
     
-    static let sharedInstance = SelectContactTableViewController()
+    static let sharedController = SelectContactTableViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()

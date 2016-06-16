@@ -25,8 +25,6 @@ class LocationTableViewController: UITableViewController {
         
     }
     
-}
-extension LocationTableViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         guard let mapView = mapView,
             let searchBarText = searchController.searchBar.text else {return}
@@ -42,8 +40,7 @@ extension LocationTableViewController: UISearchResultsUpdating {
             self.tableView.reloadData()
         }
     }
-}
-extension LocationTableViewController {
+    
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingLocations.count
@@ -58,8 +55,6 @@ extension LocationTableViewController {
     }
     
     
-}
-extension LocationTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedItem = matchingLocations[indexPath.row].placemark
         mapSearchDelegate?.dropPinOnSelectedLocation(selectedItem)

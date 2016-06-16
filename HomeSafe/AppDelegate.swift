@@ -17,17 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        if ETAController.sharedController.currentETA != nil {
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("currentETAController")
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+            
+            return true
+        }
+        
+        
+        
         let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
         let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         application.registerUserNotificationSettings(pushNotificationSettings)
         application.registerForRemoteNotifications()
-        
-        //        if let currentUser = UserController.sharedController.currentUser {
-        //            CloudKitController.sharedController.etaTest(currentUser.phoneNumber!, completion: {
-        //
-        //            })
-        //        }
-        
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         AppearanceController.sharedController.initializeAppearance()
         return true

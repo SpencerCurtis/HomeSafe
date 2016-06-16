@@ -100,11 +100,6 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         }
     }
     
-    //*********************************************************************************//
-    // MARK: - Request For Access Function//
-    // CHECKS PERMISSION, IF GRANTED, PROCCEED. IF NOT, DO NOT. MUST CHANGE IN SETTINGS.
-    //*********************************************************************************//
-    
     func requestForAccess(completionHandler: (accessGranted: Bool) -> Void) {
         let authorizationStatus = CNContactStore.authorizationStatusForEntityType(.Contacts)
         
@@ -114,7 +109,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             
         case .Denied, .NotDetermined:
             
-            SelectContactTableViewController.sharedInstance.contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (access, accessError) -> Void in
+            SelectContactTableViewController.sharedController.contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (access, accessError) -> Void in
                 if access {
                     
                     completionHandler(accessGranted: access)

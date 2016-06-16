@@ -18,7 +18,9 @@
     
     let db = CKContainer.defaultContainer().publicCloudDatabase
     
-    var currentETA: EstimatedTimeOfArrival?
+    var currentETA: EstimatedTimeOfArrival? {
+        return arrayOfETAs.last
+    }
     
     var arrayOfETAs: [EstimatedTimeOfArrival] {
         let request = NSFetchRequest(entityName: "EstimatedTimeOfArrival")
@@ -36,7 +38,9 @@
     
     func createETA(ETATime: NSDate, latitude: Double, longitude: Double, name: String, canceledETA: Bool, inDanger: Bool) {
         let recordID = NSUUID().UUIDString
-        if let currentUser = UserController.sharedController.currentUser, phoneNumber = currentUser.phoneNumber, uuid = currentUser.uuid {
+        if let currentUser = UserController.sharedController.currentUser, phoneNumber = currentUser.phoneNumber, _ = currentUser.uuid {
+            let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: recordID, recordID: recordID)
+            self.saveToPersistentStorage()
             let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: recordID))
             record.setValue(ETATime, forKey: "ETA")
             record.setValue(latitude, forKey: "latitude")
@@ -57,7 +61,7 @@
                 dispatch_group_leave(group)
             }
             
-            dispatch_group_notify(group, queue, { 
+            dispatch_group_notify(group, queue, {
                 record.setValue(followerPhoneNumbers, forKey: "followers")
             })
             
@@ -65,12 +69,8 @@
             
             
             publicDatabate.saveRecord(record) { (record, error) in
-                if let record = record {
-                    let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: recordID, recordID: recordID)
-                    self.currentETA = eta
-                    print(self.currentETA)
+                if record != nil {
                     CloudKitController.sharedController.setCurrentETA(currentUser, etaID: eta.recordID!)
-                    self.saveToPersistentStorage()
                     CloudKitController.sharedController.notifySelectedUsersOfNewETA(ContactsController.sharedController.selectedGuardians, currentUser: currentUser)
                 } else {
                     print(error?.localizedDescription)
@@ -79,12 +79,14 @@
         }
     }
     
-    func removeETA(ETA: EstimatedTimeOfArrival) {
-        ETA.managedObjectContext?.deleteObject(ETA)
-        if let id = ETA.id {
+    func removeETAs() {
+        for ETA in arrayOfETAs {
+            ETA.managedObjectContext?.deleteObject(ETA)
             saveToPersistentStorage()
-            publicDatabate.deleteRecordWithID(CKRecordID(recordName: id), completionHandler: { (id, error) in
-            })
+            if let id = ETA.id {
+                publicDatabate.deleteRecordWithID(CKRecordID(recordName: id), completionHandler: { (id, error) in
+                })
+            }
         }
     }
     
@@ -96,6 +98,8 @@
             record.setValue(true, forKey: "inDanger")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
             self.db.addOperation(operation)
+            self.removeETAs()
+            
             //            self.resetChangedFields(eta)
         }
         db.addOperation(operation)
@@ -118,6 +122,7 @@
         }
         db.addOperation(operation)
         eta.canceledETA = true
+        removeETAs()
         saveToPersistentStorage()
     }
     
@@ -134,6 +139,8 @@
         }
         db.addOperation(operation)
         eta.homeSafe = true
+        removeETAs()
+        
         saveToPersistentStorage()
     }
     
