@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // TODO: - Fix navBar on first mapView.
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+//        
 //        if UserController.sharedController.currentUser == nil {
 //            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 //            
@@ -28,6 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            self.window?.makeKeyAndVisible()
 //        }
 //        
+        if ETAController.sharedController.currentETA != nil {
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("currentETAController")
+            
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+            
+            return true
+        }
+        
         
         
         let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
