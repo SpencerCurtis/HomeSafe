@@ -27,10 +27,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var resultsSearchController: UISearchController? = nil
     
+    let authState = CLLocationManager.authorizationStatus()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        zoomOnUsersLocation()
         mapView.delegate = self
         mapView.showsUserLocation = true
         hideTransparentNavigationBar()
@@ -64,8 +66,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func hideTransparentNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
         navigationController?.navigationBar.translucent = true
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.backgroundColor = UIColor.clearColor()
+//        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -75,7 +77,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
+        if let location = locations.last {
             self.currentLocation = location
             let span = MKCoordinateSpanMake(0.0073, 0.0073)
             let region = MKCoordinateRegionMake(location.coordinate, span)
@@ -131,17 +133,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func zoomOnUsersLocation() {
+        if authState == .AuthorizedAlways {
+//            locationManager.requestLocation()
+            let span = MKCoordinateSpanMake(0.0073, 0.0073)
+            let region = MKCoordinateRegionMake(locationManager.location!.coordinate, span)
+            mapView.setRegion(region, animated: true)
+
+        }
+    }
     
 }
 
@@ -163,7 +163,6 @@ extension MapViewController: HandleMapSearch {
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         mapView.setRegion(region, animated: true)
     }
-    
 }
 
 

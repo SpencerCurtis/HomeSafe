@@ -31,10 +31,22 @@ class CreateUserViewController: UIViewController {
     }
     
     func setupViews() {
-        createAccountLabel.center.x = self.view.frame.width - 570
-        nameTextField.center.x = self.view.frame.width - 570
-        phoneNumberTextField.center.x = self.view.frame.width - 570
-        selectSafePlaceButton.center.x = self.view.frame.width - 570
+        createAccountLabel.center.x = self.view.frame.width - 620
+        nameTextField.center.x = self.view.frame.width - 620
+        phoneNumberTextField.center.x = self.view.frame.width - 620
+        selectSafePlaceButton.center.x = self.view.frame.width - 620
+        
+        selectSafePlaceButton.layer.cornerRadius = 5
+        selectSafePlaceButton.layer.borderColor = UIColor.whiteColor().CGColor
+        selectSafePlaceButton.layer.borderWidth = 0.2
+        
+        nameTextField.layer.cornerRadius = 5
+        nameTextField.layer.borderColor = UIColor.whiteColor().CGColor
+        nameTextField.layer.borderWidth = 0.4
+        
+        phoneNumberTextField.layer.cornerRadius = 5
+        phoneNumberTextField.layer.borderColor = UIColor.whiteColor().CGColor
+        phoneNumberTextField.layer.borderWidth = 0.4
         
         
         self.view.sendSubviewToBack(backgroundView)
@@ -53,6 +65,7 @@ class CreateUserViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.safeLocationLabel.text = LocationController.sharedController.address
+            self.hideTransparentNavigationBar()
         })
         
     }
@@ -80,16 +93,16 @@ class CreateUserViewController: UIViewController {
     }
     
     func bounceAnimation() {
-        UIView.animateWithDuration(2.5, delay: 0.5, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+        UIView.animateWithDuration(1.8, delay: 0.5, usingSpringWithDamping: 1.0, initialSpringVelocity: 5, options: [], animations: ({
             self.createAccountLabel.center.x = self.view.frame.width / 2
         }), completion: nil)
-        UIView.animateWithDuration(2.5, delay: 0.8, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+        UIView.animateWithDuration(1.8, delay: 0.8, usingSpringWithDamping: 1.0, initialSpringVelocity: 5, options: [], animations: ({
             self.nameTextField.center.x = self.view.frame.width / 2
         }), completion: nil)
-        UIView.animateWithDuration(2.5, delay: 1.1, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+        UIView.animateWithDuration(1.8, delay: 1.1, usingSpringWithDamping: 1.0, initialSpringVelocity: 5, options: [], animations: ({
             self.phoneNumberTextField.center.x = self.view.frame.width / 2
         }), completion: nil)
-        UIView.animateWithDuration(2.5, delay: 1.4, usingSpringWithDamping: 1.0, initialSpringVelocity: 8, options: [], animations: ({
+        UIView.animateWithDuration(1.8, delay: 1.4, usingSpringWithDamping: 1.0, initialSpringVelocity: 5, options: [], animations: ({
             self.selectSafePlaceButton.center.x = self.view.frame.width / 2
         }), completion: nil)
     }

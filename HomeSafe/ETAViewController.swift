@@ -57,7 +57,7 @@ class ETAViewController: UIViewController {
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
         self.container.frame.size.height = 0
         UIView.animateWithDuration(0.3) {
-            self.container.frame.size.height = 272
+            self.container.frame.size.height = 364
         }
         container.hidden = false
         containerV.hidden = true
@@ -71,7 +71,7 @@ class ETAViewController: UIViewController {
         
     }
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {
-        
+        guard LocationController.sharedController.destination != nil && ETADatePicker.date != NSDate() else { return }
         if let currentUser = UserController.sharedController.currentUser, name = currentUser.name, destination = LocationController.sharedController.destination, latitude = currentUser.latitude, longitude = currentUser.longitude {
             ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
             

@@ -84,10 +84,11 @@ class DangerViewController: UIViewController {
         if let eta = ETAController.sharedController.currentETA {
             print(eta.id!)
             ETAController.sharedController.cancelETA(eta)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("selectFollowersVC")
-            self.presentViewController(vc, animated: true, completion: nil)
             
         }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("selectFollowersVC")
+        self.presentViewController(vc, animated: true, completion: nil)
+
     }
 }
