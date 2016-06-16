@@ -17,30 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        if UserController.sharedController.currentUser == nil {
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
-            
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        }
-        
-        if ETAController.sharedController.currentETA != nil {
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("currentETAController")
-            
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-            
-            return true
-        }
-        
+//        if UserController.sharedController.currentUser == nil {
+//            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            
+//            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
+//            
+//            self.window?.rootViewController = initialViewController
+//            self.window?.makeKeyAndVisible()
+//        }
+//        
         
         
         let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]

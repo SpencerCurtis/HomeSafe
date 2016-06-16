@@ -82,14 +82,15 @@ class CreateUserViewController: UIViewController {
                     //                    CloudKitController.sharedController.fetchSubscriptions({
                     CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
                         CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
+                            
                         })
                     })
                     //                    })
                 }
             })
-            self.dismissViewControllerAnimated(true, completion: nil)
         }
-        
+        self.dismissViewControllerAnimated(true, completion: nil)
+
     }
     
     func bounceAnimation() {
