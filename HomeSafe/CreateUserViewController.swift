@@ -13,7 +13,6 @@ class CreateUserViewController: UIViewController {
     
     static let sharedController = CreateUserViewController()
     
-    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var selectSafePlaceButton: UIButton!
     @IBOutlet weak var createAccountLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
@@ -25,9 +24,9 @@ class CreateUserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-            hideTransparentNavigationBar()
+        hideTransparentNavigationBar()
         bounceAnimation()
-        // Do any additional setup after loading the view.
+    
     }
     
     func setupViews() {
@@ -42,17 +41,23 @@ class CreateUserViewController: UIViewController {
         
         nameTextField.layer.cornerRadius = 5
         nameTextField.layer.borderColor = UIColor.whiteColor().CGColor
-        nameTextField.layer.borderWidth = 0.4
+        nameTextField.layer.borderWidth = 0.3
         
         phoneNumberTextField.layer.cornerRadius = 5
         phoneNumberTextField.layer.borderColor = UIColor.whiteColor().CGColor
-        phoneNumberTextField.layer.borderWidth = 0.4
+        phoneNumberTextField.layer.borderWidth = 0.3
         
-        
-        self.view.sendSubviewToBack(backgroundView)
         let gradient = AppearanceController.sharedController.gradientBackground()
         gradient.frame = self.view.bounds
+        
+        
+        let backgroundView = UIView()
+        backgroundView.frame = self.view.bounds
         backgroundView.layer.addSublayer(gradient)
+        self.view.addSubview(backgroundView)
+
+        self.view.sendSubviewToBack(backgroundView)
+        
     }
     
     func hideTransparentNavigationBar() {
@@ -90,7 +95,7 @@ class CreateUserViewController: UIViewController {
             })
         }
         self.dismissViewControllerAnimated(true, completion: nil)
-
+        
     }
     
     func bounceAnimation() {

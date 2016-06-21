@@ -13,7 +13,8 @@ import CloudKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    // TODO: - Fix navBar on first mapView.
+    
+    // TODO: - Run a check on adding contacts that if the contact hasn't made an account, pull up an sms vc to invite them.
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 //        
@@ -38,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
             
-            return true
+            return true 
         }
         
         

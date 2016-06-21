@@ -26,8 +26,11 @@ class ETAViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showMapContainerView), name: "locationPicked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearBorderForContainerView), name: "doneAnimating", object: nil)
+        
         setupViews()
         ETADatePicker.minimumDate = NSDate()
+        
         
     }
     
@@ -56,20 +59,39 @@ class ETAViewController: UIViewController {
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
         self.container.frame.size.height = 0
-        UIView.animateWithDuration(0.3) {
+        self.container.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        UIView.animateWithDuration(0.3, animations: {
             self.container.frame.size.height = 364
-        }
+//        NSNotificationCenter.defaultCenter().postNotificationName("doneAnimating", object: nil)
+        })
+//        clearBorderForContainerView()
         container.hidden = false
         containerV.hidden = true
         searchContainerView.hidden = false
         ETADatePicker.hidden = true
+        
     }
     
     func showMapContainerView() {
         containerV.hidden = false
         searchContainerView.hidden = true
-        
     }
+    
+    func clearBorderForContainerView() {
+        let duration = 1.5
+        UIView.animateKeyframesWithDuration(duration, delay: 0.5, options: .CalculationModeLinear, animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: duration * 1/2, animations: { 
+                self.container.layer.borderColor = UIColor.whiteColor().CGColor
+            })
+            UIView.addKeyframeWithRelativeStartTime(duration * 1/2, relativeDuration:  duration * 1/2, animations: { 
+                self.container.layer.borderColor = UIColor.clearColor().CGColor
+            })
+            
+            }, completion: nil)
+    }
+    
+    
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {
         guard LocationController.sharedController.destination != nil && ETADatePicker.date != NSDate() else { return }
         if let currentUser = UserController.sharedController.currentUser, name = currentUser.name, destination = LocationController.sharedController.destination, latitude = currentUser.latitude, longitude = currentUser.longitude {
