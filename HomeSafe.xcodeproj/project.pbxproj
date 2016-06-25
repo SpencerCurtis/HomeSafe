@@ -15,7 +15,7 @@
 		4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */; };
 		4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */; };
 		4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */; };
-		4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */; };
+		4617E0561CEA5C33003EB3C1 /* CurrentETAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0551CEA5C33003EB3C1 /* CurrentETAViewController.swift */; };
 		4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */; };
 		4617E05F1CEA5EFC003EB3C1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */; };
 		4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4617E0601CEA6284003EB3C1 /* UserController.swift */; };
@@ -60,7 +60,7 @@
 		4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUserViewController.swift; sourceTree = "<group>"; };
 		4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
 		4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETAViewController.swift; sourceTree = "<group>"; };
-		4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DangerViewController.swift; sourceTree = "<group>"; };
+		4617E0551CEA5C33003EB3C1 /* CurrentETAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentETAViewController.swift; sourceTree = "<group>"; };
 		4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContactTableViewController.swift; sourceTree = "<group>"; };
 		4617E05D1CEA5EF8003EB3C1 /* HomeSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HomeSafe.entitlements; sourceTree = "<group>"; };
 		4617E05E1CEA5EFC003EB3C1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -166,7 +166,7 @@
 			children = (
 				4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
-				4617E0551CEA5C33003EB3C1 /* DangerViewController.swift */,
+				4617E0551CEA5C33003EB3C1 /* CurrentETAViewController.swift */,
 				46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */,
 				46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */,
 				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
@@ -279,7 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4617E0561CEA5C33003EB3C1 /* DangerViewController.swift in Sources */,
+				4617E0561CEA5C33003EB3C1 /* CurrentETAViewController.swift in Sources */,
 				4659FF101CEB8CE900B02642 /* Colors.swift in Sources */,
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,

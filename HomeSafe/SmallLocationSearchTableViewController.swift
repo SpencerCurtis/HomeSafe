@@ -37,6 +37,8 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
 //            resultSearchController.searchBar.setSearchFieldBackgroundImage(UIImage(), forState: .Normal)
             self.tableView.tableHeaderView = resultSearchController.searchBar
             self.tableView.backgroundColor = UIColor.clearColor()
+            resultSearchController.searchBar.tintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
+
         }
         
     }

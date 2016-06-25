@@ -45,6 +45,11 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultsSearchController?.searchResultsUpdater = locationSearchTable
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor(red: 0.278, green: 0.749, blue: 0.082, alpha: 1.00)
+        backgroundView.frame = view.bounds
+        self.view.addSubview(backgroundView)
+        self.view.sendSubviewToBack(backgroundView)
         
         searchBar?.sizeToFit()
         searchBar?.placeholder = "Enter Desired Location"

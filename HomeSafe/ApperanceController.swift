@@ -33,6 +33,25 @@ class AppearanceController {
         return gradientLayer
     }
     
+    func gradientBackgroundForViewController(viewController: UIViewController) {
+        let gradient = AppearanceController.sharedController.gradientBackground()
+        gradient.frame = viewController.view.bounds
+        let backgroundView = UIView()
+        backgroundView.frame = viewController.view.bounds
+        backgroundView.layer.addSublayer(gradient)
+        viewController.view.addSubview(backgroundView)
+        viewController.view.sendSubviewToBack(backgroundView)
+    }
+    
+    func gradientBackgroundForTableViewController(tableViewController: UITableViewController) {
+        let gradient = AppearanceController.sharedController.gradientBackground()
+        gradient.frame = tableViewController.view.bounds
+        let backgroundView = UIView()
+        backgroundView.frame = tableViewController.view.bounds
+        backgroundView.layer.addSublayer(gradient)
+        tableViewController.view.addSubview(backgroundView)
+        tableViewController.view.sendSubviewToBack(backgroundView)
+    }
     
     
     

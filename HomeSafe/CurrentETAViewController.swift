@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DangerViewController: UIViewController {
+class CurrentETAViewController: UIViewController {
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var etaLabel: UILabel!

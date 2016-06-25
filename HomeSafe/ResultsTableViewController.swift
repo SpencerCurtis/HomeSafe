@@ -21,6 +21,8 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
     var shouldShowResults = false
     var searchController: UISearchController!
     var delegate: PassSearchedContactsDelegate?
+    
+    @IBOutlet weak var doneButton: UIButton!
 
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         shouldShowResults = true
@@ -53,7 +55,11 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         tableView.allowsMultipleSelection = true
+        doneButton.layer.borderColor = UIColor.whiteColor().CGColor
+        doneButton.layer.borderWidth = 0.4
 
+        AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
+        
         self.tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
     }
     
@@ -63,7 +69,6 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
     }
     
     @IBAction func secondDoneButtonTapped(sender: AnyObject) {
-        print("\n\(UserController.sharedController.selectedArray)\n")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -82,6 +87,7 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         if shouldShowResults {
             cell.textLabel?.text = contacts.givenName + " " + contacts.familyName
             cell.selectionStyle = .None
+            cell.tintColor = UIColor.whiteColor()
         }
         return cell
      

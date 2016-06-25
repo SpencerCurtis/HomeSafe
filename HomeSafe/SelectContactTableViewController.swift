@@ -15,10 +15,7 @@ protocol PassContactsDelegate {
 }
 
 class SelectContactTableViewController: UITableViewController{
-    //*****************************//
-    //VARIABLES FOR TABLEVIEW AND DELEGATE. SHARED PROPERTY OF TABLEVIEW.
-    //*****************************//
-    
+
     var delegate: PassContactsDelegate?
     var userContacts = [CNContact]() // dataArray
     var contactStore = CNContactStore()
@@ -37,9 +34,11 @@ class SelectContactTableViewController: UITableViewController{
             searchController.dimsBackgroundDuringPresentation = false
             searchController.searchBar.placeholder = "Search For Guardians"
             searchController.searchBar.sizeToFit()
-            
+//            searchController.searchBar.backgroundImage = UIImage()
+            navigationController?.navigationBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
+            searchController.searchBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
             tableView.tableHeaderView = searchController.searchBar
-            
+            searchController.searchBar.tintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
         }
         
         
@@ -53,29 +52,21 @@ class SelectContactTableViewController: UITableViewController{
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.286, green: 0.749, blue: 0.063, alpha: 1.00)
         self.tableView.allowsMultipleSelection = true
         configureSearchController()
+        AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
         
     }
     
-    //*****************************//
-    // CALLS DELEGATE AND DISMISSES MODAL VIEW
-    //*****************************//
     @IBAction func done(sender: AnyObject) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
         if let currentUser = UserController.sharedController.currentUser {
             contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
-                
-                //                UserController.sharedController.selectedArray = []
                 for phoneNumber in phoneNumbers {
                 CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(currentUser, phoneNumber: phoneNumber)
                 }
             })
             
         }
-        //        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
-        //            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
-        //        }
-        
     }
     
     func plainPhoneNumber(string: String) -> String {
@@ -100,12 +91,6 @@ class SelectContactTableViewController: UITableViewController{
     }
     
     
-    
-    //*****************************//
-    // RELOADS DATA IN TABLEVIEW.
-    //*****************************//
-    
-    
     override func viewWillAppear(animated: Bool) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.tableView.reloadData()
@@ -116,9 +101,7 @@ class SelectContactTableViewController: UITableViewController{
         super.viewDidAppear(animated)
         tableView.reloadData()
     }
-    //*****************************//
-    //MARK: - TABLEVIEW DELEGATION SELECTCONTACTTABLEVIEWCONTROLLER
-    //*****************************//
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userContacts.count
         
@@ -129,7 +112,8 @@ class SelectContactTableViewController: UITableViewController{
         let contact = userContacts[indexPath.row]
         cell.selectionStyle = .None
         cell.textLabel?.text = contact.givenName + " " + contact.familyName
-        
+        cell.tintColor = UIColor.whiteColor()
+
         return cell
     }
     

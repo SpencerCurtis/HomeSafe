@@ -69,7 +69,7 @@ class CreateUserViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.safeLocationLabel.text = LocationController.sharedController.address
+            self.safeLocationLabel.text = "Your safe location is: \(LocationController.sharedController.address)"
             self.hideTransparentNavigationBar()
         })
         

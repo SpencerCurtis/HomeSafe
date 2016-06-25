@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // TODO: - Run a check on adding contacts that if the contact hasn't made an account, pull up an sms vc to invite them.
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-//        
+        
 //        if UserController.sharedController.currentUser == nil {
 //            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 //            
@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            self.window?.rootViewController = initialViewController
 //            self.window?.makeKeyAndVisible()
 //        }
-//        
+        
         if ETAController.sharedController.currentETA != nil {
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             

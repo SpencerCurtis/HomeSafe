@@ -13,7 +13,6 @@ class ETAViewController: UIViewController {
     
     static let sharedInstance = ETAViewController()
     
-    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var containerV: UIView!
     @IBOutlet weak var container: UIView!
@@ -35,7 +34,6 @@ class ETAViewController: UIViewController {
     }
     
     func setupViews() {
-        self.view.sendSubviewToBack(backgroundView)
         
         self.container.layer.cornerRadius = 12
         self.container.layer.masksToBounds = true
@@ -48,7 +46,16 @@ class ETAViewController: UIViewController {
         
         let gradient = AppearanceController.sharedController.gradientBackground()
         gradient.frame = self.view.bounds
+        
+        let backgroundView = UIView()
+        backgroundView.frame = self.view.bounds
         backgroundView.layer.addSublayer(gradient)
+        self.view.addSubview(backgroundView)
+        
+        self.view.sendSubviewToBack(backgroundView)
+        
+        
+        
     }
     
     @IBAction func SelectDateButtonTapped(sender: AnyObject) {
@@ -62,10 +69,10 @@ class ETAViewController: UIViewController {
         self.container.layer.borderColor = UIColor.whiteColor().CGColor
         
         UIView.animateWithDuration(0.3, animations: {
-            self.container.frame.size.height = 364
-//        NSNotificationCenter.defaultCenter().postNotificationName("doneAnimating", object: nil)
+            self.container.frame.size.height = 344
+            //        NSNotificationCenter.defaultCenter().postNotificationName("doneAnimating", object: nil)
         })
-//        clearBorderForContainerView()
+        //        clearBorderForContainerView()
         container.hidden = false
         containerV.hidden = true
         searchContainerView.hidden = false
@@ -81,10 +88,10 @@ class ETAViewController: UIViewController {
     func clearBorderForContainerView() {
         let duration = 1.5
         UIView.animateKeyframesWithDuration(duration, delay: 0.5, options: .CalculationModeLinear, animations: {
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: duration * 1/2, animations: { 
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: duration * 1/2, animations: {
                 self.container.layer.borderColor = UIColor.whiteColor().CGColor
             })
-            UIView.addKeyframeWithRelativeStartTime(duration * 1/2, relativeDuration:  duration * 1/2, animations: { 
+            UIView.addKeyframeWithRelativeStartTime(duration * 1/2, relativeDuration:  duration * 1/2, animations: {
                 self.container.layer.borderColor = UIColor.clearColor().CGColor
             })
             
@@ -93,7 +100,15 @@ class ETAViewController: UIViewController {
     
     
     @IBAction func startTrackingButtonTapped(sender: AnyObject) {
-        guard LocationController.sharedController.destination != nil && ETADatePicker.date != NSDate() else { return }
+        guard LocationController.sharedController.destination != nil && ETADatePicker.date != NSDate() && ContactsController.sharedController.selectedGuardians != [] else {
+            let alert = UIAlertController(title: "Hold on a second", message: "Make sure you have selected a destination, a return time, and people to be notified of your departure", preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+            alert.addAction(dismissAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        let currentETAVC = storyboard?.instantiateViewControllerWithIdentifier("currentETAController") as! CurrentETAViewController
+        self.presentViewController(currentETAVC, animated: true, completion: nil)
         if let currentUser = UserController.sharedController.currentUser, name = currentUser.name, destination = LocationController.sharedController.destination, latitude = currentUser.latitude, longitude = currentUser.longitude {
             ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
             

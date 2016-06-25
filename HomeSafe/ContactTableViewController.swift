@@ -30,18 +30,17 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         hideTransparentNavigationBar()
-        if UserController.sharedController.currentUser == nil {
-            
-            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
-            self.presentViewController(createUserVC!, animated: false, completion: nil)
-            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
-                if let currentUser = UserController.sharedController.currentUser {
-                    //                CloudKitController.sharedController.checkForNewContacts(currentUser)
-                }
-            }
-        }
+//        if UserController.sharedController.currentUser == nil {
+//            
+//            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
+//            self.presentViewController(createUserVC!, animated: false, completion: nil)
+//            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
+//                if let currentUser = UserController.sharedController.currentUser {
+//                    //                CloudKitController.sharedController.checkForNewContacts(currentUser)
+//                }
+//            }
+//        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
         
         self.tableView.allowsMultipleSelection = true
@@ -67,11 +66,6 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         self.tableView.reloadData()
     }
     
-    
-    //************************************************************//
-    // MARK: - Calling Request for access Function.//
-    //IF ACCESS IS GRANTED, PROCEED. IF NOT, DO NOT PRESENT MODALLY
-    //************************************************************//
     
     @IBAction func addContactButtonTapped(sender: AnyObject) {
         requestForAccess { (accessGranted) in
@@ -152,6 +146,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         cell.selectionStyle = .None
         cell.textLabel?.text = favoriteContact.name
         cell.textLabel?.textColor = UIColor.whiteColor()
+        cell.tintColor = UIColor.whiteColor()
         
         return cell
     }

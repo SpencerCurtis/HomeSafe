@@ -58,7 +58,7 @@
                                 <rect key="frame" x="93" y="64" width="188" height="79"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.29803921570000003" green="0.74901960779999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="fvR-X0-uAx" firstAttribute="top" secondItem="Req-uU-vXD" secondAttribute="bottom" constant="8" symbolic="YES" id="2VX-qK-Hsg"/>
                             <constraint firstItem="fvR-X0-uAx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="6JY-LG-Xyt"/>
@@ -205,26 +205,6 @@
                                     <action selector="SelectDestinationButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Zoo-ls-6xr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4j-M8-EcK">
-                                <rect key="frame" x="16" y="532" width="343" height="115"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="343" id="dh3-CY-n3o"/>
-                                    <constraint firstAttribute="height" constant="115" id="tBH-ss-UKp"/>
-                                    <constraint firstAttribute="width" constant="343" id="xbK-Lq-Umv"/>
-                                </constraints>
-                                <state key="normal" title="Start">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="xbK-Lq-Umv"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="startTrackingButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Kux-k8-f6k"/>
-                                    <segue destination="opV-Et-HB6" kind="presentation" id="1GB-aw-rgA"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPO-L3-Bll">
                                 <rect key="frame" x="225" y="424" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -281,6 +261,7 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="2ZX-E8-ojQ"/>
                                         <exclude reference="9Ww-Gz-Jlz"/>
                                         <exclude reference="M5b-pb-q7M"/>
                                         <exclude reference="kAI-jh-HiX"/>
@@ -288,10 +269,25 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="823-nK-RzB">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4j-M8-EcK">
+                                <rect key="frame" x="16" y="532" width="343" height="115"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="dh3-CY-n3o"/>
+                                    <constraint firstAttribute="height" constant="115" id="tBH-ss-UKp"/>
+                                    <constraint firstAttribute="width" constant="343" id="xbK-Lq-Umv"/>
+                                </constraints>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="xbK-Lq-Umv"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="startTrackingButtonTapped:" destination="rbU-DB-Roa" eventType="touchUpInside" id="Kux-k8-f6k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -314,6 +310,7 @@
                             <constraint firstAttribute="trailing" secondItem="dUR-ia-imP" secondAttribute="trailing" constant="18" id="on7-ae-lYx"/>
                             <constraint firstItem="y4j-M8-EcK" firstAttribute="centerX" secondItem="mU0-SU-Gdj" secondAttribute="centerX" id="sUh-8X-gnJ"/>
                             <constraint firstItem="517-Fm-BfH" firstAttribute="leading" secondItem="mU0-SU-Gdj" secondAttribute="leading" constant="18" id="u68-hn-uCt"/>
+                            <constraint firstItem="wPO-L3-Bll" firstAttribute="top" secondItem="EgK-DS-VBz" secondAttribute="bottom" constant="8" id="uI3-8f-x1t"/>
                             <constraint firstItem="j3v-gO-8NW" firstAttribute="top" secondItem="YrE-OK-ViN" secondAttribute="bottom" constant="380" id="ul9-1o-J1a"/>
                             <constraint firstItem="y4j-M8-EcK" firstAttribute="top" secondItem="j3v-gO-8NW" secondAttribute="bottom" constant="8" id="wjW-RU-EaS"/>
                             <constraint firstAttribute="trailing" secondItem="517-Fm-BfH" secondAttribute="trailing" constant="18" id="xy2-sJ-kAK"/>
@@ -336,7 +333,6 @@
                     <connections>
                         <outlet property="ETADatePicker" destination="517-Fm-BfH" id="GLW-at-jxh"/>
                         <outlet property="SelectDestinationButton" destination="j3v-gO-8NW" id="ZZe-WD-lGw"/>
-                        <outlet property="backgroundView" destination="823-nK-RzB" id="Bgw-uK-NOj"/>
                         <outlet property="container" destination="dUR-ia-imP" id="Opp-2f-7md"/>
                         <outlet property="containerV" destination="EgK-DS-VBz" id="ktC-A9-ZXP"/>
                         <outlet property="searchContainerView" destination="xoQ-XK-BoT" id="e95-DY-zRk"/>
@@ -354,15 +350,25 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="e7e-Yq-SdY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" id="GZg-2d-sgm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" textLabel="5QS-Df-mKD" style="IBUITableViewCellStyleDefault" id="GZg-2d-sgm">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GZg-2d-sgm" id="o0I-8z-THc">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5QS-Df-mKD">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -773,13 +779,16 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="r2l-gb-3An">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="7gf-pu-g0V">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzr-Bw-xNa">
-                                    <rect key="frame" x="8" y="6" width="70" height="32"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzr-Bw-xNa">
+                                    <rect key="frame" x="297" y="8" width="70" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="70" id="DrW-p5-1DC"/>
+                                    </constraints>
                                     <state key="normal" title="Done">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -789,15 +798,30 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.28627450980392155" green="0.74901960784313726" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="Dzr-Bw-xNa" firstAttribute="trailing" secondItem="7gf-pu-g0V" secondAttribute="trailingMargin" id="Ljx-CY-Ho5"/>
+                                <constraint firstAttribute="bottom" secondItem="Dzr-Bw-xNa" secondAttribute="bottom" constant="4" id="dtF-U8-TUm"/>
+                                <constraint firstItem="Dzr-Bw-xNa" firstAttribute="top" secondItem="7gf-pu-g0V" secondAttribute="topMargin" id="kQG-vI-LYY"/>
+                            </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchedContactCell" id="LdC-UI-SbB">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchedContactCell" textLabel="2Kc-bp-hlx" style="IBUITableViewCellStyleDefault" id="LdC-UI-SbB">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LdC-UI-SbB" id="kks-ko-YK9">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Kc-bp-hlx">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -813,6 +837,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="doneButton" destination="Dzr-Bw-xNa" id="Ctm-a8-hRO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvZ-Gz-SSo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
