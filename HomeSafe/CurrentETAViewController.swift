@@ -10,12 +10,11 @@ import UIKit
 
 class CurrentETAViewController: UIViewController {
     
-    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var etaLabel: UILabel!
     @IBOutlet weak var followersLabel: UILabel!
+    @IBOutlet weak var currentFollowersLabel: UILabel!
     @IBOutlet weak var dangerButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var backgroundView: UIView!
     
     
     override func viewDidLoad() {
@@ -24,16 +23,32 @@ class CurrentETAViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        labelText()
-    }
-    
     func setupViews() {
         let gradient = AppearanceController.sharedController.gradientBackground()
         gradient.frame = self.view.bounds
+        
+        let backgroundView = UIView()
+        backgroundView.frame = self.view.bounds
         backgroundView.layer.addSublayer(gradient)
+        self.view.addSubview(backgroundView)
+        
         self.view.sendSubviewToBack(backgroundView)
         
+        if let currentETA = ETAController.sharedController.currentETA, eta = currentETA.eta {
+            self.etaLabel.text = "Your estimated time of arrival is \(eta.formatted)"
+        }
+        
+        let followers = NSUserDefaults.standardUserDefaults().valueForKey("currentFollowers") as! [String]
+        
+        if followers.count == 1 {
+            self.followersLabel.text = "Your watcher is:"
+        } else if followers.count > 1 {
+            self.followersLabel.text = "Your watchers are:"
+        }
+
+        
+        
+        currentFollowersLabel.text = followersAsString()
         
         dangerButton.layer.cornerRadius = 50
         dangerButton.layer.borderColor = UIColor.whiteColor().CGColor
@@ -43,24 +58,16 @@ class CurrentETAViewController: UIViewController {
         cancelButton.layer.borderColor = UIColor.whiteColor().CGColor
         cancelButton.layer.borderWidth = 1
     }
+
     
-    func labelText() {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let guardians = ContactsController.sharedController.selectedGuardians
-            if let currentETA = ETAController.sharedController.currentETA, eta = currentETA.eta {
-                self.etaLabel.text = "Your estimated time of arrival is \(eta.formatted)"
-                if guardians.count == 1 {
-                    self.followersLabel.text = "Your watcher is \(guardians.first!.name!)"
-                } else {
-                    self.followersLabel.text = "Your watchers are:\n"
-                    for guardian in NSUserDefaults.standardUserDefaults().valueForKey("currentFollowers") as! [String] {
-                        self.followersLabel.text = self.followersLabel.text! + "\(guardian)\n"
-                    }
-                }
-            }
-            
-        })
+    func followersAsString() -> String {
+        var followersString: String = ""
+        for follower in NSUserDefaults.standardUserDefaults().valueForKey("currentFollowers") as! [String] {
+            followersString = followersString + "\(follower)\n"
+        }
+        return followersString
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -31,16 +31,16 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     override func viewDidLoad() {
         super.viewDidLoad()
         hideTransparentNavigationBar()
-//        if UserController.sharedController.currentUser == nil {
-//            
-//            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
-//            self.presentViewController(createUserVC!, animated: false, completion: nil)
-//            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
-//                if let currentUser = UserController.sharedController.currentUser {
-//                    //                CloudKitController.sharedController.checkForNewContacts(currentUser)
-//                }
-//            }
-//        }
+        if UserController.sharedController.currentUser == nil {
+            
+            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
+            self.presentViewController(createUserVC!, animated: false, completion: nil)
+            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
+                if let currentUser = UserController.sharedController.currentUser {
+//                                    CloudKitController.sharedController.checkForNewContacts(currentUser)
+                }
+            }
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
         
         self.tableView.allowsMultipleSelection = true
