@@ -32,13 +32,14 @@ class SelectContactTableViewController: UITableViewController{
             vc.searchController = searchController
             vc.results = userContacts
             searchController.dimsBackgroundDuringPresentation = false
-            searchController.searchBar.placeholder = "Search For Guardians"
+            searchController.searchBar.placeholder = "Search for followers"
             searchController.searchBar.sizeToFit()
 //            searchController.searchBar.backgroundImage = UIImage()
             navigationController?.navigationBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
             searchController.searchBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
             tableView.tableHeaderView = searchController.searchBar
             searchController.searchBar.tintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
+            tableView.backgroundColor = UIColor.clearColor()
         }
         
         

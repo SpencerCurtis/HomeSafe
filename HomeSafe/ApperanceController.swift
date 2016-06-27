@@ -49,8 +49,7 @@ class AppearanceController {
         let backgroundView = UIView()
         backgroundView.frame = tableViewController.view.bounds
         backgroundView.layer.addSublayer(gradient)
-        tableViewController.view.addSubview(backgroundView)
-        tableViewController.view.sendSubviewToBack(backgroundView)
+        tableViewController.tableView.backgroundView = backgroundView
     }
     
     

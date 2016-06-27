@@ -107,15 +107,13 @@ class ETAViewController: UIViewController {
             self.presentViewController(alert, animated: true, completion: nil)
             return
         }
-        let currentETAVC = storyboard?.instantiateViewControllerWithIdentifier("currentETAController") as! CurrentETAViewController
-        self.presentViewController(currentETAVC, animated: true, completion: nil)
         if let currentUser = UserController.sharedController.currentUser, name = currentUser.name, destination = LocationController.sharedController.destination, latitude = currentUser.latitude, longitude = currentUser.longitude {
             ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
             
             let region = LocationController.sharedController.regionMonitoringUser(Double(latitude), longitude: Double(longitude), currentUser: currentUser)
             LocationController.sharedController.locationManager.startMonitoringForRegion(region)
-            let names = ContactsController.sharedController.contacts.map({$0.name!})
-            NSUserDefaults.standardUserDefaults().setValue(names, forKey: "currentFollowers")
+            let currentETAVC = storyboard?.instantiateViewControllerWithIdentifier("currentETAController") as! CurrentETAViewController
+            self.presentViewController(currentETAVC, animated: true, completion: nil)
         }
     }
 }

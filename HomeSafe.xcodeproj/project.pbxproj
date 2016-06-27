@@ -144,14 +144,10 @@
 		462039D71CEF678200DC29F6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				46CA33831D2191E200F999B1 /* Walkthrough */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
-				46A0F6FA1CF89EEF0024F507 /* InstructionsPageViewController.swift */,
-				46A0F6FC1CF89F0C0024F507 /* FirstInstructionalViewController.swift */,
-				46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */,
-				46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */,
-				46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */,
 				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
 				4622D8B91CEB765500C2587F /* CloudKitController.swift */,
@@ -194,6 +190,18 @@
 				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 			);
 			name = "Models + Core Data";
+			sourceTree = "<group>";
+		};
+		46CA33831D2191E200F999B1 /* Walkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				46A0F6FA1CF89EEF0024F507 /* InstructionsPageViewController.swift */,
+				46A0F6FC1CF89F0C0024F507 /* FirstInstructionalViewController.swift */,
+				46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */,
+				46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */,
+				46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */,
+			);
+			name = Walkthrough;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

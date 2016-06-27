@@ -30,16 +30,18 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
+        AppearanceController.sharedController.initializeAppearance()
         hideTransparentNavigationBar()
         if UserController.sharedController.currentUser == nil {
             
             let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(createUserVC!, animated: false, completion: nil)
-            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
-                if let currentUser = UserController.sharedController.currentUser {
-//                                    CloudKitController.sharedController.checkForNewContacts(currentUser)
-                }
-            }
+//            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
+//                if let currentUser = UserController.sharedController.currentUser {
+//                                    CloudKitController.sharedController.checkForNewContacts(
+//                }
+//            }
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
         
@@ -174,6 +176,11 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let names = ContactsController.sharedController.contacts.map({$0.name!})
+        NSUserDefaults.standardUserDefaults().setValue(names, forKey: "currentFollowers")
+    }
 }
 
 
