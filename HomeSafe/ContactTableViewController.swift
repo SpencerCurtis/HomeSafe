@@ -35,6 +35,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
         AppearanceController.sharedController.initializeAppearance()
         hideTransparentNavigationBar()
+        UserController.sharedController.currentUser
         if UserController.sharedController.currentUser == nil {
             
             let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")

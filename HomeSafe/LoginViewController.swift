@@ -33,7 +33,11 @@ class LoginViewController: UIViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             }) ; return}
             
-            print("Success!")
+            guard let contactTVC = self.storyboard?.instantiateViewControllerWithIdentifier("selectFollowersVC") else { return }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.presentViewController(contactTVC, animated: true, completion: nil)
+            })
+            
             
         })
     }

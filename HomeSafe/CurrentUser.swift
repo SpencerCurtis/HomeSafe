@@ -29,7 +29,7 @@ class CurrentUser: NSManagedObject {
     convenience init?(record: CKRecord, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         guard let name = record.valueForKey("name") as? String, phoneNumber = record.valueForKey("phoneNum") as? String, safeLocation = record.valueForKey("safeLocation") as? CLLocation else { return nil }
         
-        let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
+        let entity = NSEntityDescription.entityForName("CurrentUser", inManagedObjectContext: context)
         
         self.init(entity: entity!, insertIntoManagedObjectContext: context)
         

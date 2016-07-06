@@ -65,6 +65,7 @@ class AppearanceController {
             textField.layer.cornerRadius = 5
             textField.layer.borderColor = UIColor.whiteColor().CGColor
             textField.layer.borderWidth = 0.3
+            textField.tintColor = Colors.sharedController.exoticGreen
         }
     }
     

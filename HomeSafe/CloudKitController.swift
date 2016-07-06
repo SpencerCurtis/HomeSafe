@@ -17,24 +17,12 @@ class CloudKitController {
     
     let db = CKContainer.defaultContainer().publicCloudDatabase
     
-    func checkForPrivateUserData(completion: () -> Void) {
-        let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: "User", predicate: predicate)
-        let op = CKQueryOperation(query: query)
-        op.recordFetchedBlock = { (record) in
-            let name = record.valueForKey("name") as! String
-            let phoneNumber = record.valueForKey("phoneNum") as! String
-            let safeLocation = record.valueForKey("safeLocation") as! CLLocation
-            let uuid = record.valueForKey("uuid") as! String
-            
-            UserController.sharedController.createUserFromFetchedData(name, safeLocation: safeLocation, phoneNumber: phoneNumber, uuid: uuid)
-            completion()
-        }
-        
-        privateDatabase.addOperation(op)
-    }
-    
+    //    func checkForPrivateUserData(completion: () -> Void) {
+    //
+    //
+    //        privateDatabase.addOperation(op)
+    //    }
+    //
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
@@ -62,8 +50,19 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "password = %@", password)
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
         
+        let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
         let query = CKQuery(recordType: "User", predicate: compoundPredicate)
-        db.performQuery(query, inZoneWithID: nil) { (records, error) in
+        //        privateDatabase.performQuery(query, inZoneWithID: nil) { (records, error) in
+        //            print(records?.count)
+        //            if error != nil {
+        //                print(error?.localizedDescription)
+        //            }
+        //            if let record = records?.first {
+        //                UserController.sharedController.createCurrentUserFromFetchedData(record)
+        //                completion(success: true)
+        //            } else {
+        // Perhaps change the public User record so it doesn't have their password.
+        self.db.performQuery(query, inZoneWithID: nil) { (records, error) in
             guard error == nil else { completion(success: false); print(error?.localizedDescription); return }
             guard let records = records else { print("No records were found matching your phone number and/or password. Try again."); completion(success: false); return }
             if let record = records.last {
@@ -71,6 +70,8 @@ class CloudKitController {
                 completion(success: true)
             }
         }
+        //    }
+        
     }
     
     func fetchSubscriptions(completion: () -> Void) {

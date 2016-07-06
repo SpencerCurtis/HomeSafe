@@ -34,7 +34,7 @@ class UserController {
     }
     
     func createCurrentUserFromFetchedData(record: CKRecord) {
-        let _ = CurrentUser(record: record)
+        let user = CurrentUser(record: record)
         saveToPersistentStorage()
     }
 
