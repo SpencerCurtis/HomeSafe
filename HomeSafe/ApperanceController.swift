@@ -52,6 +52,21 @@ class AppearanceController {
         tableViewController.tableView.backgroundView = backgroundView
     }
     
+    func setUpButtons(buttons: [UIButton]) {
+        for button in buttons {
+            button.layer.cornerRadius = 5
+            button.layer.borderColor = UIColor.whiteColor().CGColor
+            button.layer.borderWidth = 0.2
+        }
+    }
+    
+    func setUpTextFields(textFields: [UITextField]) {
+        for textField in textFields {
+            textField.layer.cornerRadius = 5
+            textField.layer.borderColor = UIColor.whiteColor().CGColor
+            textField.layer.borderWidth = 0.3
+        }
+    }
     
     
 }

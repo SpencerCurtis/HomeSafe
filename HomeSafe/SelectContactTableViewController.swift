@@ -15,7 +15,7 @@ protocol PassContactsDelegate {
 }
 
 class SelectContactTableViewController: UITableViewController{
-
+    
     var delegate: PassContactsDelegate?
     var userContacts = [CNContact]() // dataArray
     var contactStore = CNContactStore()
@@ -34,7 +34,7 @@ class SelectContactTableViewController: UITableViewController{
             searchController.dimsBackgroundDuringPresentation = false
             searchController.searchBar.placeholder = "Search for followers"
             searchController.searchBar.sizeToFit()
-//            searchController.searchBar.backgroundImage = UIImage()
+            //            searchController.searchBar.backgroundImage = UIImage()
             navigationController?.navigationBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
             searchController.searchBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
             tableView.tableHeaderView = searchController.searchBar
@@ -58,14 +58,24 @@ class SelectContactTableViewController: UITableViewController{
     }
     
     @IBAction func done(sender: AnyObject) {
-        
+        var contactsNotInICloud: [String] = []
         self.dismissViewControllerAnimated(true, completion: nil)
         if let currentUser = UserController.sharedController.currentUser {
             contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
                 for phoneNumber in phoneNumbers {
-                CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(currentUser, phoneNumber: phoneNumber)
+                    CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(currentUser, phoneNumber: phoneNumber, completion: { (success) in
+                        if success == false {
+                            contactsNotInICloud.append(phoneNumber)
+                            NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
+                            NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
+                            
+                            
+                        }
+                    })
                 }
             })
+            ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
+            }
             
         }
     }
@@ -81,11 +91,12 @@ class SelectContactTableViewController: UITableViewController{
     func contactsToPhoneNumber(contacts: [CNContact], completion: (phoneNumbers: [String]) -> Void) {
         var phoneNumbers: [String] = []
         for contact in contacts {
-            let value = contact.phoneNumbers.first?.value as! CNPhoneNumber
-            let string = value.stringValue
-            let phoneNumber = plainPhoneNumber(string)
-            phoneNumbers.append(phoneNumber)
-            
+            if contact.phoneNumbers != [] {
+                let value = contact.phoneNumbers.first?.value as! CNPhoneNumber
+                let string = value.stringValue
+                let phoneNumber = plainPhoneNumber(string)
+                phoneNumbers.append(phoneNumber)
+            }
         }
         completion(phoneNumbers: phoneNumbers)
         
@@ -114,7 +125,7 @@ class SelectContactTableViewController: UITableViewController{
         cell.selectionStyle = .None
         cell.textLabel?.text = contact.givenName + " " + contact.familyName
         cell.tintColor = UIColor.whiteColor()
-
+        
         return cell
     }
     

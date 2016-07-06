@@ -33,8 +33,13 @@ class UserController {
         saveToPersistentStorage()
     }
     
+    func createCurrentUserFromFetchedData(record: CKRecord) {
+        let _ = CurrentUser(record: record)
+        saveToPersistentStorage()
+    }
+
     
-    func createUser(name: String, safeLocation: CLLocation, phoneNumber: String, completion: () -> Void) {
+    func createUser(name: String, password: String, safeLocation: CLLocation, phoneNumber: String, completion: () -> Void) {
         let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
         let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
         
@@ -44,6 +49,7 @@ class UserController {
         userRecord.setValue(safeLocation, forKey: "safeLocation")
         userRecord.setValue(phoneNumber, forKey: "phoneNum")
         userRecord.setValue(uuid, forKey: "uuid")
+        userRecord.setValue(password, forKey: "password")
         
         let contactsRecord = CKRecord(recordType: "contacts")
         contactsRecord.setValue(uuid, forKey: "userUUID")

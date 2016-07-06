@@ -12,7 +12,7 @@ class FourthInstructionalViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AppearanceController.sharedController.gradientBackgroundForViewController(self)
         // Do any additional setup after loading the view.
     }
     

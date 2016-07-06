@@ -26,7 +26,7 @@ class ETAViewController: UIViewController {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showMapContainerView), name: "locationPicked", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearBorderForContainerView), name: "doneAnimating", object: nil)
-        
+        self.hideKeyboardWhenTappedAround()
         setupViews()
         ETADatePicker.minimumDate = NSDate()
         
@@ -126,3 +126,13 @@ extension NSDate {
     }
 }
 
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

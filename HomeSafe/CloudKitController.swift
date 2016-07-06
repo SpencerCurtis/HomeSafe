@@ -35,29 +35,42 @@ class CloudKitController {
         privateDatabase.addOperation(op)
     }
     
-    
     func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
-        let operation = CKQueryOperation(query: query)
         
-        operation.recordFetchedBlock = { (record) in
-            let name = record.valueForKey("name") as? String
-            let phoneNum = record.valueForKey("phoneNum") as? String
-            let safeLocation = record.valueForKey("safeLocation") as? CLLocation
-            if let currentETAID = record.valueForKey("currentETAID") as? String {
-                NSUserDefaults.standardUserDefaults().setValue(currentETAID, forKey: "currentETAID")
-            }
-            let uuid = record.recordID.recordName
-            if let name = name, phoneNum = phoneNum, safeLocation = safeLocation {
-                
-                let user = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNum, uuid: uuid)
-                
-                completion(otherUser: user)
+        db.performQuery(query, inZoneWithID: nil) { (records, error) in
+            guard records?.count > 0 else { print("No users were found with phone number \(phoneNumber)")
+                completion(otherUser: nil); return }
+            if let records = records {
+                print(records.count)
+                for record in records {
+                    ContactsController.sharedController.createUserFromFetchedRecord(record)
+                    
+                    if let currentETAID = record.valueForKey("currentETAID") as? String {
+                        NSUserDefaults.standardUserDefaults().setValue(currentETAID, forKey: "currentETAID")
+                    }
+                    
+                }
                 
             }
         }
-        db.addOperation(operation)
+    }
+    
+    func logInUser(phoneNumber: String, password: String, completion: (success: Bool) -> Void) {
+        let predicate1 = NSPredicate(format: "phoneNum = %@", phoneNumber)
+        let predicate2 = NSPredicate(format: "password = %@", password)
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
+        
+        let query = CKQuery(recordType: "User", predicate: compoundPredicate)
+        db.performQuery(query, inZoneWithID: nil) { (records, error) in
+            guard error == nil else { completion(success: false); print(error?.localizedDescription); return }
+            guard let records = records else { print("No records were found matching your phone number and/or password. Try again."); completion(success: false); return }
+            if let record = records.last {
+                UserController.sharedController.createCurrentUserFromFetchedData(record)
+                completion(success: true)
+            }
+        }
     }
     
     func fetchSubscriptions(completion: () -> Void) {
@@ -159,9 +172,12 @@ class CloudKitController {
     // Make an alert that will call this function when the user gets a notification saying they've been added as _'s contact.
     // Call this function if they want to add the contact back.
     
-    func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String) {
+    func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String, completion: (success: Bool) -> Void) {
         var tempContactsArray: [String] = []
         fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
+            if otherUser == nil {
+                completion(success: false)
+            }
             if let otherUser = otherUser, uuid = otherUser.uuid, phoneNumber = currentUser.phoneNumber {
                 tempContactsArray.append(phoneNumber)
                 self.fetchContactsForUserUUID(uuid, completion: { (contactsRecord) in
@@ -174,16 +190,13 @@ class CloudKitController {
                     contactsRecord.setObject(tempContactsArray, forKey: "contactList")
                     let op = CKModifyRecordsOperation(recordsToSave: [contactsRecord], recordIDsToDelete: nil)
                     op.perRecordCompletionBlock = { (record, error) in
-                        if error != nil {
-                            print(error?.localizedDescription)
-                        } else {
-                            print("Success")
-                        }
+                        guard error != nil else { print(error?.localizedDescription); completion(success: false); return }
+                        print("Success")
+                        completion(success: true)
                     }
                     self.db.addOperation(op)
                     
                 })
-                
             }
         }
     }
@@ -200,7 +213,7 @@ class CloudKitController {
     }
     // DO I EVEN NEED THIS FUNCTION?
     
-    func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String] ) {
+    func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String], completion: () -> Void ) {
         for phoneNumber in phoneNumbers {
             self.fetchUserForPhoneNumber(phoneNumber, completion: { (otherUser) in
                 if let otherUser = otherUser {
@@ -221,11 +234,12 @@ class CloudKitController {
                             guard error == nil else { print(error?.localizedDescription); return }
                             
                             print("success")
+                            completion()
                         })
                     }
                 } else {
                     print("User with phone number: \(otherUser!.phoneNumber!) is not in the HomeSafe database")
-                    // Create a method to send an SMS to invite them?
+                    completion()
                 }
             })
         }

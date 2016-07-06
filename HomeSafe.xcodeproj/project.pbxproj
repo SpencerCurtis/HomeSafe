@@ -38,6 +38,7 @@
 		46A0F6FF1CF89F230024F507 /* SecondInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */; };
 		46A0F7011CF89F390024F507 /* ThirdInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */; };
 		46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */; };
+		46EFF6841D2D984400B4AA43 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EFF6831D2D984400B4AA43 /* LoginViewController.swift */; };
 		46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */; };
 		46F538611CF4B7B300D63D17 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */; };
 		E521CAD71CF52A92000F3E23 /* DoneCutomViewClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521CAD61CF52A92000F3E23 /* DoneCutomViewClass.swift */; };
@@ -84,6 +85,7 @@
 		46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondInstructionalViewController.swift; sourceTree = "<group>"; };
 		46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdInstructionalViewController.swift; sourceTree = "<group>"; };
 		46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthInstructionalViewController.swift; sourceTree = "<group>"; };
+		46EFF6831D2D984400B4AA43 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
 		46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		E521CAD61CF52A92000F3E23 /* DoneCutomViewClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneCutomViewClass.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 		462039D91CEF67A100DC29F6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				46EFF6831D2D984400B4AA43 /* LoginViewController.swift */,
 				4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */,
 				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
 				4617E0551CEA5C33003EB3C1 /* CurrentETAViewController.swift */,
@@ -311,6 +314,7 @@
 				4659FF191CEBB3F100B02642 /* User.swift in Sources */,
 				46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */,
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
+				46EFF6841D2D984400B4AA43 /* LoginViewController.swift in Sources */,
 				E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */,
 				46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */,
 				E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,

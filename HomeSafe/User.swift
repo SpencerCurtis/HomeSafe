@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import CoreLocation
+import CloudKit
 
 class User: NSManagedObject {
     
@@ -42,14 +43,19 @@ class User: NSManagedObject {
         self.name = name
         self.phoneNumber = phoneNumber
     }
- 
-//    convenience init(name: String, safeLocation: CLLocation, phoneNumber: String) {
-//        self.init()
-//        self.name = name
-//        self.latitude = safeLocation.coordinate.latitude
-//        self.longitude = safeLocation.coordinate.longitude
-//        self.phoneNumber = phoneNumber
-//    }
-
+    
+    convenience init?(record: CKRecord, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+        guard let name = record.valueForKey("name") as? String, phoneNumber = record.valueForKey("phoneNum") as? String, safeLocation = record.valueForKey("safeLocation") as? CLLocation else { return nil }
+        
+        let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: context)
+        
+        self.init(entity: entity!, insertIntoManagedObjectContext: context)
+        
+        self.name = name
+        self.phoneNumber = phoneNumber
+        self.latitude = safeLocation.coordinate.latitude
+        self.longitude = safeLocation.coordinate.latitude
+        self.uuid = record.recordID.recordName
+    }
     
 }
