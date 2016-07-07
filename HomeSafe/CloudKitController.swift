@@ -50,7 +50,7 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "password = %@", password)
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
         
-        let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
+        //        let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
         let query = CKQuery(recordType: "User", predicate: compoundPredicate)
         //        privateDatabase.performQuery(query, inZoneWithID: nil) { (records, error) in
         //            print(records?.count)
@@ -61,7 +61,8 @@ class CloudKitController {
         //                UserController.sharedController.createCurrentUserFromFetchedData(record)
         //                completion(success: true)
         //            } else {
-        // Perhaps change the public User record so it doesn't have their password.
+        
+        // Perhaps change the public User record so it doesn't have their password and make the private db query work.
         self.db.performQuery(query, inZoneWithID: nil) { (records, error) in
             guard error == nil else { completion(success: false); print(error?.localizedDescription); return }
             guard let records = records else { print("No records were found matching your phone number and/or password. Try again."); completion(success: false); return }
@@ -212,6 +213,7 @@ class CloudKitController {
         }
         self.db.addOperation(operation)
     }
+    
     // DO I EVEN NEED THIS FUNCTION?
     
     func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String], completion: () -> Void ) {

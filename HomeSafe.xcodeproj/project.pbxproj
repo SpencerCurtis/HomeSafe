@@ -147,8 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				46CA33831D2191E200F999B1 /* Walkthrough */,
-				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
+				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
 				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
@@ -163,15 +163,15 @@
 			isa = PBXGroup;
 			children = (
 				46EFF6831D2D984400B4AA43 /* LoginViewController.swift */,
-				4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */,
-				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
-				4617E0551CEA5C33003EB3C1 /* CurrentETAViewController.swift */,
-				46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */,
-				46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */,
+				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4617E04F1CEA5BEA003EB3C1 /* ContactTableViewController.swift */,
 				4617E0571CEA5C58003EB3C1 /* SelectContactTableViewController.swift */,
+				4617E0531CEA5C0D003EB3C1 /* ETAViewController.swift */,
+				4617E0551CEA5C33003EB3C1 /* CurrentETAViewController.swift */,
+				4636E5D91D0F6E75007F45BC /* ContainerViewViewController.swift */,
+				46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */,
+				46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */,
 				E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */,
-				4617E04D1CEA5BD6003EB3C1 /* CreateUserViewController.swift */,
 				4659FF201CEBBC1500B02642 /* LocationSearchTableViewController.swift */,
 				4636E5DD1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift */,
 				4617E04B1CEA5889003EB3C1 /* MapViewController.swift */,

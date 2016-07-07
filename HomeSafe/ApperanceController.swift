@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class AppearanceController {
     
@@ -18,9 +19,21 @@ class AppearanceController {
         UINavigationBar.appearance().barStyle = UIBarStyle.Default
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UIBarButtonItem.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([MFMessageComposeViewController.self]).tintColor = UIColor.blueColor()
         
         let textAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         UINavigationBar.appearance().titleTextAttributes = textAttributes
+    }
+    
+    func intitializeAppearanceForMFMessageController() {
+        UINavigationBar.appearance().barStyle = UIBarStyle.Default
+        UINavigationBar.appearance().tintColor = Colors.sharedController.exoticGreen
+        UIBarButtonItem.appearance().tintColor = Colors.sharedController.exoticGreen
+        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([MFMessageComposeViewController.self]).tintColor = UIColor.blueColor()
+        
+        let textAttributes = [NSForegroundColorAttributeName:Colors.sharedController.exoticGreen]
+        UINavigationBar.appearance().titleTextAttributes = textAttributes
+        
     }
     
     func gradientBackground() -> CAGradientLayer {

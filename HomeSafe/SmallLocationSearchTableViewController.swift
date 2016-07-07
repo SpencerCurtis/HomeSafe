@@ -19,7 +19,6 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //        let locationSearchTable = storyboard!.instantiateViewControllerWithIdentifier("SmallLocationSearchTable") as! SmallLocationSearchTableViewController
         //        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         //        resultSearchController?.searchResultsUpdater = locationSearchTable
@@ -34,11 +33,11 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
             //        resultSearchController.searchBar.searchBarStyle = .Minimal
             resultSearchController.searchBar.backgroundImage = UIImage()
             resultSearchController.searchBar.placeholder = "Search for your destination"
-//            resultSearchController.searchBar.setSearchFieldBackgroundImage(UIImage(), forState: .Normal)
+            //            resultSearchController.searchBar.setSearchFieldBackgroundImage(UIImage(), forState: .Normal)
             self.tableView.tableHeaderView = resultSearchController.searchBar
             self.tableView.backgroundColor = UIColor.clearColor()
             resultSearchController.searchBar.tintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
-
+            
         }
         
     }

@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class ETAViewController: UIViewController {
+class ETAViewController: UIViewController, UITextFieldDelegate {
     
     static let sharedInstance = ETAViewController()
     
@@ -26,11 +26,16 @@ class ETAViewController: UIViewController {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showMapContainerView), name: "locationPicked", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearBorderForContainerView), name: "doneAnimating", object: nil)
-        self.hideKeyboardWhenTappedAround()
+        //        self.hideKeyboardWhenTappedAround()
         setupViews()
         ETADatePicker.minimumDate = NSDate()
         
         
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     func setupViews() {

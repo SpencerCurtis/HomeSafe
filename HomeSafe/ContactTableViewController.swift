@@ -75,16 +75,22 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             let messageVC = MFMessageComposeViewController()
             if MFMessageComposeViewController.canSendText() == true {
-            messageVC.body = "I'd like you to download HomeSafe so you can make sure I'm safe while I'm out!"
-            messageVC.recipients = recipients
-            messageVC.messageComposeDelegate = self;
                 
-        
-            self.presentViewController(messageVC, animated: true, completion: nil)
+                let alert = UIAlertController(title: nil, message: "Would you like to invite this person to download HomeSafe so they can be your follower?", preferredStyle: .Alert)
+                let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
+                    messageVC.body = "I'd like you to download HomeSafe so you can make sure I'm safe while I'm out!"
+                    messageVC.recipients = recipients
+                    messageVC.messageComposeDelegate = self
+                    self.presentViewController(messageVC, animated: true, completion: nil)
+                })
+                let noAction = UIAlertAction(title: "No", style: .Destructive, handler: nil)
+                alert.addAction(yesAction)
+                alert.addAction(noAction)
+                self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 NotificationController.sharedController.simpleAlert("Cannot send SMS", message: "Your device does not support sending SMS messages")
             }
-
+            
         })
         
     }

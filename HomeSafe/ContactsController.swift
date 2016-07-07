@@ -78,7 +78,7 @@ class ContactsController {
                     }
                 })
             } else {
-//                NotificationController.sharedController.simpleAlert(", message: <#T##String#>)
+                //                NotificationController.sharedController.simpleAlert(", message: <#T##String#>)
             }
         }
     }

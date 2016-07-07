@@ -67,8 +67,9 @@ class SelectContactTableViewController: UITableViewController{
                         if success == false {
                             contactsNotInICloud.append(phoneNumber)
                             NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
-                            NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
-                            
+                            if contactsNotInICloud.count != 0 {
+                                NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
+                            }
                             
                         }
                     })

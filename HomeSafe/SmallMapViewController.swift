@@ -128,39 +128,17 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         pinView?.canShowCallout = true
         pinView?.animatesDrop = true
         
-        let smallSquare = CGSize(width: 30, height: 30)
-        let button = UIButton(frame: CGRect(origin: CGPointZero, size: smallSquare))
-//        button.setBackgroundImage(UIImage(named: "goArrow") ?? UIImage(), forState: .Normal)
-//        button.addTarget(self, action: #selector(selectSafeZone), forControlEvents: .TouchUpInside)
-        // Get the address from the pin.
-        pinView?.rightCalloutAccessoryView = button
         self.selectedDestinationPin = annotation
         
         return pinView
         
     }
-//    
-//    func selectSafeZone() {
-//        if let annotation = self.selectedDestinationPin {
-//            let coordinate = annotation.coordinate
-//            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-//            LocationController.sharedController.destination = location
-//            
-//        }
-//    }
     
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        if let annotation = self.mapView.annotations.last {
+            self.mapView.selectAnnotation(annotation, animated: true)
+        }
+    }
 }
 
 extension SmallMapViewController: HandleMapSearch {

@@ -29,17 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
             
-            return true 
+            return true
         }
         
         
         
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+        let notificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
         let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         application.registerUserNotificationSettings(pushNotificationSettings)
         application.registerForRemoteNotifications()
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
         AppearanceController.sharedController.initializeAppearance()
         return true
     }
