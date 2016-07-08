@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        
         if ETAController.sharedController.currentETA != nil {
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             

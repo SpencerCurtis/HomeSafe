@@ -29,15 +29,22 @@ class UserController {
     }
     
     func createUserFromFetchedData(name: String, safeLocation: CLLocation, phoneNumber: String, uuid: String) {
-        let user = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
+        _ = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
         saveToPersistentStorage()
     }
     
     func createCurrentUserFromFetchedData(record: CKRecord) {
-        let user = CurrentUser(record: record)
+        _ = CurrentUser(record: record)
         saveToPersistentStorage()
     }
-
+    
+    func signOutCurrentUser() {
+        let moc = Stack.sharedStack.managedObjectContext
+        if let currentUser = currentUser {
+            moc.deleteObject(currentUser)
+            saveToPersistentStorage()
+        }
+    }
     
     func createUser(name: String, password: String, safeLocation: CLLocation, phoneNumber: String, completion: () -> Void) {
         let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
@@ -75,7 +82,7 @@ class UserController {
             if error != nil {
                 print(error?.localizedDescription)
             } else {
-                let currentUser = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
+                _ = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
                 UserController.sharedController.saveToPersistentStorage()
                 publicDatabase.saveRecord(contactsRecord, completionHandler: { (record, error) in
                     if error != nil {

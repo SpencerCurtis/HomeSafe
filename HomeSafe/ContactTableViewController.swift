@@ -46,7 +46,8 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             //                }
             //            }
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(tableView.reloadData), name: "reloadTableView", object: nil)
         
         self.tableView.allowsMultipleSelection = true
     }
@@ -60,19 +61,15 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        reloadTableView()
+        tableView.reloadData()
         
-    }
-    
-    func reloadTableView() {
-        self.tableView.reloadData()
     }
     
     func sendInvitationMessage() {
         
         let recipients = NSUserDefaults.standardUserDefaults().objectForKey("contactsForSMS") as? [String]
-        print(recipients)
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            AppearanceController.sharedController.intitializeAppearanceForMFMessageController()
             let messageVC = MFMessageComposeViewController()
             if MFMessageComposeViewController.canSendText() == true {
                 
@@ -81,7 +78,13 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                     messageVC.body = "I'd like you to download HomeSafe so you can make sure I'm safe while I'm out!"
                     messageVC.recipients = recipients
                     messageVC.messageComposeDelegate = self
-                    self.presentViewController(messageVC, animated: true, completion: nil)
+                    messageVC.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+                    //                    messageVC.navigationBar.translucent = false // TODO: - GET THE NAVBAR TO FREAKING BE SOLID.
+                    self.presentViewController(messageVC, animated: true, completion: {
+                        alert.view.tintColor = Colors.sharedController.exoticGreen    
+                    })
+                    
+                    
                 })
                 let noAction = UIAlertAction(title: "No", style: .Destructive, handler: nil)
                 alert.addAction(yesAction)
@@ -97,36 +100,65 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     @objc func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            AppearanceController.sharedController.initializeAppearance()
+        })
+        
         self.becomeFirstResponder()
     }
     
     
     
-    @IBAction func addContactButtonTapped(sender: AnyObject) {
-        requestForAccess { (accessGranted) in
-            if accessGranted {
-                guard let selectContactsNavController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("navController") as? UINavigationController,                                let selectContacts = selectContactsNavController.viewControllers[0] as? SelectContactTableViewController else {return}
-                selectContacts.delegate = self
-                self.presentViewController(selectContactsNavController, animated: true, completion: {
-                    self.tableView.reloadData()
-                })
-                
-                let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
-                let containerID = CNContactStore().defaultContainerIdentifier()
-                let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerID)
-                do {
-                    
-                    selectContacts.userContacts = try CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+    @IBAction func settingsButtonTapped(sender: AnyObject) {
+        
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let contactsAction = UIAlertAction(title: "Add a new follower", style: .Default) { (_) in
+            self.requestForAccess { (accessGranted) in
+                if accessGranted {
+                    guard let selectContactsNavController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("navController") as? UINavigationController,                                let selectContacts = selectContactsNavController.viewControllers[0] as? SelectContactTableViewController else {return}
+                    selectContacts.delegate = self
+                    self.presentViewController(selectContactsNavController, animated: true, completion: {
                         self.tableView.reloadData()
+                        alert.view.tintColor = Colors.sharedController.exoticGreen
+                        
                     })
                     
-                } catch _ {
-                    print("Error getting users contacts")
+                    let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+                    let containerID = CNContactStore().defaultContainerIdentifier()
+                    let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerID)
+                    do {
+                        
+                        selectContacts.userContacts = try CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.tableView.reloadData()
+                        })
+                        
+                    } catch _ {
+                        print("Error getting users contacts")
+                    }
                 }
             }
         }
+        
+        let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (_) in
+            UserController.sharedController.signOutCurrentUser()
+            
+            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
+            self.presentViewController(createUserVC!, animated: false, completion: nil)
+            
+        }
+        
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+        
+        alert.addAction(contactsAction)
+        alert.addAction(signOutAction)
+        alert.addAction(dismissAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        
     }
     
     func requestForAccess(completionHandler: (accessGranted: Bool) -> Void) {
@@ -162,7 +194,9 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         let alert = UIAlertController(title: "My Contacts", message: message, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alert.addAction(okAction)
-        presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: {
+            alert.view.tintColor = Colors.sharedController.exoticGreen
+        })
     }
     
     //*****************************//

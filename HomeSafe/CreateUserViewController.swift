@@ -81,8 +81,13 @@
                     })
                 }
             })
+            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            let alert = NotificationController.sharedController.simpleAlert("Hold on", message: "Make sure you enter all the fields, and select a safe place as well.")
+            self.presentViewController(alert, animated: true, completion: { 
+                alert.view.tintColor = Colors.sharedController.exoticGreen
+            })
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
         
     }
     

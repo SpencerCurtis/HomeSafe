@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -42,5 +43,8 @@ class LoginViewController: UIViewController {
         })
     }
     
+    @IBAction func cancelButtonTapped(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
 }

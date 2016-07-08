@@ -19,6 +19,7 @@ class AppearanceController {
         UINavigationBar.appearance().barStyle = UIBarStyle.Default
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UIBarButtonItem.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().backgroundColor = Colors.sharedController.exoticGreen
         UINavigationBar.appearanceWhenContainedInInstancesOfClasses([MFMessageComposeViewController.self]).tintColor = UIColor.blueColor()
         
         let textAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
@@ -26,12 +27,10 @@ class AppearanceController {
     }
     
     func intitializeAppearanceForMFMessageController() {
-        UINavigationBar.appearance().barStyle = UIBarStyle.Default
-        UINavigationBar.appearance().tintColor = Colors.sharedController.exoticGreen
-        UIBarButtonItem.appearance().tintColor = Colors.sharedController.exoticGreen
         UINavigationBar.appearanceWhenContainedInInstancesOfClasses([MFMessageComposeViewController.self]).tintColor = UIColor.blueColor()
-        
-        let textAttributes = [NSForegroundColorAttributeName:Colors.sharedController.exoticGreen]
+        UINavigationBar.appearance().barStyle = .Black
+        UINavigationBar.appearance().backgroundColor = UIColor.greenColor()
+        let textAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         UINavigationBar.appearance().titleTextAttributes = textAttributes
         
     }
@@ -81,6 +80,4 @@ class AppearanceController {
             textField.tintColor = Colors.sharedController.exoticGreen
         }
     }
-    
-    
 }
