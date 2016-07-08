@@ -457,13 +457,20 @@
 =======
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CreateUserViewController.swift"
                   timestampString = "485720465.039588"
+<<<<<<< HEAD
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
+=======
 >>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "41"
                   endingLineNumber = "41"
 <<<<<<< HEAD
+<<<<<<< HEAD
                   offsetFromSymbolStart = "172">
+=======
+                  offsetFromSymbolStart = "952">
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
 =======
                   offsetFromSymbolStart = "952">
 >>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
@@ -491,6 +498,9 @@
                   startingLineNumber = "42"
                   endingLineNumber = "42"
                   offsetFromSymbolStart = "12">
+<<<<<<< HEAD
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
+=======
 >>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
             </Locations>
@@ -646,6 +656,9 @@
                   startingLineNumber = "45"
                   endingLineNumber = "45"
                   offsetFromSymbolStart = "1040">
+<<<<<<< HEAD
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
+=======
 >>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
                <Location
@@ -671,6 +684,9 @@
                   startingLineNumber = "45"
                   endingLineNumber = "45"
                   offsetFromSymbolStart = "192">
+<<<<<<< HEAD
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
+=======
 >>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
             </Locations>
@@ -748,6 +764,7 @@
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
 <<<<<<< HEAD
+<<<<<<< HEAD
                   timestampString = "489702675.175024"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
@@ -755,12 +772,17 @@
                   endingLineNumber = "94"
                   offsetFromSymbolStart = "652">
 =======
+=======
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                   timestampString = "485720465.044549"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "54"
                   endingLineNumber = "54"
                   offsetFromSymbolStart = "24">
+<<<<<<< HEAD
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
+=======
 >>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
                <Location
@@ -772,6 +794,7 @@
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
 <<<<<<< HEAD
+<<<<<<< HEAD
                   timestampString = "489702675.175124"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
@@ -779,12 +802,15 @@
                   endingLineNumber = "94"
                   offsetFromSymbolStart = "1212">
 =======
+=======
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                   timestampString = "485720465.044652"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "54"
                   endingLineNumber = "54"
                   offsetFromSymbolStart = "108">
+<<<<<<< HEAD
 >>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
             </Locations>
@@ -881,6 +907,8 @@
                   startingLineNumber = "34"
                   endingLineNumber = "34"
                   offsetFromSymbolStart = "20">
+=======
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
             </Locations>
          </BreakpointContent>
