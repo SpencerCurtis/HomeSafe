@@ -451,13 +451,22 @@
                   symbolName = "HomeSafe.ETAController.createETA (__ObjC.NSDate, latitude : Swift.Double, longitude : Swift.Double, name : Swift.String, canceledETA : Swift.Bool, inDanger : Swift.Bool) -&gt; ()"
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
+<<<<<<< HEAD
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/ETAController.swift"
                   timestampString = "489702675.16828"
+=======
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CreateUserViewController.swift"
+                  timestampString = "485720465.039588"
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "41"
                   endingLineNumber = "41"
+<<<<<<< HEAD
                   offsetFromSymbolStart = "172">
+=======
+                  offsetFromSymbolStart = "952">
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -466,6 +475,7 @@
                   symbolName = "HomeSafe.ETAController.createETA (__ObjC.NSDate, latitude : Swift.Double, longitude : Swift.Double, name : Swift.String, canceledETA : Swift.Bool, inDanger : Swift.Bool) -&gt; ()"
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
+<<<<<<< HEAD
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/ETAController.swift"
                   timestampString = "489702675.168376"
                   startingColumnNumber = "9223372036854775807"
@@ -473,6 +483,15 @@
                   startingLineNumber = "41"
                   endingLineNumber = "41"
                   offsetFromSymbolStart = "248">
+=======
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CreateUserViewController.swift"
+                  timestampString = "485720465.039733"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "12">
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
             </Locations>
          </BreakpointContent>
@@ -611,6 +630,7 @@
                   symbolName = "HomeSafe.AppDelegate.handleRemoteNotification (Swift.Dictionary&lt;__ObjC.NSObject, Swift.AnyObject&gt;) -&gt; ()"
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
+<<<<<<< HEAD
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
                   timestampString = "489702675.1722"
                   startingColumnNumber = "9223372036854775807"
@@ -618,6 +638,15 @@
                   startingLineNumber = "89"
                   endingLineNumber = "89"
                   offsetFromSymbolStart = "1108">
+=======
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CreateUserViewController.swift"
+                  timestampString = "485720465.042177"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "1040">
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -626,6 +655,7 @@
                   symbolName = "HomeSafe.AppDelegate.(handleRemoteNotification (Swift.Dictionary&lt;__ObjC.NSObject, Swift.AnyObject&gt;) -&gt; ()).(closure #1)"
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
+<<<<<<< HEAD
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
                   timestampString = "489702675.172438"
                   startingColumnNumber = "9223372036854775807"
@@ -633,6 +663,15 @@
                   startingLineNumber = "90"
                   endingLineNumber = "90"
                   offsetFromSymbolStart = "44">
+=======
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CreateUserViewController.swift"
+                  timestampString = "485720465.0423"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "192">
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
             </Locations>
          </BreakpointContent>
@@ -708,12 +747,21 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
+<<<<<<< HEAD
                   timestampString = "489702675.175024"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "94"
                   endingLineNumber = "94"
                   offsetFromSymbolStart = "652">
+=======
+                  timestampString = "485720465.044549"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "24">
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -723,12 +771,21 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
+<<<<<<< HEAD
                   timestampString = "489702675.175124"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "94"
                   endingLineNumber = "94"
                   offsetFromSymbolStart = "1212">
+=======
+                  timestampString = "485720465.044652"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "108">
+>>>>>>> parent of 93832e5... THIS IS THE FINAL WORKING COPY BEFORE WE SPLIT INTO OUR OWN FEATURE BRANCHES.
                </Location>
             </Locations>
          </BreakpointContent>
