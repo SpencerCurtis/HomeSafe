@@ -11,6 +11,20 @@ import MapKit
 
 class LocationSearchTableViewController: UITableViewController {
     
+    
+    override func viewDidLoad() {
+        let gradient = AppearanceController.sharedController.gradientBackground()
+        gradient.frame = self.view.bounds
+        let backgroundView = UIView()
+        backgroundView.frame = self.view.bounds
+        backgroundView.layer.addSublayer(gradient)
+        
+        self.tableView.addSubview(backgroundView)
+        
+        self.tableView.sendSubviewToBack(backgroundView)
+        
+    }
+    
     static let sharedController = LocationSearchTableViewController()
     
     var matchingLocations: [MKMapItem] = []
@@ -49,7 +63,7 @@ extension LocationSearchTableViewController: UISearchResultsUpdating {
 extension LocationSearchTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchingLocations.count
+        return matchingLocations.count ?? 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

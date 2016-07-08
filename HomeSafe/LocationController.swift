@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import UIKit
 import CloudKit
+import MapKit
 
 class LocationController: NSObject, CLLocationManagerDelegate {
     
@@ -21,6 +22,8 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     
     var address: String = ""
     
+    var destination: MKPlacemark?
+    
     override init() {
         super.init()
         locationManager.delegate = self
@@ -30,8 +33,31 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     }
     
     
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    
+    
+    func regionMonitoringUser(latitude: Double, longitude: Double, currentUser: CurrentUser) -> CLCircularRegion {
+        locationManager.requestAlwaysAuthorization()
         
+        let usersLocation = CLCircularRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), radius: 600, identifier: currentUser.uuid!)
+        
+        return usersLocation
     }
+    
+    
+    
+    
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if let currentETA = ETAController.sharedController.currentETA {
+            ETAController.sharedController.homeSafely(currentETA)
+        }
+        print("Entered Location")
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("Exited Location")
+    }
+    
+    
+    
     
 }

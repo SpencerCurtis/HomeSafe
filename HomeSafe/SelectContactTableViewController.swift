@@ -8,63 +8,100 @@
 
 import UIKit
 import Contacts
+import CloudKit
 
 protocol PassContactsDelegate {
     func userDidSelectContacts(contacts: [CNContact])
 }
 
 class SelectContactTableViewController: UITableViewController{
-    //*****************************//
-    //VARIABLES FOR TABLEVIEW AND DELEGATE. SHARED PROPERTY OF TABLEVIEW.
-    //*****************************//
     
     var delegate: PassContactsDelegate?
     var userContacts = [CNContact]() // dataArray
     var contactStore = CNContactStore()
     var favoriteContacts: [CNContact] = []
     var selectedFavoriteContactsArray: [CNContact] = []
-  
-        var searchController: UISearchController!
+    var tempContacts: [User] = []
     
-        func configureSearchController() {
-            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
-                searchController = UISearchController(searchResultsController: vc)
-                vc.searchController = searchController
-                vc.results = userContacts
-                searchController.dimsBackgroundDuringPresentation = true
-                searchController.searchBar.placeholder = "Search For Guardians"
-                searchController.searchBar.sizeToFit()
-                tableView.tableHeaderView = searchController.searchBar
-            }
-        }
-
-        static let sharedInstance = SelectContactTableViewController()
+    var searchController: UISearchController!
     
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            self.tableView.allowsMultipleSelection = true
-            configureSearchController()
-    
-        }
-    
-    //*****************************//
-    // CALLS DELEGATE AND DISMISSES MODAL VIEW
-    //*****************************//
-    @IBAction func done(sender: AnyObject) {
-        if self.delegate != nil {
-            let contacts: [CNContact] = self.selectedFavoriteContactsArray
-            self.delegate?.userDidSelectContacts(contacts)
+    func configureSearchController() {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
+            
+            searchController = UISearchController(searchResultsController: vc)
+            vc.searchController = searchController
+            vc.results = userContacts
+            searchController.dimsBackgroundDuringPresentation = false
+            searchController.searchBar.placeholder = "Search for followers"
+            searchController.searchBar.sizeToFit()
+            //            searchController.searchBar.backgroundImage = UIImage()
+            navigationController?.navigationBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
+            searchController.searchBar.barTintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
+            tableView.tableHeaderView = searchController.searchBar
+            searchController.searchBar.tintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
+            tableView.backgroundColor = UIColor.clearColor()
         }
         
-        self.dismissViewControllerAnimated(true, completion: nil)
-        ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
-            NSNotificationCenter.defaultCenter().postNotificationName("reloadTableView", object: nil)
-        }
         
     }
-    //*****************************//
-    // RELOADS DATA IN TABLEVIEW.
-    //*****************************//
+    
+    
+    static let sharedController = SelectContactTableViewController()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.286, green: 0.749, blue: 0.063, alpha: 1.00)
+        self.tableView.allowsMultipleSelection = true
+        configureSearchController()
+        AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
+        
+    }
+    
+    @IBAction func done(sender: AnyObject) {
+        var contactsNotInICloud: [String] = []
+        self.dismissViewControllerAnimated(true, completion: nil)
+        if let currentUser = UserController.sharedController.currentUser {
+            contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
+                for phoneNumber in phoneNumbers {
+                    CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(currentUser, phoneNumber: phoneNumber, completion: { (success) in
+                        if success == false {
+                            contactsNotInICloud.append(phoneNumber)
+                            NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
+                            if contactsNotInICloud.count != 0 {
+                                NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
+                            }
+                            
+                        }
+                    })
+                }
+            })
+            ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
+            }
+            
+        }
+    }
+    
+    func plainPhoneNumber(string: String) -> String {
+        let filter = NSCharacterSet.alphanumericCharacterSet()
+        let result = String(string.utf16.filter { filter.characterIsMember($0) }.map { Character(UnicodeScalar($0)) })
+        
+        return result
+    }
+    
+    
+    func contactsToPhoneNumber(contacts: [CNContact], completion: (phoneNumbers: [String]) -> Void) {
+        var phoneNumbers: [String] = []
+        for contact in contacts {
+            if contact.phoneNumbers != [] {
+                let value = contact.phoneNumbers.first?.value as! CNPhoneNumber
+                let string = value.stringValue
+                let phoneNumber = plainPhoneNumber(string)
+                phoneNumbers.append(phoneNumber)
+            }
+        }
+        completion(phoneNumbers: phoneNumbers)
+        
+    }
     
     
     override func viewWillAppear(animated: Bool) {
@@ -77,9 +114,7 @@ class SelectContactTableViewController: UITableViewController{
         super.viewDidAppear(animated)
         tableView.reloadData()
     }
-    //*****************************//
-    //MARK: - TABLEVIEW DELEGATION SELECTCONTACTTABLEVIEWCONTROLLER
-    //*****************************//
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userContacts.count
         
@@ -90,6 +125,7 @@ class SelectContactTableViewController: UITableViewController{
         let contact = userContacts[indexPath.row]
         cell.selectionStyle = .None
         cell.textLabel?.text = contact.givenName + " " + contact.familyName
+        cell.tintColor = UIColor.whiteColor()
         
         return cell
     }
@@ -98,12 +134,12 @@ class SelectContactTableViewController: UITableViewController{
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
         let selectedContacts = userContacts[indexPath.row]
-        selectedFavoriteContactsArray.append(selectedContacts)
+        UserController.sharedController.selectedArray.append(selectedContacts)
     }
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = selectedFavoriteContactsArray.indexOf(userContacts[indexPath.row])
-        selectedFavoriteContactsArray.removeAtIndex(index!)
+        let index = UserController.sharedController.selectedArray.indexOf(userContacts[indexPath.row])
+        UserController.sharedController.selectedArray.removeAtIndex(index!)
     }
 }
 

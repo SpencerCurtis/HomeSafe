@@ -9,82 +9,157 @@
 import UIKit
 import Contacts
 import CoreLocation
+import MessageUI
 
-class ContactTableViewController: UITableViewController, PassContactsDelegate {
-    //*********************//
-    //PROTOCOLS FUNCTION
-    //*******************//
+// THIS IS THE FIRST VIEW CONTROLLER PRESENTED WHEN OPENING THE APP.
 
-   func userDidSelectContacts(contacts: [CNContact]) {
+class ContactTableViewController: UITableViewController, PassContactsDelegate, PassSearchedContactsDelegate, MFMessageComposeViewControllerDelegate {
+    
+    func userDidSelectContacts(contacts: [CNContact]) {
         UserController.sharedController.selectedArray = contacts
     }
-    //**********************************************************************************************************//
-    //SHARED CONTROLLER. SELECTED CONTACTS ARRAY. VIEW DID LOAD IF USER WAS CREATED. SHOW VIEW. RELOAD TABLEVIEW.
-    //**********************************************************************************************************//
-
+    
+    func userDidSelectSearchedContacts(contacts: [CNContact]) {
+        UserController.sharedController.selectedArray = contacts
+    }
+    
+    
     static let sharedController = ContactTableViewController()
     
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: "reloadTableView", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(sendInvitationMessage), name: "noContactFound", object: nil)
+        AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
+        AppearanceController.sharedController.initializeAppearance()
+        hideTransparentNavigationBar()
+        UserController.sharedController.currentUser
         if UserController.sharedController.currentUser == nil {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let pageViewController = storyboard.instantiateViewControllerWithIdentifier("CreateUserViewController")
-            self.presentViewController(pageViewController, animated: true, completion: nil)
+            
+            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
+            self.presentViewController(createUserVC!, animated: false, completion: nil)
+            //            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
+            //                if let currentUser = UserController.sharedController.currentUser {
+            //                                    CloudKitController.sharedController.checkForNewContacts(
+            //                }
+            //            }
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(tableView.reloadData), name: "reloadTableView", object: nil)
+        
         self.tableView.allowsMultipleSelection = true
     }
     
+    func hideTransparentNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = UIColor.clearColor()
+    }
+    
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        
+    }
+    
+    func sendInvitationMessage() {
+        
+        let recipients = NSUserDefaults.standardUserDefaults().objectForKey("contactsForSMS") as? [String]
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.tableView.reloadData()
-        })
-    }
-
-    func reloadTableView() {
-        self.tableView.reloadData()
-    }
-    
-    
-    //************************************************************//
-    // MARK: - Calling Request for access Function.//
-    //IF ACCESS IS GRANTED, PROCEED. IF NOT, DO NOT PRESENT MODALLY
-    //************************************************************//
-    
-    @IBAction func addContactButtonTapped(sender: AnyObject) {
-        requestForAccess { (accessGranted) in
-            if accessGranted {
-                guard let selectContactsNavController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("navController") as? UINavigationController,                 let selectContacts = selectContactsNavController.viewControllers[0] as? SelectContactTableViewController else {return}
-                selectContacts.delegate = self
-                self.presentViewController(selectContactsNavController, animated: true, completion: {
-                    self.tableView.reloadData()
-                })
+            AppearanceController.sharedController.intitializeAppearanceForMFMessageController()
+            let messageVC = MFMessageComposeViewController()
+            if MFMessageComposeViewController.canSendText() == true {
                 
-                let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
-                let containerID = CNContactStore().defaultContainerIdentifier()
-                let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerID)
-                do {
-                    
-                    selectContacts.userContacts = try CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.tableView.reloadData()
+                let alert = UIAlertController(title: nil, message: "Would you like to invite this person to download HomeSafe so they can be your follower?", preferredStyle: .Alert)
+                let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
+                    messageVC.body = "I'd like you to download HomeSafe so you can make sure I'm safe while I'm out!"
+                    messageVC.recipients = recipients
+                    messageVC.messageComposeDelegate = self
+                    messageVC.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+                    //                    messageVC.navigationBar.translucent = false // TODO: - GET THE NAVBAR TO FREAKING BE SOLID.
+                    self.presentViewController(messageVC, animated: true, completion: {
+                        alert.view.tintColor = Colors.sharedController.exoticGreen    
                     })
                     
-                } catch _ {
-                    print("Error getting users contacts")
+                    
+                })
+                let noAction = UIAlertAction(title: "No", style: .Destructive, handler: nil)
+                alert.addAction(yesAction)
+                alert.addAction(noAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+            } else {
+                NotificationController.sharedController.simpleAlert("Cannot send SMS", message: "Your device does not support sending SMS messages")
+            }
+            
+        })
+        
+    }
+    
+    @objc func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            AppearanceController.sharedController.initializeAppearance()
+        })
+        
+        self.becomeFirstResponder()
+    }
+    
+    
+    
+    @IBAction func settingsButtonTapped(sender: AnyObject) {
+        
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let contactsAction = UIAlertAction(title: "Add a new follower", style: .Default) { (_) in
+            self.requestForAccess { (accessGranted) in
+                if accessGranted {
+                    guard let selectContactsNavController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("navController") as? UINavigationController,                                let selectContacts = selectContactsNavController.viewControllers[0] as? SelectContactTableViewController else {return}
+                    selectContacts.delegate = self
+                    self.presentViewController(selectContactsNavController, animated: true, completion: {
+                        self.tableView.reloadData()
+                        alert.view.tintColor = Colors.sharedController.exoticGreen
+                        
+                    })
+                    
+                    let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+                    let containerID = CNContactStore().defaultContainerIdentifier()
+                    let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerID)
+                    do {
+                        
+                        selectContacts.userContacts = try CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.tableView.reloadData()
+                        })
+                        
+                    } catch _ {
+                        print("Error getting users contacts")
+                    }
                 }
             }
         }
+        
+        let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (_) in
+            UserController.sharedController.signOutCurrentUser()
+            
+            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
+            self.presentViewController(createUserVC!, animated: false, completion: nil)
+            
+        }
+        
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+        
+        alert.addAction(contactsAction)
+        alert.addAction(signOutAction)
+        alert.addAction(dismissAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        
     }
-    
-    //*********************************************************************************//
-    // MARK: - Request For Access Function//
-    // CHECKS PERMISSION, IF GRANTED, PROCCEED. IF NOT, DO NOT. MUST CHANGE IN SETTINGS.
-    //*********************************************************************************//
     
     func requestForAccess(completionHandler: (accessGranted: Bool) -> Void) {
         let authorizationStatus = CNContactStore.authorizationStatusForEntityType(.Contacts)
@@ -95,7 +170,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
             
         case .Denied, .NotDetermined:
             
-            SelectContactTableViewController.sharedInstance.contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (access, accessError) -> Void in
+            SelectContactTableViewController.sharedController.contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (access, accessError) -> Void in
                 if access {
                     
                     completionHandler(accessGranted: access)
@@ -119,13 +194,15 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
         let alert = UIAlertController(title: "My Contacts", message: message, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alert.addAction(okAction)
-        presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: {
+            alert.view.tintColor = Colors.sharedController.exoticGreen
+        })
     }
-
+    
     //*****************************//
     //MARK: - TABLEVIEW DELEGATION CONTACTTABLEVIEWCONTROLLER
     //*******************************************************//
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return ContactsController.sharedController.contacts.count
@@ -137,13 +214,15 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
         let favoriteContact = ContactsController.sharedController.contacts[indexPath.row]
         cell.selectionStyle = .None
         cell.textLabel?.text = favoriteContact.name
+        cell.textLabel?.textColor = UIColor.whiteColor()
+        cell.tintColor = UIColor.whiteColor()
         
         return cell
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-
+            
             let contact = ContactsController.sharedController.contacts[indexPath.row]
             ContactsController.sharedController.removeContact(contact)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
@@ -161,9 +240,14 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
         let index = ContactsController.sharedController.selectedGuardians.indexOf(ContactsController.sharedController.contacts[indexPath.row])
         ContactsController.sharedController.selectedGuardians.removeAtIndex(index!)
-
+        
     }
-  
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let names = ContactsController.sharedController.contacts.map({$0.name!})
+        NSUserDefaults.standardUserDefaults().setValue(names, forKey: "currentFollowers")
+    }
 }
 
 
