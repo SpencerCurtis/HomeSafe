@@ -30,6 +30,7 @@ class LoginViewController: UIViewController {
     @IBAction func logInButtonTapped(sender: AnyObject) {
         guard let phoneNumber = phoneNumberTextField.text, password = passwordTextField.text else { return }
         CloudKitController.sharedController.logInUser(phoneNumber, password: password, completion: { (success) in
+            print(success.boolValue)
             guard success == true else { let alert = NotificationController.sharedController.simpleAlert("Error", message: "No user was found with the phone number and password entered. Check the fields and try again."); dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.presentViewController(alert, animated: true, completion: nil)
             }) ; return}

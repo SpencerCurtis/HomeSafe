@@ -30,8 +30,15 @@ class ContactsController {
         }
     }
     
+    var filteredContacts: [User] {
+        
+        let set = Set<User>(contacts)
+        return Array(set)
+    }
+    
+    
     func createUserFromFetchedRecord(record: CKRecord) {
-        let user = User(record: record)
+        _ = User(record: record)
         self.saveToPersistentStorage()
     }
     

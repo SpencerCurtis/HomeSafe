@@ -59,77 +59,84 @@ class SelectContactTableViewController: UITableViewController {
     }
     
     @IBAction func done(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        let indicator = AppearanceController.sharedController.setUpActivityIndicator(self)
+        self.view.addSubview(indicator)
+        self.view.bringSubviewToFront(indicator)
+        indicator.startAnimating()
+        
         guard let currentUser = UserController.sharedController.currentUser else { return }
-        contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
+        guard UserController.sharedController.selectedArray.count > 1 else { indicator.stopAnimating(); self.dismissViewControllerAnimated(true, completion: nil); return }
+            contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
             CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: phoneNumbers, completion: { (success) in
-                
+            indicator.stopAnimating()
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
             })
-        })
-    }
-    
-    
-    
-    func plainPhoneNumber(string: String) -> String {
-        let filter = NSCharacterSet.alphanumericCharacterSet()
-        let result = String(string.utf16.filter { filter.characterIsMember($0) }.map { Character(UnicodeScalar($0)) })
-        
-        return result
-    }
-    
-    
-    func contactsToPhoneNumber(contacts: [CNContact], completion: (phoneNumbers: [String]) -> Void) {
-        var phoneNumbers: [String] = []
-        for contact in contacts {
-            if contact.phoneNumbers != [] {
-                let value = contact.phoneNumbers.first?.value as! CNPhoneNumber
-                let string = value.stringValue
-                let phoneNumber = plainPhoneNumber(string)
-                phoneNumbers.append(phoneNumber)
-            }
+            })
         }
-        completion(phoneNumbers: phoneNumbers)
         
-    }
-    
-    
-    override func viewWillAppear(animated: Bool) {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.tableView.reloadData()
-        })
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userContacts.count
         
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-        let contact = userContacts[indexPath.row]
-        cell.selectionStyle = .None
-        cell.textLabel?.text = contact.givenName + " " + contact.familyName
-        cell.tintColor = UIColor.whiteColor()
         
-        return cell
-    }
-    
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let selectedContacts = userContacts[indexPath.row]
-        UserController.sharedController.selectedArray.append(selectedContacts)
-    }
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = UserController.sharedController.selectedArray.indexOf(userContacts[indexPath.row])
-        UserController.sharedController.selectedArray.removeAtIndex(index!)
-    }
+        func plainPhoneNumber(string: String) -> String {
+            let filter = NSCharacterSet.alphanumericCharacterSet()
+            let result = String(string.utf16.filter { filter.characterIsMember($0) }.map { Character(UnicodeScalar($0)) })
+            
+            return result
+        }
+        
+        
+        func contactsToPhoneNumber(contacts: [CNContact], completion: (phoneNumbers: [String]) -> Void) {
+            var phoneNumbers: [String] = []
+            for contact in contacts {
+                if contact.phoneNumbers != [] {
+                    let value = contact.phoneNumbers.first?.value as! CNPhoneNumber
+                    let string = value.stringValue
+                    let phoneNumber = plainPhoneNumber(string)
+                    phoneNumbers.append(phoneNumber)
+                }
+            }
+            completion(phoneNumbers: phoneNumbers)
+            
+        }
+        
+        
+        override func viewWillAppear(animated: Bool) {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+            })
+        }
+        
+        override func viewDidAppear(animated: Bool) {
+            super.viewDidAppear(animated)
+            tableView.reloadData()
+        }
+        
+        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return userContacts.count
+            
+        }
+        
+        override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
+            let contact = userContacts[indexPath.row]
+            cell.selectionStyle = .None
+            cell.textLabel?.text = contact.givenName + " " + contact.familyName
+            cell.tintColor = UIColor.whiteColor()
+            
+            return cell
+        }
+        
+        
+        override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+            tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+            let selectedContacts = userContacts[indexPath.row]
+            UserController.sharedController.selectedArray.append(selectedContacts)
+        }
+        override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+            tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
+            let index = UserController.sharedController.selectedArray.indexOf(userContacts[indexPath.row])
+            UserController.sharedController.selectedArray.removeAtIndex(index!)
+        }
 }
 
 

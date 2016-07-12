@@ -42,6 +42,7 @@
         let moc = Stack.sharedStack.managedObjectContext
         if let currentUser = currentUser {
             moc.deleteObject(currentUser)
+            deleteAllContactsUponSigningOut()
             saveToPersistentStorage()
         }
     }
@@ -73,6 +74,17 @@
         }
         op.completionBlock = {
             completion()
+        }
+    }
+    
+    func deleteAllContactsUponSigningOut() {
+        let fetchRequest = NSFetchRequest(entityName: "User")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try Stack.sharedStack.managedObjectContext.executeRequest(deleteRequest)
+        } catch let error as NSError {
+            print(error.localizedDescription)
         }
     }
     

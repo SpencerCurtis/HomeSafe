@@ -28,7 +28,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var resultsSearchController: UISearchController? = nil
     
     let authState = CLLocationManager.authorizationStatus()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +41,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
-//        let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
-//        createAnnotation.minimumPressDuration = 1
-//        mapView.addGestureRecognizer(createAnnotation)
+        //        let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
+        //        createAnnotation.minimumPressDuration = 1
+        //        mapView.addGestureRecognizer(createAnnotation)
         
         let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("LocationSearchTableViewController") as? LocationSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -66,7 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func hideTransparentNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
         navigationController?.navigationBar.translucent = true
-//        navigationController?.navigationBar.shadowImage = UIImage()
+        //        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
     }
     
@@ -135,11 +135,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func zoomOnUsersLocation() {
         if authState == .AuthorizedAlways {
-//            locationManager.requestLocation()
+            locationManager.requestLocation()
             let span = MKCoordinateSpanMake(0.0073, 0.0073)
             let region = MKCoordinateRegionMake(locationManager.location!.coordinate, span)
             mapView.setRegion(region, animated: true)
-
+            
         }
     }
     

@@ -26,11 +26,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/ETAViewController.swift"
-                  timestampString = "489987834.98806"
+                  timestampString = "490051441.388056"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "117"
-                  endingLineNumber = "117"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
                   offsetFromSymbolStart = "700">
                </Location>
                <Location
@@ -41,11 +41,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/ETAViewController.swift"
-                  timestampString = "489987834.988225"
+                  timestampString = "490051441.388292"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "117"
-                  endingLineNumber = "117"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
                   offsetFromSymbolStart = "776">
                </Location>
             </Locations>
@@ -106,7 +106,7 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
-                  timestampString = "489987835.0421"
+                  timestampString = "490051441.391205"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "89"
@@ -121,7 +121,7 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
-                  timestampString = "489987835.042209"
+                  timestampString = "490051441.391402"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "90"
@@ -170,27 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/LoginViewController.swift"
-            timestampString = "489701725.995517"
+            timestampString = "490049035.692402"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "logInButtonTapped(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeSafe/LoginViewController.swift"
-            timestampString = "489701725.995517"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "logInButtonTapped(_:)"
             landmarkType = "5">
             <Locations>
@@ -202,12 +186,60 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
-                  timestampString = "489987835.070724"
+                  timestampString = "490051441.393794"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "48">
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1).(closure #2)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.393928"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.394733"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "180">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -217,12 +249,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
-                  timestampString = "489987835.070813"
+                  timestampString = "490051441.394853"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "644">
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "772">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -232,11 +264,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
-                  timestampString = "489987835.070895"
+                  timestampString = "490051441.395021"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
                   offsetFromSymbolStart = "20">
                </Location>
             </Locations>
@@ -249,11 +281,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489984542.856312"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "logInUser(_:password:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -264,28 +296,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HomeSafe/CreateUserViewController.swift"
-            timestampString = "489942214.586007"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "createUserButtonTapped(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489985085.853944"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "addCurrentUserToOtherUsersContactList(_:phoneNumber:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -297,11 +313,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489985085.853944"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "addCurrentUserToOtherUsersContactList(_:phoneNumber:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -313,11 +329,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489984542.856312"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "fetchUserForPhoneNumber(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -345,11 +361,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/UserController.swift"
-            timestampString = "489982734.308906"
+            timestampString = "490050104.820496"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "createUser(_:password:safeLocation:phoneNumber:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -361,11 +377,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489985072.2688"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -377,11 +393,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489985110.205217"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -393,11 +409,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489985085.853944"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -409,11 +425,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489985108.138329"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
             <Locations>
@@ -425,11 +441,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "489987835.076644"
+                  timestampString = "490051441.400374"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "215"
-                  endingLineNumber = "215"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
                   offsetFromSymbolStart = "1400">
                </Location>
                <Location
@@ -440,11 +456,11 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "489987835.076724"
+                  timestampString = "490051441.400483"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "186"
-                  endingLineNumber = "186"
+                  startingLineNumber = "175"
+                  endingLineNumber = "175"
                   offsetFromSymbolStart = "20">
                </Location>
             </Locations>
@@ -457,11 +473,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489985108.540392"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -488,44 +504,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489986570.899792"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
-            landmarkName = "checkForNewETA(_:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "489986597.154919"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "fetchUsersInformationWithPhoneNumber(_:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HomeSafe/ContactTableViewController.swift"
-            timestampString = "489987437.111815"
+            timestampString = "490051183.271616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "sendInvitationMessage()"
             landmarkType = "5">
          </BreakpointContent>
@@ -538,6 +522,340 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/CreateUserViewController.swift"
+            timestampString = "490047382.953488"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "createUserButtonTapped(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.403421"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.403524"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "772">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.403601"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.40442"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.404521"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "772">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.4046"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.405406"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1).(closure #2)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.405507"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.406657"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "1248">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HomeSafe.LoginViewController.(logInButtonTapped (Swift.AnyObject) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "HomeSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/LoginViewController.swift"
+                  timestampString = "490051441.406757"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "348">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049035.692402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/LoginViewController.swift"
+            timestampString = "490049031.0876"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "logInButtonTapped(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/CloudKitController.swift"
+            timestampString = "490051666.532111"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "addUsersToContactList(_:phoneNumbers:completion:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

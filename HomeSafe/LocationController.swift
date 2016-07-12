@@ -43,9 +43,6 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         return usersLocation
     }
     
-    
-    
-    
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if let currentETA = ETAController.sharedController.currentETA {
             ETAController.sharedController.homeSafely(currentETA)

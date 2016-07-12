@@ -35,8 +35,10 @@ class CloudKitController {
             if let records = records {
                 print(records.count)
                 for record in records {
-                    ContactsController.sharedController.createUserFromFetchedRecord(record)
                     let user = User(record: record)
+                    ContactsController.sharedController.saveToPersistentStorage()
+                    
+                    
                     if let currentETAID = record.valueForKey("currentETAID") as? String {
                         NSUserDefaults.standardUserDefaults().setValue(currentETAID, forKey: "currentETAID")
                     }
@@ -93,28 +95,15 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "password = %@", password)
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
         
-        let privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
         let query = CKQuery(recordType: "User", predicate: compoundPredicate)
-        privateDatabase.performQuery(query, inZoneWithID: nil) { (records, error) in
-            print(records?.count)
-            if error != nil {
-                print(error?.localizedDescription)
-            }
-            if let record = records?.first {
+        
+        // Perhaps change the public User record so it doesn't have their password and make the private db query work.
+        self.db.performQuery(query, inZoneWithID: nil) { (records, error) in
+            guard error == nil && records?.count > 0 else { completion(success: false); print(error?.localizedDescription); return }
+            guard let records = records else { print("No records were found matching your phone number and/or password. Try again."); completion(success: false); return }
+            if let record = records.last {
                 UserController.sharedController.createCurrentUserFromFetchedData(record)
                 completion(success: true)
-            } else {
-                
-                // Perhaps change the public User record so it doesn't have their password and make the private db query work.
-                self.db.performQuery(query, inZoneWithID: nil) { (records, error) in
-                    guard error == nil else { completion(success: false); print(error?.localizedDescription); return }
-                    guard let records = records else { print("No records were found matching your phone number and/or password. Try again."); completion(success: false); return }
-                    if let record = records.last {
-                        UserController.sharedController.createCurrentUserFromFetchedData(record)
-                        completion(success: true)
-                    }
-                }
-                //    }
             }
         }
     }
@@ -272,8 +261,6 @@ class CloudKitController {
         self.db.addOperation(operation)
     }
     
-    // DO I EVEN NEED THIS FUNCTION?
-    
     func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String], completion: (success: Bool) -> Void ) {
         let queue = dispatch_queue_create("contact", nil)
         let group = dispatch_group_create()
@@ -281,6 +268,7 @@ class CloudKitController {
         dispatch_async(queue, { () -> Void in
             
             for phoneNumber in phoneNumbers {
+//                let filteredEntities = ContactsController.sharedController.contacts.filter({$0.phoneNumber})
                 dispatch_group_enter(group)
                 var contactsNotInICloud: [String] = []
                 self.fetchUserForPhoneNumber(phoneNumber, completion: { (otherUser) in

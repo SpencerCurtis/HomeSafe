@@ -109,12 +109,13 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
             let alert = UIAlertController(title: "Hold on a second", message: "Make sure you have selected a destination, a return time, and people to be notified of your departure", preferredStyle: .Alert)
             let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
             alert.addAction(dismissAction)
-            alert.view.tintColor = Colors.sharedController.exoticGreen
+            alert.view.tintColor = Colors.sharedColors.exoticGreen
             self.presentViewController(alert, animated: true, completion: {
-                alert.view.tintColor = Colors.sharedController.exoticGreen
+                alert.view.tintColor = Colors.sharedColors.exoticGreen
             })
             return
         }
+        
         if let currentUser = UserController.sharedController.currentUser, name = currentUser.name, destination = LocationController.sharedController.destination, latitude = currentUser.latitude, longitude = currentUser.longitude {
             ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
             

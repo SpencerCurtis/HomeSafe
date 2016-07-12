@@ -31,25 +31,24 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.allowsMultipleSelection = true
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(sendInvitationMessage), name: "noContactFound", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(tableView.reloadData), name: "reloadTableView", object: nil)
+        
         AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
         AppearanceController.sharedController.initializeAppearance()
         hideTransparentNavigationBar()
+        
         UserController.sharedController.currentUser
         if UserController.sharedController.currentUser == nil {
             
             let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(createUserVC!, animated: false, completion: nil)
-            //            if NSUserDefaults.standardUserDefaults().valueForKey("newContact") as? String == "newContact" {
-            //                if let currentUser = UserController.sharedController.currentUser {
-            //                                    CloudKitController.sharedController.checkForNewContacts(
-            //                }
-            //            }
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(tableView.reloadData), name: "reloadTableView", object: nil)
         
-        self.tableView.allowsMultipleSelection = true
+        
     }
     
     func hideTransparentNavigationBar() {
@@ -81,7 +80,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                     messageVC.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
                     //                    messageVC.navigationBar.translucent = false // TODO: - GET THE NAVBAR TO FREAKING BE SOLID.
                     self.presentViewController(messageVC, animated: true, completion: {
-                        alert.view.tintColor = Colors.sharedController.exoticGreen    
+                        alert.view.tintColor = Colors.sharedColors.exoticGreen
                     })
                     
                     
@@ -120,7 +119,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                     selectContacts.delegate = self
                     self.presentViewController(selectContactsNavController, animated: true, completion: {
                         self.tableView.reloadData()
-                        alert.view.tintColor = Colors.sharedController.exoticGreen
+                        alert.view.tintColor = Colors.sharedColors.exoticGreen
                         
                     })
                     
@@ -201,7 +200,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alert.addAction(okAction)
         presentViewController(alert, animated: true, completion: {
-            alert.view.tintColor = Colors.sharedController.exoticGreen
+            alert.view.tintColor = Colors.sharedColors.exoticGreen
         })
     }
     
@@ -211,13 +210,13 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return ContactsController.sharedController.contacts.count
+        return ContactsController.sharedController.filteredContacts.count
         
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-        let favoriteContact = ContactsController.sharedController.contacts[indexPath.row]
+        let favoriteContact = ContactsController.sharedController.filteredContacts[indexPath.row]
         cell.selectionStyle = .None
         cell.textLabel?.text = favoriteContact.name
         cell.textLabel?.textColor = UIColor.whiteColor()
@@ -229,7 +228,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             
-            let contact = ContactsController.sharedController.contacts[indexPath.row]
+            let contact = ContactsController.sharedController.filteredContacts[indexPath.row]
             ContactsController.sharedController.removeContact(contact)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
@@ -237,7 +236,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let selectedGuardians = ContactsController.sharedController.contacts[indexPath.row]
+        let selectedGuardians = ContactsController.sharedController.filteredContacts[indexPath.row]
         ContactsController.sharedController.selectedGuardians.append(selectedGuardians)
         
     }
@@ -251,7 +250,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let names = ContactsController.sharedController.contacts.map({$0.name!})
+        let names = ContactsController.sharedController.filteredContacts.map({$0.name!})
         NSUserDefaults.standardUserDefaults().setValue(names, forKey: "currentFollowers")
     }
 }

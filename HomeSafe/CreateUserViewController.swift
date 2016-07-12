@@ -70,23 +70,30 @@
     }
     
     @IBAction func createUserButtonTapped(sender: AnyObject) {
+        let indicator = AppearanceController.sharedController.setUpActivityIndicator(self)
+        self.view.addSubview(indicator)
+        self.view.bringSubviewToFront(indicator)
+        
         if let name = nameTextField.text, password = passwordTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
             UserController.sharedController.createUser(name, password: password, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
                 if let currentUser = UserController.sharedController.currentUser {
-                    //                    CloudKitController.sharedController.fetchSubscriptions({
                     CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
                         CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
                             print("Subscribed successfully to all subscriptions.")
                             CloudKitController.sharedController.fetchSubscriptions()
+                            
+                            indicator.stopAnimating()
+                            indicator.hidesWhenStopped = true
+                            self.dismissViewControllerAnimated(true, completion: nil)
                         })
                     })
                 }
             })
-            self.dismissViewControllerAnimated(true, completion: nil)
         } else {
             let alert = NotificationController.sharedController.simpleAlert("Hold on", message: "Make sure you enter all the fields, and select a safe place as well.")
-            self.presentViewController(alert, animated: true, completion: { 
-                alert.view.tintColor = Colors.sharedController.exoticGreen
+            alert.view.tintColor = Colors.sharedColors.exoticGreen
+            self.presentViewController(alert, animated: true, completion: {
+                alert.view.tintColor = Colors.sharedColors.exoticGreen
             })
         }
         
