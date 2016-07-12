@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //         Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let currentUser = UserController.sharedController.currentUser {
             CloudKitController.sharedController.checkForNewETA(currentUser, completion: {
-                let phoneNumberArray = NSUserDefaults.standardUserDefaults().valueForKey("phoneNumberArrayForETA") as! [String]
+                guard let phoneNumberArray = NSUserDefaults.standardUserDefaults().valueForKey("phoneNumberArrayForETA") as? [String] else { return }
                 for phoneNumber in phoneNumberArray {
                     CloudKitController.sharedController.fetchETAAndSubscribe(phoneNumber)
                 }
@@ -87,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSUserDefaults.standardUserDefaults().setValue("newContact", forKey: "newContact")
             if let currentUser = UserController.sharedController.currentUser {
                 CloudKitController.sharedController.checkForNewContacts(currentUser, completion: { (users) in
+                    guard let users = users else { return }
                     for user in users {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             let alert = NotificationController.sharedController.simpleAlert("\(user.name!) has added you as a contact" , message: "")

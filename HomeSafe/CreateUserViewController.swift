@@ -76,7 +76,8 @@
                     //                    CloudKitController.sharedController.fetchSubscriptions({
                     CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
                         CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
-                            
+                            print("Subscribed successfully to all subscriptions.")
+                            CloudKitController.sharedController.fetchSubscriptions()
                         })
                     })
                 }

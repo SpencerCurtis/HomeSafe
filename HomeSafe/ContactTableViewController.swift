@@ -150,9 +150,15 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             
         }
         
+        let manualEntryAction = UIAlertAction(title: "Enter a phone number manually", style: .Default) { (_) in
+            let manualVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("manualVC")
+            self.presentViewController(manualVC, animated: true, completion: nil)
+        }
+        
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
         
         alert.addAction(contactsAction)
+        alert.addAction(manualEntryAction)
         alert.addAction(signOutAction)
         alert.addAction(dismissAction)
         
@@ -187,7 +193,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             })
         default:
             completionHandler(accessGranted: false)
-        }
+        } 
     }
     
     func showMessage(message: String) {

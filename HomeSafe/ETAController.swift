@@ -51,6 +51,7 @@
             record.setValue(0, forKey: "canceledETA")
             record.setValue(recordID, forKey: "id")
             record.setValue(phoneNumber, forKey: "userPhoneNumber")
+            
             let contacts = ContactsController.sharedController.selectedGuardians
             var followerPhoneNumbers: [String] = []
             let group = dispatch_group_create()

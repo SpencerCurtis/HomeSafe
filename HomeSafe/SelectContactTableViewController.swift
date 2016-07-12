@@ -14,7 +14,7 @@ protocol PassContactsDelegate {
     func userDidSelectContacts(contacts: [CNContact])
 }
 
-class SelectContactTableViewController: UITableViewController{
+class SelectContactTableViewController: UITableViewController {
     
     var delegate: PassContactsDelegate?
     var userContacts = [CNContact]() // dataArray
@@ -24,6 +24,7 @@ class SelectContactTableViewController: UITableViewController{
     var tempContacts: [User] = []
     
     var searchController: UISearchController!
+    @IBOutlet weak var manualPhoneNumberTextField: UITextField!
     
     func configureSearchController() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
@@ -60,26 +61,15 @@ class SelectContactTableViewController: UITableViewController{
     @IBAction func done(sender: AnyObject) {
         var contactsNotInICloud: [String] = []
         self.dismissViewControllerAnimated(true, completion: nil)
-        if let currentUser = UserController.sharedController.currentUser {
-            contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
-                for phoneNumber in phoneNumbers {
-                    CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(currentUser, phoneNumber: phoneNumber, completion: { (success) in
-                        if success == false {
-                            contactsNotInICloud.append(phoneNumber)
-                            NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
-                            if contactsNotInICloud.count != 0 {
-                                NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
-                            }
-                            
-                        }
-                    })
-                }
+        guard let currentUser = UserController.sharedController.currentUser else { return }
+        contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
+            CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: phoneNumbers, completion: { (success) in
+                
             })
-            ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
-            }
-            
-        }
+        })
     }
+    
+    
     
     func plainPhoneNumber(string: String) -> String {
         let filter = NSCharacterSet.alphanumericCharacterSet()
