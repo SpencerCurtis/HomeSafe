@@ -59,7 +59,6 @@ class SelectContactTableViewController: UITableViewController {
     }
     
     @IBAction func done(sender: AnyObject) {
-        var contactsNotInICloud: [String] = []
         self.dismissViewControllerAnimated(true, completion: nil)
         guard let currentUser = UserController.sharedController.currentUser else { return }
         contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in

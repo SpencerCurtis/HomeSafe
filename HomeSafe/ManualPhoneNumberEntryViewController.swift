@@ -18,6 +18,7 @@ class ManualPhoneNumberEntryViewController: UIViewController {
         super.viewDidLoad()
         AppearanceController.sharedController.gradientBackgroundForViewController(self)
         AppearanceController.sharedController.setUpButtons([addPhoneNumberButton])
+        AppearanceController.sharedController.setUpTextFields([phoneNumberTextField])
         // Do any additional setup after loading the view.
     }
     
@@ -32,7 +33,7 @@ class ManualPhoneNumberEntryViewController: UIViewController {
     @IBAction func manualPhoneNumberButtonTapped(sender: AnyObject) {
         guard let phoneNumber = phoneNumberTextField.text, currentUser = UserController.sharedController.currentUser else { return; /* alert? */ }
         CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: [phoneNumber], completion: { (success) in
-            guard success == true else { return;  /* alert? */ }
+            guard success == true else { self.dismissViewControllerAnimated(true, completion: nil); return;  /* alert? */ }
             self.dismissViewControllerAnimated(true, completion: nil)
         })
         
