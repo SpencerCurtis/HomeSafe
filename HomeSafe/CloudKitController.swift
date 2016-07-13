@@ -262,62 +262,58 @@ class CloudKitController {
     }
     
     func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String], completion: (success: Bool) -> Void ) {
-        let queue = dispatch_queue_create("contact", nil)
         let group = dispatch_group_create()
         
-        dispatch_async(queue, { () -> Void in
-            
-            for phoneNumber in phoneNumbers {
-//                let filteredEntities = ContactsController.sharedController.contacts.filter({$0.phoneNumber})
-                dispatch_group_enter(group)
-                var contactsNotInICloud: [String] = []
-                self.fetchUserForPhoneNumber(phoneNumber, completion: { (otherUser) in
-                    guard let otherUser = otherUser else {
-                        print("User with phone number: \(phoneNumber) is not in the HomeSafe database")
-                        contactsNotInICloud.append(phoneNumber)
-                        NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
-                        if contactsNotInICloud.count != 0 {
-                            NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
-                        }
-                        completion(success: false)
-                        return
-                    }
-                    
-                    let predicate = NSPredicate(format: "userUUID = %@", otherUser.uuid!)
-                    let query = CKQuery(recordType: "contacts", predicate: predicate)
-                    self.db.performQuery(query, inZoneWithID: nil, completionHandler: { (records, errors) in
-                        guard let records = records else { completion(success: false); return }
-                        var contactArray: [String] = []
-                        print(records.count ?? 0)
-                        for record in records {
-                            let contacts = record.valueForKey("contacts") as? [String] ?? []
-                            for contact in contacts {
-                                contactArray.append(contact)
-                            }
-                            
-                            contactArray.append(currentUser.phoneNumber!)
-                            record.setValue(contactArray, forKey: "contacts")
-                            
-                            self.db.saveRecord(record, completionHandler: { (record, error) in
-                                guard error == nil else { print(error?.localizedDescription); return }
-                                
-                                print("success")
-                                dispatch_group_leave(group)
-                                
-                            })
-                        }
-                    })
-                    
-                    
-                })
-                dispatch_group_notify(group, queue) {
-                    completion(success: true)
-                }
+        for phoneNumber in phoneNumbers {
+            let filteredEntities = ContactsController.sharedController.filteredContacts.filter({$0.phoneNumber == phoneNumber})
+            guard filteredEntities.count == 0 else {
+                completion(success: false)
+                return
             }
-            
-        })
-        
-        
+            dispatch_group_enter(group)
+            var contactsNotInICloud: [String] = []
+            self.fetchUserForPhoneNumber(phoneNumber, completion: { (otherUser) in
+                guard let otherUser = otherUser else {
+                    print("User with phone number: \(phoneNumber) is not in the HomeSafe database")
+                    contactsNotInICloud.append(phoneNumber)
+                    NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
+                    if contactsNotInICloud.count != 0 {
+                        NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
+                    }
+                    dispatch_group_leave(group)
+                    completion(success: false)
+                    return
+                }
+                
+                let predicate = NSPredicate(format: "userUUID = %@", otherUser.uuid!)
+                let query = CKQuery(recordType: "contacts", predicate: predicate)
+                self.db.performQuery(query, inZoneWithID: nil, completionHandler: { (records, errors) in
+                    guard let records = records else { completion(success: false); return }
+                    var contactArray: [String] = []
+                    print(records.count ?? 0)
+                    for record in records {
+                        let contacts = record.valueForKey("contacts") as? [String] ?? []
+                        for contact in contacts {
+                            contactArray.append(contact)
+                        }
+                        
+                        contactArray.append(currentUser.phoneNumber!)
+                        record.setValue(contactArray, forKey: "contacts")
+                        
+                        self.db.saveRecord(record, completionHandler: { (record, error) in
+                            guard error == nil else { print(error?.localizedDescription); return }
+                            
+                            print("success")
+                            dispatch_group_leave(group)
+                            
+                        })
+                    }
+                })
+            })
+            dispatch_group_notify(group, dispatch_get_main_queue()) {
+                completion(success: true)
+            }
+        }
     }
     
     // General subscription by user to check if said user has made a new ETA.
@@ -377,69 +373,6 @@ class CloudKitController {
     
     
     
-    
-    //    func checkForNewNotifications(currentUser: CurrentUser, completion: () -> Void) {
-    //        let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
-    //        let query = CKQuery(recordType: "notifications", predicate: predicate)
-    //        let operation = CKQueryOperation(query: query)
-    //
-    //        operation.recordFetchedBlock = { (record) in
-    //            let contacts = record.valueForKey("contacts") as! Int
-    //            let userNewETA = record.valueForKeyPath("userNewETA") as! Int
-    //            if contacts == 1 {
-    //
-    //                let contactsPredicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
-    //                let contactsQuery = CKQuery(recordType: "contacts", predicate: contactsPredicate)
-    //                let contactsOperation = CKQueryOperation(query: contactsQuery)
-    //                contactsOperation.recordFetchedBlock = { (record) in
-    //                    var nameArray: [String] = []
-    //                    let contactsArray = record.valueForKey("contacts") as! [String]
-    //                    for contact in contactsArray {
-    //                        self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
-    //                            if let otherUser = otherUser {
-    //                                nameArray.append(otherUser.name!)
-    //                            }
-    //                        })
-    //                    }
-    //
-    //                    NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForContacts")
-    //                    completion()
-    //                }
-    //
-    //                self.db.addOperation(contactsOperation)
-    //                record.setValue(" ", forKey: "contacts") // May need to change the value here
-    //                let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-    //                self.db.addOperation(operation)
-    //            }
-    //
-    //            if userNewETA == 1 {
-    //                let ETAPredicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
-    //                let ETAQuery = CKQuery(recordType: "userNewETA", predicate: ETAPredicate)
-    //                let ETAOperation = CKQueryOperation(query: ETAQuery)
-    //                ETAOperation.recordFetchedBlock = { (record) in
-    //                    var nameArray: [String] = []
-    //                    let contactsArray = record.valueForKey("contacts") as! [String]
-    //                    for contact in contactsArray {
-    //                        self.fetchUserForPhoneNumber(contact, completion: { (otherUser) in
-    //                            if let otherUser = otherUser {
-    //                                nameArray.append(otherUser.name!)
-    //                            }
-    //                        })
-    //                    }
-    //
-    //                    NSUserDefaults.standardUserDefaults().setValue(nameArray, forKey: "nameArrayForETA")
-    //                    completion()
-    //
-    //                }
-    //
-    //                self.db.addOperation(ETAOperation)
-    //                record.setValue(" ", forKey: "userNewETA") // May need to change the value here
-    //                let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-    //                self.db.addOperation(operation)
-    //            }
-    //
-    //        }
-    //    }
     
     func fetchETAAndSubscribe(phoneNumber: String) {
         

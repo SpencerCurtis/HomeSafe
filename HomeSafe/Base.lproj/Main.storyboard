@@ -1029,64 +1029,6 @@
             </objects>
             <point key="canvasLocation" x="565" y="2044"/>
         </scene>
-        <!--Manual Phone Number Entry View Controller-->
-        <scene sceneID="fbl-WD-Gkb">
-            <objects>
-                <viewController storyboardIdentifier="manualVC" id="PqU-Vk-mlU" customClass="ManualPhoneNumberEntryViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Xdc-QC-lXw"/>
-                        <viewControllerLayoutGuide type="bottom" id="Quw-rg-yaE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GAE-pp-Fel">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter a phone number:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i1k-AC-goK">
-                                <rect key="frame" x="20" y="149" width="335" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXq-MC-YUq">
-                                <rect key="frame" x="20" y="187" width="335" height="30"/>
-                                <state key="normal" title="Add Phone Number">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="manualPhoneNumberButtonTapped:" destination="PqU-Vk-mlU" eventType="touchUpInside" id="wyf-K3-PQJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2d-j3-QyF">
-                                <rect key="frame" x="305" y="20" width="54" height="33"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="VUi-by-6jQ"/>
-                                    <constraint firstAttribute="width" constant="54" id="eIl-gE-UcT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancelButtonTapped:" destination="PqU-Vk-mlU" eventType="touchUpInside" id="kvk-da-aRs"/>
-                                    <action selector="cancelButtonTapped:" destination="r4E-7t-O8h" eventType="touchUpInside" id="omL-La-Vhe"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="s2d-j3-QyF" secondAttribute="trailing" id="OHz-AB-9Eb"/>
-                            <constraint firstItem="s2d-j3-QyF" firstAttribute="top" secondItem="Xdc-QC-lXw" secondAttribute="bottom" id="P6i-Ij-lOw"/>
-                        </constraints>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="addPhoneNumberButton" destination="jXq-MC-YUq" id="tW0-ry-3aI"/>
-                        <outlet property="cancelButton" destination="s2d-j3-QyF" id="d92-ks-D5d"/>
-                        <outlet property="phoneNumberTextField" destination="i1k-AC-goK" id="5N1-1Y-ppf"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sVH-Yh-RTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="564.5" y="2836.5"/>
-        </scene>
         <!--Results Table View Controller-->
         <scene sceneID="6Cd-Dl-t68">
             <objects>

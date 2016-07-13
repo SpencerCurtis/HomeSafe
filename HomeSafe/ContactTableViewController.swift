@@ -72,7 +72,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             let messageVC = MFMessageComposeViewController()
             if MFMessageComposeViewController.canSendText() == true {
                 
-                let alert = UIAlertController(title: nil, message: "Would you like to invite this person to download HomeSafe so they can be your follower?", preferredStyle: .Alert)
+                let alert = UIAlertController(title: "", message: "Would you like to invite this person to download HomeSafe so they can be your follower?", preferredStyle: .Alert)
                 let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
                     messageVC.body = "I'd like you to download HomeSafe so you can make sure I'm safe while I'm out!"
                     messageVC.recipients = recipients
@@ -150,8 +150,53 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         }
         
         let manualEntryAction = UIAlertAction(title: "Enter a phone number manually", style: .Default) { (_) in
-            let manualVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("manualVC")
-            self.presentViewController(manualVC, animated: true, completion: nil)
+            
+            var phoneNumberTextField: UITextField?
+            
+            let alert = UIAlertController(title: "Search for a user", message: "Please enter the other user's phone number", preferredStyle: .Alert)
+            
+            alert.addTextFieldWithConfigurationHandler({ (textField) in
+                textField.placeholder = "Enter a phone number:"
+                textField.keyboardType = .NumberPad
+                
+                phoneNumberTextField = textField
+            })
+            
+            let submitAction = UIAlertAction(title: "Submit", style: .Cancel, handler: { (_) in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+                    indicator.color = UIColor .whiteColor()
+                    indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+                    indicator.center = CGPoint(x: self.view.center.x, y: 256)
+                    indicator.hidesWhenStopped = true
+                    
+                    
+                    self.view.addSubview(indicator)
+                    self.view.bringSubviewToFront(indicator)
+                    
+                    
+                    indicator.startAnimating()
+                    
+                    
+                    guard let phoneNumber = phoneNumberTextField!.text, currentUser = UserController.sharedController.currentUser else { return; /* alert? */ }
+                    CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: [phoneNumber], completion: { (success) in
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            indicator.stopAnimating()
+                        })
+                    })
+                })
+            })
+            
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .Destructive, handler: nil)
+            
+            alert.addAction(submitAction)
+            alert.addAction(dismissAction)
+            
+            
+            
+            
+            //            let manualVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("manualVC")
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
