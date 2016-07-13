@@ -16,6 +16,7 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var containerV: UIView!
     @IBOutlet weak var container: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ETADatePicker: UIDatePicker!
     @IBOutlet weak var SelectDestinationButton: UIButton!
     @IBOutlet weak var startTrackingButton: UIButton!
@@ -67,6 +68,8 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         ETADatePicker.hidden = false
         container.hidden = true
         containerV.hidden = true
+        titleLabel.hidden = false
+        titleLabel.text = "When will you return to your safe place by?"
     }
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
@@ -82,10 +85,12 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         containerV.hidden = true
         searchContainerView.hidden = false
         ETADatePicker.hidden = true
+        titleLabel.hidden = true
         
     }
     
     func showMapContainerView() {
+        
         containerV.hidden = false
         searchContainerView.hidden = true
     }

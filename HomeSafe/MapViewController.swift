@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var mapView: MKMapView!
     
-    let locationManager = CLLocationManager()
+    let locationManager: CLLocationManager = LocationController.sharedController.locationManager
     var currentLocation = CLLocation()
     
     var selectedSafeZonePin: MKAnnotation? = nil
@@ -32,14 +32,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(zoomOnUsersLocation), name: "zoomOnUser", object: nil)
+        
+        mapView.mapType = .Hybrid
+        if authState == .NotDetermined {
+            LocationController.sharedController.locationManager.requestAlwaysAuthorization()
+            zoomOnUsersLocation()
+        }
         zoomOnUsersLocation()
         mapView.delegate = self
         mapView.showsUserLocation = true
         hideTransparentNavigationBar()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
+        LocationController.sharedController.locationManager.delegate = self
         
         //        let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
         //        createAnnotation.minimumPressDuration = 1
@@ -87,7 +92,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Error: \(error.localizedDescription)")
-    }
+    }   
     
     func dropLocationPin(gestureRecognizer: UIGestureRecognizer) {
         let touchPoint = gestureRecognizer.locationInView(mapView)
@@ -135,6 +140,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func zoomOnUsersLocation() {
         if authState == .AuthorizedAlways {
+            locationManager.delegate = self
             locationManager.requestLocation()
             let span = MKCoordinateSpanMake(0.0073, 0.0073)
             let region = MKCoordinateRegionMake(locationManager.location!.coordinate, span)

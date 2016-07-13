@@ -32,6 +32,11 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         locationManager.pausesLocationUpdatesAutomatically = true
     }
     
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locations.count < 3 {
+            NSNotificationCenter.defaultCenter().postNotificationName("zoomOnUser", object: nil)
+        }
+    }
     
     
     

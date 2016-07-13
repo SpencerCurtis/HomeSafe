@@ -78,7 +78,9 @@ class CurrentETAViewController: UIViewController {
         if let eta = ETAController.sharedController.currentETA {
             ETAController.sharedController.inDanger(eta)
             self.dismissViewControllerAnimated(true, completion: nil)
-            
+            if let region = LocationController.sharedController.locationManager.monitoredRegions.first {
+                LocationController.sharedController.locationManager.stopMonitoringForRegion(region)
+            }
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("selectFollowersVC")
             self.presentViewController(vc, animated: true, completion: nil)
@@ -89,14 +91,16 @@ class CurrentETAViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
-        if let eta = ETAController.sharedController.currentETA {
-            print(eta.id!)
-            ETAController.sharedController.cancelETA(eta)
-            
-        }
+        guard let eta = ETAController.sharedController.currentETA, region = LocationController.sharedController.locationManager.monitoredRegions.first else { return }
+        print(eta.id!)
+        ETAController.sharedController.cancelETA(eta)
+        
+        LocationController.sharedController.locationManager.stopMonitoringForRegion(region)
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("selectFollowersVC")
         self.presentViewController(vc, animated: true, completion: nil)
+        
         AppearanceController.sharedController.initializeAppearance()
         
     }

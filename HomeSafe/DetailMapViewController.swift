@@ -43,10 +43,10 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
          createAnnotation.minimumPressDuration = 1
          mapView.addGestureRecognizer(createAnnotation)
          */
-//        
-//        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("locationTableViewController") as? LocationTableViewController
-//        resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
-//        resultsSearchController?.searchResultsUpdater = locationSearchTable
+        //        
+        //        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("locationTableViewController") as? LocationTableViewController
+        //        resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
+        //        resultsSearchController?.searchResultsUpdater = locationSearchTable
         
         let searchBar = resultsSearchController?.searchBar
         searchBar?.sizeToFit()
@@ -56,8 +56,8 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         resultsSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
         
-//        locationSearchTable?.mapView = mapView
-//        locationSearchTable?.mapSearchDelegate = self
+        //        locationSearchTable?.mapView = mapView
+        //        locationSearchTable?.mapSearchDelegate = self
         
     }
     
