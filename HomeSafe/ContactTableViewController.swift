@@ -123,20 +123,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                         
                     })
                     
-                    let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
-                    let containerID = CNContactStore().defaultContainerIdentifier()
-                    let predicate: NSPredicate = CNContact.predicateForContactsInContainerWithIdentifier(containerID)
-                    do {
-                        
-                        selectContacts.userContacts = try CNContactStore().unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
-                        
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.tableView.reloadData()
-                        })
-                        
-                    } catch _ {
-                        print("Error getting users contacts")
-                    }
+                    
                 }
             }
         }

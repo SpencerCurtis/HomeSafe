@@ -36,8 +36,10 @@ class LoginViewController: UIViewController {
             }) ; return}
             
             guard let contactTVC = self.storyboard?.instantiateViewControllerWithIdentifier("selectFollowersVC") else { return }
+            CloudKitController.sharedController.fetchSubscriptions()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.presentViewController(contactTVC, animated: true, completion: nil)
+            
             })
             
             

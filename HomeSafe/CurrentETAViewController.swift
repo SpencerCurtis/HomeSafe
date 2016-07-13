@@ -45,7 +45,7 @@ class CurrentETAViewController: UIViewController {
         } else if followers.count > 1 {
             self.followersLabel.text = "Your watchers are:"
         }
-
+        
         
         
         currentFollowersLabel.text = followersAsString()
@@ -58,7 +58,7 @@ class CurrentETAViewController: UIViewController {
         cancelButton.layer.borderColor = UIColor.whiteColor().CGColor
         cancelButton.layer.borderWidth = 1
     }
-
+    
     
     func followersAsString() -> String {
         var followersString: String = ""
@@ -82,6 +82,7 @@ class CurrentETAViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("selectFollowersVC")
             self.presentViewController(vc, animated: true, completion: nil)
+            AppearanceController.sharedController.initializeAppearance()
             // Add alert to tell user that followers have been notified.
         }
         
@@ -96,6 +97,7 @@ class CurrentETAViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("selectFollowersVC")
         self.presentViewController(vc, animated: true, completion: nil)
-
+        AppearanceController.sharedController.initializeAppearance()
+        
     }
 }
