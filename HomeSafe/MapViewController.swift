@@ -32,6 +32,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+        if authState == .AuthorizedAlways {
+            locationManager.requestLocation()
+        } 
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(zoomOnUsersLocation), name: "zoomOnUser", object: nil)
         
@@ -128,6 +132,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        if let annotation = self.mapView.annotations.last {
+            self.mapView.selectAnnotation(annotation, animated: true)
+        }
+    }
+    
     func selectSafeZone() {
         if let annotation = self.selectedSafeZonePin {
             let coordinate = annotation.coordinate
@@ -139,13 +149,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     func zoomOnUsersLocation() {
-        if authState == .AuthorizedAlways {
-            locationManager.delegate = self
-            locationManager.requestLocation()
+        if locationManager.location != nil {
             let span = MKCoordinateSpanMake(0.0073, 0.0073)
             let region = MKCoordinateRegionMake(locationManager.location!.coordinate, span)
             mapView.setRegion(region, animated: true)
-            
         }
     }
     

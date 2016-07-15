@@ -74,6 +74,8 @@
         self.view.addSubview(indicator)
         self.view.bringSubviewToFront(indicator)
         
+        indicator.startAnimating()
+        
         if let name = nameTextField.text, password = passwordTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
             UserController.sharedController.createUser(name, password: password, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
                 if let currentUser = UserController.sharedController.currentUser {
@@ -90,10 +92,12 @@
                 }
             })
         } else {
+            indicator.stopAnimating()
             let alert = NotificationController.sharedController.simpleAlert("Hold on", message: "Make sure you enter all the fields, and select a safe place as well.")
             alert.view.tintColor = Colors.sharedColors.exoticGreen
             self.presentViewController(alert, animated: true, completion: {
                 alert.view.tintColor = Colors.sharedColors.exoticGreen
+                
             })
         }
         

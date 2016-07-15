@@ -58,7 +58,7 @@
             let queue = dispatch_queue_create("contactQueue", nil)
             for contact in contacts {
                 dispatch_group_enter(group)
-                followerPhoneNumbers.append(contact.phoneNumber!)
+                followerPhoneNumbers.append(contact.phoneNumber ?? "")
                 dispatch_group_leave(group)
             }
             

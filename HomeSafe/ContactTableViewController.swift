@@ -60,7 +60,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        //        tableView.reloadData()
         
     }
     
@@ -169,6 +169,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                     CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: [phoneNumber], completion: { (success) in
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             indicator.stopAnimating()
+                            self.tableView.reloadData()
                         })
                     })
                 })
@@ -209,10 +210,8 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             
             SelectContactTableViewController.sharedController.contactStore.requestAccessForEntityType(.Contacts, completionHandler: { (access, accessError) -> Void in
                 if access {
-                    
                     completionHandler(accessGranted: access)
-                }
-                else {
+                } else {
                     if authorizationStatus == .Denied {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             let message = "\(accessError!.localizedDescription)\n\nPlease allow the app to access your contacts through the Settings."
@@ -236,23 +235,21 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         })
     }
     
-    //*****************************//
-    //MARK: - TABLEVIEW DELEGATION CONTACTTABLEVIEWCONTROLLER
-    //*******************************************************//
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return ContactsController.sharedController.filteredContacts.count
+        return ContactsController.sharedController.contacts.count
         
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-        let favoriteContact = ContactsController.sharedController.filteredContacts[indexPath.row]
+        let favoriteContact = ContactsController.sharedController.contacts[indexPath.row]
         cell.selectionStyle = .None
         cell.textLabel?.text = favoriteContact.name
         cell.textLabel?.textColor = UIColor.whiteColor()
         cell.tintColor = UIColor.whiteColor()
+        print(favoriteContact.uuid)
         
         return cell
     }
@@ -260,7 +257,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             
-            let contact = ContactsController.sharedController.filteredContacts[indexPath.row]
+            let contact = ContactsController.sharedController.contacts[indexPath.row]
             ContactsController.sharedController.removeContact(contact)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
@@ -268,7 +265,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let selectedGuardians = ContactsController.sharedController.filteredContacts[indexPath.row]
+        let selectedGuardians = ContactsController.sharedController.contacts[indexPath.row]
         ContactsController.sharedController.selectedGuardians.append(selectedGuardians)
         
     }
@@ -282,7 +279,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let names = ContactsController.sharedController.filteredContacts.map({$0.name!})
+        let names = ContactsController.sharedController.selectedGuardians.map({$0.name!})
         NSUserDefaults.standardUserDefaults().setValue(names, forKey: "currentFollowers")
     }
 }

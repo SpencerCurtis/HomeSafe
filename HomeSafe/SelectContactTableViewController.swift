@@ -102,6 +102,7 @@ class SelectContactTableViewController: UITableViewController {
         guard UserController.sharedController.selectedArray.count > 1 else { indicator.stopAnimating(); self.dismissViewControllerAnimated(true, completion: nil); return }
         contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
             CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: phoneNumbers, completion: { (success) in
+                UserController.sharedController.selectedArray = []
                 indicator.stopAnimating()
                 self.dismissViewControllerAnimated(true, completion: nil)
                 

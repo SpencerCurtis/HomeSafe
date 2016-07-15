@@ -59,3 +59,7 @@ class User: NSManagedObject {
     }
     
 }
+
+func ==(lhs: User, rhs: User) -> Bool {
+    return lhs.name == rhs.name && lhs.phoneNumber == rhs.phoneNumber
+}

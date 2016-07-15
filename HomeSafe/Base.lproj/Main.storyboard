@@ -644,7 +644,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your followers are:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-li-hA6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your followers are:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-li-hA6">
                                 <rect key="frame" x="16" y="68" width="343" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="hY1-L9-pJf"/>
@@ -653,9 +653,21 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epV-Ge-lO3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epV-Ge-lO3">
                                 <rect key="frame" x="16" y="114" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="G8i-Ei-OJk">
+                                <rect key="frame" x="12" y="339" width="351" height="200"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your destination is:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6h-ea-WWj">
+                                <rect key="frame" x="12" y="293" width="351" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Zxo-aB-D7a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -663,19 +675,27 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="pS3-li-hA6" firstAttribute="centerX" secondItem="c1a-q0-GN3" secondAttribute="centerX" id="0Xt-fn-j20"/>
+                            <constraint firstItem="vkl-Gz-Joo" firstAttribute="top" secondItem="G8i-Ei-OJk" secondAttribute="bottom" constant="8" id="3VZ-0a-2Fi"/>
                             <constraint firstItem="eBi-X7-H8V" firstAttribute="top" secondItem="KQ0-Ax-O3c" secondAttribute="bottom" constant="19" id="4Fw-5B-8Bf"/>
                             <constraint firstItem="pS3-li-hA6" firstAttribute="top" secondItem="c1a-q0-GN3" secondAttribute="top" constant="68" id="7kC-k2-HIz"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Thk-PW-Qce" secondAttribute="leading" id="7mR-Qu-EGL"/>
                             <constraint firstItem="lco-cE-QMS" firstAttribute="top" secondItem="Thk-PW-Qce" secondAttribute="bottom" constant="20" id="LwV-e9-u6d"/>
                             <constraint firstAttribute="leadingMargin" secondItem="eBi-X7-H8V" secondAttribute="leading" id="NLw-cy-5fT"/>
+                            <constraint firstItem="v6h-ea-WWj" firstAttribute="leading" secondItem="c1a-q0-GN3" secondAttribute="leadingMargin" constant="-4" id="PAS-Sj-Bcd"/>
+                            <constraint firstItem="G8i-Ei-OJk" firstAttribute="leading" secondItem="c1a-q0-GN3" secondAttribute="leadingMargin" constant="-4" id="QF4-JD-KMB"/>
                             <constraint firstItem="pS3-li-hA6" firstAttribute="leading" secondItem="c1a-q0-GN3" secondAttribute="leadingMargin" id="QNI-WS-zNJ"/>
                             <constraint firstItem="pS3-li-hA6" firstAttribute="top" secondItem="eBi-X7-H8V" secondAttribute="bottom" constant="8" symbolic="YES" id="S1b-g3-s1Y"/>
                             <constraint firstItem="lco-cE-QMS" firstAttribute="top" secondItem="vkl-Gz-Joo" secondAttribute="bottom" constant="20" id="SuN-i8-g4M"/>
                             <constraint firstItem="epV-Ge-lO3" firstAttribute="top" secondItem="pS3-li-hA6" secondAttribute="bottom" constant="8" id="UIT-bt-JPQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="epV-Ge-lO3" secondAttribute="trailing" id="WmL-cb-W6Z"/>
+                            <constraint firstItem="G8i-Ei-OJk" firstAttribute="top" secondItem="v6h-ea-WWj" secondAttribute="bottom" constant="8" id="YN8-cq-WfC"/>
                             <constraint firstItem="pS3-li-hA6" firstAttribute="leading" secondItem="eBi-X7-H8V" secondAttribute="leading" id="YZC-38-K9g"/>
                             <constraint firstItem="pS3-li-hA6" firstAttribute="trailing" secondItem="eBi-X7-H8V" secondAttribute="trailing" id="ZJ8-xH-tqR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eBi-X7-H8V" secondAttribute="trailing" id="fAd-Dq-lzV"/>
+                            <constraint firstItem="lco-cE-QMS" firstAttribute="top" secondItem="v6h-ea-WWj" secondAttribute="bottom" constant="336" id="k4D-IE-zfy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="G8i-Ei-OJk" secondAttribute="trailing" constant="-4" id="lXT-o6-1iO"/>
+                            <constraint firstItem="G8i-Ei-OJk" firstAttribute="centerX" secondItem="c1a-q0-GN3" secondAttribute="centerX" id="uJf-Sk-Y6t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="v6h-ea-WWj" secondAttribute="trailing" constant="-4" id="v5y-nz-yX3"/>
                             <constraint firstAttribute="leadingMargin" secondItem="epV-Ge-lO3" secondAttribute="leading" id="xdG-Zb-4mN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vkl-Gz-Joo" secondAttribute="trailing" id="ySm-zh-bVe"/>
                         </constraints>
@@ -685,6 +705,7 @@
                         <outlet property="cancelButton" destination="Thk-PW-Qce" id="hsy-3R-7q2"/>
                         <outlet property="currentFollowersLabel" destination="epV-Ge-lO3" id="nAh-fv-1ir"/>
                         <outlet property="dangerButton" destination="vkl-Gz-Joo" id="VsF-8J-5qg"/>
+                        <outlet property="destinationMapView" destination="G8i-Ei-OJk" id="Bls-Qq-dlR"/>
                         <outlet property="etaLabel" destination="eBi-X7-H8V" id="qbs-7o-uvj"/>
                         <outlet property="followersLabel" destination="pS3-li-hA6" id="xL0-Ci-cOf"/>
                     </connections>

@@ -7,18 +7,22 @@
 //
 
 import UIKit
+import MapKit
 
-class CurrentETAViewController: UIViewController {
+class CurrentETAViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var etaLabel: UILabel!
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var currentFollowersLabel: UILabel!
     @IBOutlet weak var dangerButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var destinationMapView: MKMapView!
     
+    var selectedDestinationPin: MKAnnotation? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        destinationMapView.delegate = self
         setupViews()
         // Do any additional setup after loading the view.
     }
@@ -50,6 +54,8 @@ class CurrentETAViewController: UIViewController {
         
         currentFollowersLabel.text = followersAsString()
         
+        destinationMapView.layer.cornerRadius = 12
+        
         dangerButton.layer.cornerRadius = 50
         dangerButton.layer.borderColor = UIColor.whiteColor().CGColor
         dangerButton.layer.borderWidth = 1
@@ -57,6 +63,22 @@ class CurrentETAViewController: UIViewController {
         cancelButton.layer.cornerRadius = 50
         cancelButton.layer.borderColor = UIColor.whiteColor().CGColor
         cancelButton.layer.borderWidth = 1
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = LocationController.sharedController.destination?.coordinate ?? CLLocationCoordinate2D()
+        annotation.title = LocationController.sharedController.address
+        annotation.subtitle = ""
+        
+        guard let destination = LocationController.sharedController.destination?.coordinate else { return }
+        let span = MKCoordinateSpanMake(0.0073, 0.0073)
+        let region = MKCoordinateRegionMake(destination, span)
+        
+        destinationMapView.setRegion(region, animated: true)
+        destinationMapView.addAnnotation(annotation)
+        destinationMapView.mapType = .Hybrid
+        
+        
+        
     }
     
     
@@ -73,6 +95,32 @@ class CurrentETAViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let reuseID = "pin"
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as? MKPinAnnotationView
+        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+        pinView?.pinTintColor = Colors.sharedColors.exoticGreen
+        pinView?.canShowCallout = true
+        pinView?.animatesDrop = true
+        
+        self.selectedDestinationPin = annotation
+        
+        return pinView
+        
+    }
+    
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        if let annotation = self.destinationMapView.annotations.last {
+            self.destinationMapView.selectAnnotation(annotation, animated: true)
+        }
+    }
+    
     
     @IBAction func dangerButtonTapped(sender: AnyObject) {
         if let eta = ETAController.sharedController.currentETA {
@@ -91,17 +139,20 @@ class CurrentETAViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
-        guard let eta = ETAController.sharedController.currentETA, region = LocationController.sharedController.locationManager.monitoredRegions.first else { return }
-        print(eta.id!)
-        ETAController.sharedController.cancelETA(eta)
-        
-        LocationController.sharedController.locationManager.stopMonitoringForRegion(region)
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("selectFollowersVC")
         self.presentViewController(vc, animated: true, completion: nil)
         
         AppearanceController.sharedController.initializeAppearance()
+        
+        guard let eta = ETAController.sharedController.currentETA, region = LocationController.sharedController.locationManager.monitoredRegions.first else { /* Alert to tell them it didn't work. */ return }
+        
+        print(eta.id!)
+        ETAController.sharedController.cancelETA(eta)
+        
+        LocationController.sharedController.locationManager.stopMonitoringForRegion(region)
+        
+        
         
     }
 }
