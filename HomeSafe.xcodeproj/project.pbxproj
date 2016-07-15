@@ -146,11 +146,11 @@
 				46CA33831D2191E200F999B1 /* Walkthrough */,
 				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
+				4659FF1A1CEBB52400B02642 /* ContactsController.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
 				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
 				4622D8B91CEB765500C2587F /* CloudKitController.swift */,
-				4659FF1A1CEBB52400B02642 /* ContactsController.swift */,
 				4659FF0F1CEB8CE900B02642 /* Colors.swift */,
 			);
 			name = Controllers;

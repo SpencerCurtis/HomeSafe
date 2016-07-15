@@ -51,17 +51,52 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         
     }
     
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return ContactsController.sharedController.contacts.count
+        
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
+        let favoriteContact = ContactsController.sharedController.contacts[indexPath.row]
+        cell.selectionStyle = .None
+        cell.textLabel?.text = favoriteContact.name
+        cell.textLabel?.textColor = UIColor.whiteColor()
+        cell.tintColor = UIColor.whiteColor()
+        print(favoriteContact.uuid)
+        
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            
+            let contact = ContactsController.sharedController.contacts[indexPath.row]
+            ContactsController.sharedController.removeContact(contact)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        let selectedGuardians = ContactsController.sharedController.contacts[indexPath.row]
+        ContactsController.sharedController.selectedGuardians.append(selectedGuardians)
+        
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
+        let index = ContactsController.sharedController.selectedGuardians.indexOf(ContactsController.sharedController.contacts[indexPath.row])
+        ContactsController.sharedController.selectedGuardians.removeAtIndex(index!)
+    }
+    
+    
     func hideTransparentNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
         navigationController?.navigationBar.translucent = true
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = UIColor.clearColor()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        //        tableView.reloadData()
-        
     }
     
     func sendInvitationMessage() {
@@ -233,48 +268,6 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         presentViewController(alert, animated: true, completion: {
             alert.view.tintColor = Colors.sharedColors.exoticGreen
         })
-    }
-    
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return ContactsController.sharedController.contacts.count
-        
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-        let favoriteContact = ContactsController.sharedController.contacts[indexPath.row]
-        cell.selectionStyle = .None
-        cell.textLabel?.text = favoriteContact.name
-        cell.textLabel?.textColor = UIColor.whiteColor()
-        cell.tintColor = UIColor.whiteColor()
-        print(favoriteContact.uuid)
-        
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            
-            let contact = ContactsController.sharedController.contacts[indexPath.row]
-            ContactsController.sharedController.removeContact(contact)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let selectedGuardians = ContactsController.sharedController.contacts[indexPath.row]
-        ContactsController.sharedController.selectedGuardians.append(selectedGuardians)
-        
-    }
-    
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = ContactsController.sharedController.selectedGuardians.indexOf(ContactsController.sharedController.contacts[indexPath.row])
-        ContactsController.sharedController.selectedGuardians.removeAtIndex(index!)
-        
     }
     
     

@@ -58,6 +58,7 @@ class User: NSManagedObject {
         self.uuid = record.recordID.recordName
     }
     
+    
 }
 
 func ==(lhs: User, rhs: User) -> Bool {

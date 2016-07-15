@@ -30,13 +30,6 @@ class ContactsController {
         }
     }
     
-    var filteredContacts: [User] {
-        
-        let set = Set<User>(contacts)
-        return Array(set)
-    }
-    
-    
     func createUserFromFetchedRecord(record: CKRecord) {
         _ = User(record: record)
         self.saveToPersistentStorage()
@@ -52,7 +45,7 @@ class ContactsController {
     
     func plainPhoneNumber(string: String) -> String {
         let filter = NSCharacterSet.alphanumericCharacterSet()
-        let result = String(string.utf16.filter { filter.characterIsMember($0) }.map { Character(UnicodeScalar($0)) })
+        let result = String(string.utf16.filter{filter.characterIsMember($0)}.map{Character(UnicodeScalar($0))})
         
         return result
     }

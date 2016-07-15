@@ -265,11 +265,7 @@ class CloudKitController {
         let group = dispatch_group_create()
         
         for phoneNumber in phoneNumbers {
-            let filteredEntities = ContactsController.sharedController.filteredContacts.filter({$0.phoneNumber == phoneNumber})
-            guard filteredEntities.count == 0 else {
-                completion(success: false)
-                return
-            }
+            
             dispatch_group_enter(group)
             var contactsNotInICloud: [String] = []
             self.fetchUserForPhoneNumber(phoneNumber, completion: { (otherUser) in
@@ -422,32 +418,27 @@ class CloudKitController {
     
     func notifySelectedUsersOfNewETA(users: [User], currentUser: CurrentUser) {
         for user in users {
-            fetchUserForPhoneNumber(user.phoneNumber!, completion: { (otherUser) in
-                if let uuid = otherUser!.uuid, phoneNumber = currentUser.phoneNumber {
-                    let predicate = NSPredicate(format: "userUUID = %@", uuid)
-                    let query = CKQuery(recordType: "userNewETA", predicate: predicate)
-                    let operation = CKQueryOperation(query: query)
-                    operation.recordFetchedBlock = { (record) in
-                        var phoneNumbers = record.valueForKey("newETA") as? [String] ?? []
-                        print(phoneNumbers)
-                        phoneNumbers.append(phoneNumber)
-                        print(phoneNumbers)
-                        record.setValue(phoneNumbers, forKey: "newETA")
-                        print(record)
-                        let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-                        op.perRecordCompletionBlock = { (record, error) in
-                            if error != nil {
-                                print(error?.localizedDescription)
-                            } else {
-                                print("Successfully sent to \(user.name!)!")
-                            }
+            if let uuid = user.uuid, phoneNumber = currentUser.phoneNumber {
+                let predicate = NSPredicate(format: "userUUID = %@", uuid)
+                let query = CKQuery(recordType: "userNewETA", predicate: predicate)
+                let operation = CKQueryOperation(query: query)
+                operation.recordFetchedBlock = { (record) in
+                    var phoneNumbers = record.valueForKey("newETA") as? [String] ?? []
+                    phoneNumbers.append(phoneNumber)
+                    record.setValue(phoneNumbers, forKey: "newETA")
+                    let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+                    op.perRecordCompletionBlock = { (record, error) in
+                        if error != nil {
+                            print(error?.localizedDescription)
+                        } else {
+                            print("Successfully sent to \(user.name!)!")
                         }
-                        self.db.addOperation(op)
                     }
-                    self.db.addOperation(operation)
+                    self.db.addOperation(op)
                 }
-                
-            })
+                self.db.addOperation(operation)
+            }
+            
         }
     }
     

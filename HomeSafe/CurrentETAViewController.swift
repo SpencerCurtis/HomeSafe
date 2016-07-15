@@ -65,13 +65,15 @@ class CurrentETAViewController: UIViewController, MKMapViewDelegate {
         cancelButton.layer.borderWidth = 1
         
         let annotation = MKPointAnnotation()
-        annotation.coordinate = LocationController.sharedController.destination?.coordinate ?? CLLocationCoordinate2D()
+        guard let destination = ETAController.sharedController.currentETA, latitude = destination.latitude, longitude = destination.longitude else { return }
+        let destinationCoordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
+        
+        annotation.coordinate = destinationCoordinate
         annotation.title = LocationController.sharedController.address
         annotation.subtitle = ""
         
-        guard let destination = LocationController.sharedController.destination?.coordinate else { return }
         let span = MKCoordinateSpanMake(0.0073, 0.0073)
-        let region = MKCoordinateRegionMake(destination, span)
+        let region = MKCoordinateRegionMake(destinationCoordinate, span)
         
         destinationMapView.setRegion(region, animated: true)
         destinationMapView.addAnnotation(annotation)
