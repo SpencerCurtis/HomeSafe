@@ -186,6 +186,13 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             
             let submitAction = UIAlertAction(title: "Submit", style: .Cancel, handler: { (_) in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let loadingView = UIView()
+                    loadingView.frame = self.view.bounds
+                    loadingView.alpha = 0.2
+                    loadingView.backgroundColor = UIColor.grayColor()
+                    self.view.addSubview(loadingView)
+                    self.view.bringSubviewToFront(loadingView)
+                    
                     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
                     indicator.color = UIColor .whiteColor()
                     indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
@@ -200,10 +207,11 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                     indicator.startAnimating()
                     
                     
-                    guard let phoneNumber = phoneNumberTextField!.text, currentUser = UserController.sharedController.currentUser else { return; /* alert? */ }
+                    guard let phoneNumber = phoneNumberTextField!.text, currentUser = UserController.sharedController.currentUser else { indicator.stopAnimating(); self.view.sendSubviewToBack(loadingView); return; /* alert? */ }
                     CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: [phoneNumber], completion: { (success) in
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             indicator.stopAnimating()
+                            self.view.sendSubviewToBack(loadingView)
                             self.tableView.reloadData()
                         })
                     })
