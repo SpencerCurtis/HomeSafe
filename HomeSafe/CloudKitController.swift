@@ -79,13 +79,8 @@ class CloudKitController {
         self.db.fetchAllSubscriptionsWithCompletionHandler { (subscriptions, error) in
             guard error == nil, let subscriptions = subscriptions else { return }
             for subscription in subscriptions {
-                print(subscription.recordType)
-                print(subscription.description)
-                print(subscription.notificationInfo)
-                print("\n")
+                SubscriptionController.createSubscription(subscription.subscriptionID)
             }
-            
-            
         }
     }
     
@@ -123,6 +118,8 @@ class CloudKitController {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
             let subscription = CKSubscription(recordType: "contacts", predicate: predicate, options: .FiresOnRecordUpdate)
             
+            SubscriptionController.createSubscription(subscription.subscriptionID)
+            
             let info = CKNotificationInfo()
             info.alertBody = "You have been added as someone's contact"
             info.shouldSendContentAvailable = true
@@ -149,6 +146,8 @@ class CloudKitController {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
             let subscription = CKSubscription(recordType: "userNewETA", predicate: predicate, options: .FiresOnRecordUpdate)
+            
+            SubscriptionController.createSubscription(subscription.subscriptionID)
             
             let info = CKNotificationInfo()
             info.alertBody = "Someone has begun an ETA and wants to you be their watcher."
@@ -319,6 +318,9 @@ class CloudKitController {
         let predicate = NSPredicate(format: "userPhoneNumber = %@", user.phoneNumber!)
         
         let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordCreation)
+        
+        SubscriptionController.createSubscription(subscription.subscriptionID)
+        
         let info = CKNotificationInfo()
         info.alertBody = "\(user.name!) has begun a new ETA"
         info.shouldSendContentAvailable = true
@@ -480,6 +482,8 @@ class CloudKitController {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordUpdate)
         
+        SubscriptionController.createSubscription(subscription.subscriptionID)
+        
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
@@ -518,6 +522,8 @@ class CloudKitController {
         
         let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
         
+        SubscriptionController.createSubscription(subscription.subscriptionID)
+        
         let info = CKNotificationInfo()
         info.desiredKeys = ["canceledETA"]
         info.alertBody = "\(eta.userName!) has canceled their ETA"
@@ -540,6 +546,8 @@ class CloudKitController {
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
         let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        
+        SubscriptionController.createSubscription(subscription.subscriptionID)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["homeSafe"]
@@ -564,6 +572,8 @@ class CloudKitController {
         
         let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
         
+        SubscriptionController.createSubscription(subscription.subscriptionID)
+        
         let info = CKNotificationInfo()
         info.desiredKeys = ["inDanger"]
         info.alertBody = "\(eta.userName!) is in danger! Please make contact"
@@ -587,6 +597,17 @@ class CloudKitController {
                 self.subscribeToInDangerETAChanges(eta, phoneNumber: phoneNumber, completion: {
                     completion()
                 })
+            })
+        }
+    }
+    
+    func deleteSubscriptions() {
+        SubscriptionController.deleteSubscriptions()
+        for subscription in SubscriptionController.subscriptions {
+            db.deleteSubscriptionWithID(subscription.id, completionHandler: { (_, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                }
             })
         }
     }

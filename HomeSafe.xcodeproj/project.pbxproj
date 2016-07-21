@@ -38,6 +38,9 @@
 		46A0F6FF1CF89F230024F507 /* SecondInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */; };
 		46A0F7011CF89F390024F507 /* ThirdInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */; };
 		46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */; };
+		46B6804B1D3EC88B00938DB6 /* Subscription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B680491D3EC88B00938DB6 /* Subscription+CoreDataProperties.swift */; };
+		46B6804C1D3EC88B00938DB6 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B6804A1D3EC88B00938DB6 /* Subscription.swift */; };
+		46B6804E1D3EC8FD00938DB6 /* SubscriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B6804D1D3EC8FD00938DB6 /* SubscriptionController.swift */; };
 		46EFF6841D2D984400B4AA43 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EFF6831D2D984400B4AA43 /* LoginViewController.swift */; };
 		46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */; };
 		46F538611CF4B7B300D63D17 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */; };
@@ -84,6 +87,9 @@
 		46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondInstructionalViewController.swift; sourceTree = "<group>"; };
 		46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdInstructionalViewController.swift; sourceTree = "<group>"; };
 		46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthInstructionalViewController.swift; sourceTree = "<group>"; };
+		46B680491D3EC88B00938DB6 /* Subscription+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		46B6804A1D3EC88B00938DB6 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		46B6804D1D3EC8FD00938DB6 /* SubscriptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionController.swift; sourceTree = "<group>"; };
 		46EFF6831D2D984400B4AA43 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
 		46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +153,7 @@
 				E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */,
 				4617E0601CEA6284003EB3C1 /* UserController.swift */,
 				4659FF1A1CEBB52400B02642 /* ContactsController.swift */,
+				46B6804D1D3EC8FD00938DB6 /* SubscriptionController.swift */,
 				4617E0621CEA6C18003EB3C1 /* ETAController.swift */,
 				4617E0661CEA7DE8003EB3C1 /* LocationController.swift */,
 				4617E0641CEA6DB6003EB3C1 /* NotificationController.swift */,
@@ -180,6 +187,8 @@
 		462039DA1CEF67CD00DC29F6 /* Models + Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				46B680491D3EC88B00938DB6 /* Subscription+CoreDataProperties.swift */,
+				46B6804A1D3EC88B00938DB6 /* Subscription.swift */,
 				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
 				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
 				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
@@ -291,10 +300,12 @@
 				4659FF101CEB8CE900B02642 /* Colors.swift in Sources */,
 				4617E04C1CEA5889003EB3C1 /* MapViewController.swift in Sources */,
 				4617E0611CEA6284003EB3C1 /* UserController.swift in Sources */,
+				46B6804C1D3EC88B00938DB6 /* Subscription.swift in Sources */,
 				4617E0501CEA5BEA003EB3C1 /* ContactTableViewController.swift in Sources */,
 				4636E5DA1D0F6E75007F45BC /* ContainerViewViewController.swift in Sources */,
 				4636E5DE1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift in Sources */,
 				4622D8BA1CEB765500C2587F /* CloudKitController.swift in Sources */,
+				46B6804E1D3EC8FD00938DB6 /* SubscriptionController.swift in Sources */,
 				4617E0581CEA5C58003EB3C1 /* SelectContactTableViewController.swift in Sources */,
 				46A0F6FB1CF89EEF0024F507 /* InstructionsPageViewController.swift in Sources */,
 				4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */,
@@ -322,6 +333,7 @@
 				E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */,
 				E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
+				46B6804B1D3EC88B00938DB6 /* Subscription+CoreDataProperties.swift in Sources */,
 				E5777ADC1CEFA66200B7ADF1 /* ResultsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

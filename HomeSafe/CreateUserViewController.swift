@@ -1,15 +1,15 @@
- //
- //  CreateUserViewController.swift
- //  HomeSafe
- //
- //  Created by Spencer Curtis on 5/16/16.
- //  Copyright © 2016 Spencer Curtis. All rights reserved.
- //
- 
- import UIKit
- import CoreLocation
- 
- class CreateUserViewController: UIViewController {
+//
+//  CreateUserViewController.swift
+//  HomeSafe
+//
+//  Created by Spencer Curtis on 5/16/16.
+//  Copyright © 2016 Spencer Curtis. All rights reserved.
+//
+
+import UIKit
+import CoreLocation
+
+class CreateUserViewController: UIViewController {
     
     static let sharedController = CreateUserViewController()
     
@@ -70,12 +70,13 @@
     }
     
     @IBAction func createUserButtonTapped(sender: AnyObject) {
+        view.endEditing(true)
         let indicator = AppearanceController.sharedController.setUpActivityIndicator(self)
         self.view.addSubview(indicator)
         let loadingView = UIView()
         loadingView.frame = self.view.bounds
-        loadingView.alpha = 0.2
-        loadingView.backgroundColor = UIColor.grayColor()
+        loadingView.alpha = 0.3
+        loadingView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(loadingView)
         self.view.bringSubviewToFront(loadingView)
         self.view.bringSubviewToFront(indicator)
@@ -90,7 +91,7 @@
                             CloudKitController.sharedController.fetchSubscriptions()
                             
                             indicator.stopAnimating()
-                            self.view.sendSubviewToBack(loadingView)
+                            loadingView.removeFromSuperview()
                             indicator.hidesWhenStopped = true
                             self.dismissViewControllerAnimated(true, completion: nil)
                         })
@@ -100,7 +101,7 @@
         } else {
             indicator.stopAnimating()
             let alert = NotificationController.sharedController.simpleAlert("Hold on", message: "Make sure you enter all the fields, and select a safe place as well.")
-            self.view.sendSubviewToBack(loadingView)
+            loadingView.removeFromSuperview()
             alert.view.tintColor = Colors.sharedColors.exoticGreen
             self.presentViewController(alert, animated: true, completion: {
                 alert.view.tintColor = Colors.sharedColors.exoticGreen
@@ -132,4 +133,4 @@
         }), completion: nil)
     }
     
- }
+}

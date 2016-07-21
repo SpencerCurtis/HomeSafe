@@ -165,6 +165,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         
         let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (_) in
             UserController.sharedController.signOutCurrentUser()
+            CloudKitController.sharedController.deleteSubscriptions()
             
             let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(createUserVC!, animated: false, completion: nil)
@@ -186,10 +187,11 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             
             let submitAction = UIAlertAction(title: "Submit", style: .Cancel, handler: { (_) in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.view.endEditing(true)
                     let loadingView = UIView()
                     loadingView.frame = self.view.bounds
-                    loadingView.alpha = 0.2
-                    loadingView.backgroundColor = UIColor.grayColor()
+                    loadingView.alpha = 0.3
+                    loadingView.backgroundColor = UIColor.blackColor()
                     self.view.addSubview(loadingView)
                     self.view.bringSubviewToFront(loadingView)
                     
@@ -211,7 +213,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                     CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: [phoneNumber], completion: { (success) in
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             indicator.stopAnimating()
-                            self.view.sendSubviewToBack(loadingView)
+                            loadingView.removeFromSuperview()
                             self.tableView.reloadData()
                         })
                     })
