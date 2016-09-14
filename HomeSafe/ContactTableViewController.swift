@@ -107,7 +107,7 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             let messageVC = MFMessageComposeViewController()
             if MFMessageComposeViewController.canSendText() == true {
                 
-                let alert = UIAlertController(title: "", message: "Would you like to invite this person to download HomeSafe so they can be your follower?", preferredStyle: .Alert)
+                let alert = UIAlertController(title: "No user found", message: "Would you like to invite this person to download HomeSafe so they can be your follower?", preferredStyle: .Alert)
                 let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
                     messageVC.body = "I'd like you to download HomeSafe so you can make sure I'm safe while I'm out!"
                     messageVC.recipients = recipients
@@ -166,8 +166,8 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (_) in
             UserController.sharedController.signOutCurrentUser()
             
-            let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
-            self.presentViewController(createUserVC!, animated: false, completion: nil)
+            guard let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController") else { return }
+            self.presentViewController(createUserVC, animated: false, completion: nil)
             
         }
         
@@ -207,11 +207,11 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
                     indicator.startAnimating()
                     
                     
-                    guard let phoneNumber = phoneNumberTextField!.text, currentUser = UserController.sharedController.currentUser else { indicator.stopAnimating(); self.view.sendSubviewToBack(loadingView); return; /* alert? */ }
+                    guard let phoneNumber = phoneNumberTextField!.text, currentUser = UserController.sharedController.currentUser else { indicator.stopAnimating(); loadingView.removeFromSuperview();                         NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil); return }
                     CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: [phoneNumber], completion: { (success) in
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             indicator.stopAnimating()
-                            self.view.sendSubviewToBack(loadingView)
+                            loadingView.removeFromSuperview()
                             self.tableView.reloadData()
                         })
                     })
