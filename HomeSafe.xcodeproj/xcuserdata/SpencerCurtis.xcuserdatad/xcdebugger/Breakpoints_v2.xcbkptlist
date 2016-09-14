@@ -58,12 +58,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
-                  timestampString = "490655510.84145"
+                  timestampString = "490562407.815251"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "89"
                   endingLineNumber = "89"
-                  offsetFromSymbolStart = "1108">
+                  offsetFromSymbolStart = "1348">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -73,12 +73,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/AppDelegate.swift"
-                  timestampString = "490655510.84164"
+                  timestampString = "490562407.815349"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "90"
                   endingLineNumber = "90"
-                  offsetFromSymbolStart = "44">
+                  offsetFromSymbolStart = "42">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "490654949.086046"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "addCurrentUserToOtherUsersContactList(_:phoneNumber:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "490654949.086046"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "addCurrentUserToOtherUsersContactList(_:phoneNumber:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -153,12 +153,28 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "490654949.086046"
+            filePath = "HomeSafe/UserController.swift"
+            timestampString = "490050104.820496"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "createUser(_:password:safeLocation:phoneNumber:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HomeSafe/CloudKitController.swift"
+            timestampString = "490051440.232914"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "490654949.086046"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "490654949.086046"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "490654949.086046"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
             <Locations>
@@ -218,12 +234,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "490655510.846941"
+                  timestampString = "490562407.818981"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "203"
-                  endingLineNumber = "203"
-                  offsetFromSymbolStart = "1400">
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "2012">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -233,12 +249,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/CloudKitController.swift"
-                  timestampString = "490655510.84706"
+                  timestampString = "490562407.819068"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "174"
-                  endingLineNumber = "174"
-                  offsetFromSymbolStart = "20">
+                  startingLineNumber = "175"
+                  endingLineNumber = "175"
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -250,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HomeSafe/CloudKitController.swift"
-            timestampString = "490654949.086046"
+            timestampString = "490051440.232914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "checkForNewContacts(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -308,12 +324,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.84954"
+                  timestampString = "490562407.820858"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
                   endingLineNumber = "104"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "24">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -323,12 +339,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.849639"
+                  timestampString = "490562407.820946"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "105"
                   endingLineNumber = "105"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "27">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -356,12 +372,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.850255"
+                  timestampString = "490562407.821431"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
                   endingLineNumber = "104"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "24">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -371,12 +387,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.850362"
+                  timestampString = "490562407.821517"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "105"
                   endingLineNumber = "105"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "27">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -404,12 +420,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.850997"
+                  timestampString = "490562407.822164"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
                   endingLineNumber = "104"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "24">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -419,12 +435,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.851099"
+                  timestampString = "490562407.822249"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "105"
                   endingLineNumber = "105"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "27">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -452,12 +468,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.851708"
+                  timestampString = "490562407.823361"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "103"
                   endingLineNumber = "103"
-                  offsetFromSymbolStart = "772">
+                  offsetFromSymbolStart = "862">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -467,12 +483,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/SelectContactTableViewController.swift"
-                  timestampString = "490655510.851799"
+                  timestampString = "490562407.82347"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "104"
                   endingLineNumber = "104"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "24">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -676,12 +692,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/User.swift"
-                  timestampString = "490655510.856072"
+                  timestampString = "490562407.826626"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "48"
                   endingLineNumber = "48"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "23">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -691,12 +707,12 @@
                   moduleName = "HomeSafe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/SpencerCurtis/Documents/iOS%20Development/HomeSafe/HomeSafe/User.swift"
-                  timestampString = "490655510.856177"
+                  timestampString = "490562407.82672"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "48"
                   endingLineNumber = "48"
-                  offsetFromSymbolStart = "484">
+                  offsetFromSymbolStart = "616">
                </Location>
             </Locations>
          </BreakpointContent>
