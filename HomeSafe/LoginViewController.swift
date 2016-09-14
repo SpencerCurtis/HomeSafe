@@ -28,18 +28,37 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func logInButtonTapped(sender: AnyObject) {
-        guard let phoneNumber = phoneNumberTextField.text, password = passwordTextField.text else { return }
-        CloudKitController.sharedController.logInUser(phoneNumber, password: password, completion: { (success) in
-            guard success == true else { let alert = NotificationController.sharedController.simpleAlert("Error", message: "No user was found with the phone number and password entered. Check the fields and try again."); dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.presentViewController(alert, animated: true, completion: nil)
-            }) ; return}
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            indicator.color = UIColor .whiteColor()
+            indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+            indicator.center = CGPoint(x: self.view.center.x, y: 280)
+            indicator.hidesWhenStopped = true
             
-            guard let contactTVC = self.storyboard?.instantiateViewControllerWithIdentifier("selectFollowersVC") else { return }
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.presentViewController(contactTVC, animated: true, completion: nil)
+            
+            self.view.addSubview(indicator)
+            self.view.bringSubviewToFront(indicator)
+            
+            
+            indicator.startAnimating()
+            
+            guard let phoneNumber = self.phoneNumberTextField.text, password = self.passwordTextField.text else { return }
+            CloudKitController.sharedController.logInUser(phoneNumber, password: password, completion: { (success) in
+                print(success.boolValue)
+                guard success == true else { indicator.stopAnimating(); let alert = NotificationController.sharedController.simpleAlert("Error", message: "No user was found with the phone number and password entered. Check the fields and try again."); dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }) ; return}
+                
+                guard let contactTVC = self.storyboard?.instantiateViewControllerWithIdentifier("selectFollowersVC") else { return }
+                CloudKitController.sharedController.fetchSubscriptions()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.presentViewController(contactTVC, animated: true, completion: nil)
+                    indicator.stopAnimating()
+                    
+                })
+                
+                
             })
-            
-            
         })
     }
     

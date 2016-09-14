@@ -32,6 +32,13 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         locationManager.pausesLocationUpdatesAutomatically = true
     }
     
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if locations.count < 3 {
+            NSNotificationCenter.defaultCenter().postNotificationName("zoomOnUser", object: nil)
+        } else if locations.count == 1 {
+            NSNotificationCenter.defaultCenter().postNotificationName("hasLocation", object: nil)
+        }
+    }
     
     
     
@@ -42,9 +49,6 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         
         return usersLocation
     }
-    
-    
-    
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if let currentETA = ETAController.sharedController.currentETA {

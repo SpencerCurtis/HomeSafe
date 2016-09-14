@@ -70,22 +70,41 @@
     }
     
     @IBAction func createUserButtonTapped(sender: AnyObject) {
+        let indicator = AppearanceController.sharedController.setUpActivityIndicator(self)
+        self.view.addSubview(indicator)
+        let loadingView = UIView()
+        loadingView.frame = self.view.bounds
+        loadingView.alpha = 0.2
+        loadingView.backgroundColor = UIColor.grayColor()
+        self.view.addSubview(loadingView)
+        self.view.bringSubviewToFront(loadingView)
+        self.view.bringSubviewToFront(indicator)
+        indicator.startAnimating()
+        
         if let name = nameTextField.text, password = passwordTextField.text, phoneNumber = phoneNumberTextField.text, safeLocation = LocationController.sharedController.selectedSafeLocation {
             UserController.sharedController.createUser(name, password: password, safeLocation: safeLocation, phoneNumber: phoneNumber, completion: {
                 if let currentUser = UserController.sharedController.currentUser {
-                    //                    CloudKitController.sharedController.fetchSubscriptions({
                     CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToContactList(currentUser, completion: {
                         CloudKitController.sharedController.subscribeToUsersAddingCurrentUserToNewETA(currentUser, completion: {
+                            print("Subscribed successfully to all subscriptions.")
+                            CloudKitController.sharedController.fetchSubscriptions()
                             
+                            indicator.stopAnimating()
+                            self.view.sendSubviewToBack(loadingView)
+                            indicator.hidesWhenStopped = true
+                            self.dismissViewControllerAnimated(true, completion: nil)
                         })
                     })
                 }
             })
-            self.dismissViewControllerAnimated(true, completion: nil)
         } else {
+            indicator.stopAnimating()
             let alert = NotificationController.sharedController.simpleAlert("Hold on", message: "Make sure you enter all the fields, and select a safe place as well.")
-            self.presentViewController(alert, animated: true, completion: { 
-                alert.view.tintColor = Colors.sharedController.exoticGreen
+            self.view.sendSubviewToBack(loadingView)
+            alert.view.tintColor = Colors.sharedColors.exoticGreen
+            self.presentViewController(alert, animated: true, completion: {
+                alert.view.tintColor = Colors.sharedColors.exoticGreen
+                
             })
         }
         

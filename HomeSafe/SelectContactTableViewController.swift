@@ -14,23 +14,58 @@ protocol PassContactsDelegate {
     func userDidSelectContacts(contacts: [CNContact])
 }
 
-class SelectContactTableViewController: UITableViewController{
+class SelectContactTableViewController: UITableViewController {
     
     var delegate: PassContactsDelegate?
-    var userContacts = [CNContact]() // dataArray
     var contactStore = CNContactStore()
     var favoriteContacts: [CNContact] = []
     var selectedFavoriteContactsArray: [CNContact] = []
     var tempContacts: [User] = []
     
+    lazy var contacts: [CNContact] = {
+        let contactStore = CNContactStore()
+        let keysToFetch = [
+            CNContactFormatter.descriptorForRequiredKeysForStyle(.FullName),
+            CNContactEmailAddressesKey,
+            CNContactPhoneNumbersKey,
+            CNContactImageDataAvailableKey,
+            CNContactThumbnailImageDataKey]
+        
+        // Get all the containers
+        var allContainers: [CNContainer] = []
+        do {
+            allContainers = try contactStore.containersMatchingPredicate(nil)
+        } catch {
+            print("Error fetching containers")
+        }
+        
+        var results: [CNContact] = []
+        
+        // Iterate all containers and append their contacts to our results array
+        for container in allContainers {
+            let fetchPredicate = CNContact.predicateForContactsInContainerWithIdentifier(container.identifier)
+            
+            do {
+                let containerResults = try contactStore.unifiedContactsMatchingPredicate(fetchPredicate, keysToFetch: keysToFetch)
+                results.appendContentsOf(containerResults)
+            } catch {
+                print("Error fetching results for container")
+            }
+        }
+        
+        return results
+    }()
+    
+    
     var searchController: UISearchController!
+    @IBOutlet weak var manualPhoneNumberTextField: UITextField!
     
     func configureSearchController() {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("results") as? ResultsTableViewController {
             
             searchController = UISearchController(searchResultsController: vc)
             vc.searchController = searchController
-            vc.results = userContacts
+            vc.results = contacts
             searchController.dimsBackgroundDuringPresentation = false
             searchController.searchBar.placeholder = "Search for followers"
             searchController.searchBar.sizeToFit()
@@ -58,28 +93,24 @@ class SelectContactTableViewController: UITableViewController{
     }
     
     @IBAction func done(sender: AnyObject) {
-        var contactsNotInICloud: [String] = []
-        self.dismissViewControllerAnimated(true, completion: nil)
-        if let currentUser = UserController.sharedController.currentUser {
-            contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
-                for phoneNumber in phoneNumbers {
-                    CloudKitController.sharedController.addCurrentUserToOtherUsersContactList(currentUser, phoneNumber: phoneNumber, completion: { (success) in
-                        if success == false {
-                            contactsNotInICloud.append(phoneNumber)
-                            NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
-                            if contactsNotInICloud.count != 0 {
-                                NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
-                            }
-                            
-                        }
-                    })
-                }
+        let indicator = AppearanceController.sharedController.setUpActivityIndicator(self)
+        self.view.addSubview(indicator)
+        self.view.bringSubviewToFront(indicator)
+        indicator.startAnimating()
+        
+        guard let currentUser = UserController.sharedController.currentUser else { return }
+        guard UserController.sharedController.selectedArray.count > 1 else { indicator.stopAnimating(); self.dismissViewControllerAnimated(true, completion: nil); return }
+        contactsToPhoneNumber(UserController.sharedController.selectedArray, completion: { (phoneNumbers) in
+            CloudKitController.sharedController.addUsersToContactList(currentUser, phoneNumbers: phoneNumbers, completion: { (success) in
+                UserController.sharedController.selectedArray = []
+                indicator.stopAnimating()
+                self.dismissViewControllerAnimated(true, completion: nil)
+                
             })
-            ContactsController.sharedController.convertContactsToUsers(UserController.sharedController.selectedArray) {
-            }
-            
-        }
+        })
     }
+    
+    
     
     func plainPhoneNumber(string: String) -> String {
         let filter = NSCharacterSet.alphanumericCharacterSet()
@@ -116,13 +147,13 @@ class SelectContactTableViewController: UITableViewController{
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userContacts.count
+        return contacts.count
         
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-        let contact = userContacts[indexPath.row]
+        let contact = contacts[indexPath.row]
         cell.selectionStyle = .None
         cell.textLabel?.text = contact.givenName + " " + contact.familyName
         cell.tintColor = UIColor.whiteColor()
@@ -133,12 +164,12 @@ class SelectContactTableViewController: UITableViewController{
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        let selectedContacts = userContacts[indexPath.row]
+        let selectedContacts = contacts[indexPath.row]
         UserController.sharedController.selectedArray.append(selectedContacts)
     }
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = UserController.sharedController.selectedArray.indexOf(userContacts[indexPath.row])
+        let index = UserController.sharedController.selectedArray.indexOf(contacts[indexPath.row])
         UserController.sharedController.selectedArray.removeAtIndex(index!)
     }
 }

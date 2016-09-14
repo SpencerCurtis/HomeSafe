@@ -51,13 +51,14 @@
             record.setValue(0, forKey: "canceledETA")
             record.setValue(recordID, forKey: "id")
             record.setValue(phoneNumber, forKey: "userPhoneNumber")
+            
             let contacts = ContactsController.sharedController.selectedGuardians
             var followerPhoneNumbers: [String] = []
             let group = dispatch_group_create()
             let queue = dispatch_queue_create("contactQueue", nil)
             for contact in contacts {
                 dispatch_group_enter(group)
-                followerPhoneNumbers.append(contact.phoneNumber!)
+                followerPhoneNumbers.append(contact.phoneNumber ?? "")
                 dispatch_group_leave(group)
             }
             

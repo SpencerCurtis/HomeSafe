@@ -19,7 +19,7 @@ class AppearanceController {
         UINavigationBar.appearance().barStyle = UIBarStyle.Default
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UIBarButtonItem.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().backgroundColor = Colors.sharedController.exoticGreen
+        UINavigationBar.appearance().backgroundColor = Colors.sharedColors.exoticGreen
         UINavigationBar.appearanceWhenContainedInInstancesOfClasses([MFMessageComposeViewController.self]).tintColor = UIColor.blueColor()
         
         let textAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
@@ -77,7 +77,16 @@ class AppearanceController {
             textField.layer.cornerRadius = 5
             textField.layer.borderColor = UIColor.whiteColor().CGColor
             textField.layer.borderWidth = 0.3
-            textField.tintColor = Colors.sharedController.exoticGreen
+            textField.tintColor = Colors.sharedColors.exoticGreen
         }
+    }
+    
+    func setUpActivityIndicator(viewController: UIViewController) -> UIActivityIndicatorView {
+        let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        indicator.color = UIColor .whiteColor()
+        indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+        indicator.center = viewController.view.center
+        indicator.hidesWhenStopped = true
+        return indicator
     }
 }

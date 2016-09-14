@@ -32,7 +32,7 @@ class NotificationController {
     
     func simpleAlert(title: String, message: String) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.view.tintColor = Colors.sharedController.exoticGreen
+        alert.view.tintColor = Colors.sharedColors.exoticGreen
         
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
         alert.addAction(dismissAction)

@@ -16,6 +16,7 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var containerV: UIView!
     @IBOutlet weak var container: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ETADatePicker: UIDatePicker!
     @IBOutlet weak var SelectDestinationButton: UIButton!
     @IBOutlet weak var startTrackingButton: UIButton!
@@ -67,6 +68,8 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         ETADatePicker.hidden = false
         container.hidden = true
         containerV.hidden = true
+        titleLabel.hidden = false
+        titleLabel.text = "When will you return to your safe place by?"
     }
     
     @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
@@ -82,10 +85,12 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         containerV.hidden = true
         searchContainerView.hidden = false
         ETADatePicker.hidden = true
+        titleLabel.hidden = true
         
     }
     
     func showMapContainerView() {
+        
         containerV.hidden = false
         searchContainerView.hidden = true
     }
@@ -109,11 +114,13 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
             let alert = UIAlertController(title: "Hold on a second", message: "Make sure you have selected a destination, a return time, and people to be notified of your departure", preferredStyle: .Alert)
             let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
             alert.addAction(dismissAction)
+            alert.view.tintColor = Colors.sharedColors.exoticGreen
             self.presentViewController(alert, animated: true, completion: {
-                alert.view.tintColor = Colors.sharedController.exoticGreen
+                alert.view.tintColor = Colors.sharedColors.exoticGreen
             })
             return
         }
+        
         if let currentUser = UserController.sharedController.currentUser, name = currentUser.name, destination = LocationController.sharedController.destination, latitude = currentUser.latitude, longitude = currentUser.longitude {
             ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
             

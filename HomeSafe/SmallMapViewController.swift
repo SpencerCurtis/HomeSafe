@@ -27,6 +27,7 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.mapType = .Hybrid
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(dropPinOnSelectedDestination), name: "locationPicked", object: nil)
         mapView.delegate = self

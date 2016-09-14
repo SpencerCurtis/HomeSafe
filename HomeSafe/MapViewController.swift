@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var mapView: MKMapView!
     
-    let locationManager = CLLocationManager()
+    let locationManager: CLLocationManager = LocationController.sharedController.locationManager
     var currentLocation = CLLocation()
     
     var selectedSafeZonePin: MKAnnotation? = nil
@@ -28,22 +28,31 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var resultsSearchController: UISearchController? = nil
     
     let authState = CLLocationManager.authorizationStatus()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+        if authState == .AuthorizedAlways {
+            locationManager.requestLocation()
+        } 
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(zoomOnUsersLocation), name: "zoomOnUser", object: nil)
+        
+        mapView.mapType = .Hybrid
+        if authState == .NotDetermined {
+            LocationController.sharedController.locationManager.requestAlwaysAuthorization()
+            zoomOnUsersLocation()
+        }
         zoomOnUsersLocation()
         mapView.delegate = self
         mapView.showsUserLocation = true
         hideTransparentNavigationBar()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
+        LocationController.sharedController.locationManager.delegate = self
         
-//        let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
-//        createAnnotation.minimumPressDuration = 1
-//        mapView.addGestureRecognizer(createAnnotation)
+        //        let createAnnotation = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.dropLocationPin(_:)))
+        //        createAnnotation.minimumPressDuration = 1
+        //        mapView.addGestureRecognizer(createAnnotation)
         
         let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("LocationSearchTableViewController") as? LocationSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -66,7 +75,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func hideTransparentNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
         navigationController?.navigationBar.translucent = true
-//        navigationController?.navigationBar.shadowImage = UIImage()
+        //        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
     }
     
@@ -87,7 +96,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Error: \(error.localizedDescription)")
-    }
+    }   
     
     func dropLocationPin(gestureRecognizer: UIGestureRecognizer) {
         let touchPoint = gestureRecognizer.locationInView(mapView)
@@ -123,6 +132,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        if let annotation = self.mapView.annotations.last {
+            self.mapView.selectAnnotation(annotation, animated: true)
+        }
+    }
+    
     func selectSafeZone() {
         if let annotation = self.selectedSafeZonePin {
             let coordinate = annotation.coordinate
@@ -134,12 +149,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     func zoomOnUsersLocation() {
-        if authState == .AuthorizedAlways {
-//            locationManager.requestLocation()
+        if locationManager.location != nil {
             let span = MKCoordinateSpanMake(0.0073, 0.0073)
             let region = MKCoordinateRegionMake(locationManager.location!.coordinate, span)
             mapView.setRegion(region, animated: true)
-
         }
     }
     
