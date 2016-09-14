@@ -49,8 +49,8 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
             self.presentViewController(createUserVC!, animated: false, completion: nil)
         }
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            guard let image = UIImage(named: "HomeSafeNavBar.png") else { return }
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+            guard let image = UIImage(named: "HomeSafeNavBarIconOnly.png") else { return }
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
             imageView.image = image
             imageView.contentMode = .ScaleAspectFit
             self.navigationItem.titleView = imageView
@@ -155,6 +155,9 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alert.view.tintColor = UIColor(red: 0.314, green: 0.749, blue: 0.000, alpha: 1.00)
+        
+        
         let contactsAction = UIAlertAction(title: "Add a new follower", style: .Default) { (_) in
             self.requestForAccess { (accessGranted) in
                 if accessGranted {
@@ -173,7 +176,6 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         
         let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (_) in
             UserController.sharedController.signOutCurrentUser()
-            
             guard let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController") else { return }
             self.presentViewController(createUserVC, animated: false, completion: nil)
             
