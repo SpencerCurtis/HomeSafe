@@ -212,7 +212,7 @@
             </objects>
             <point key="canvasLocation" x="1666.5" y="536.5"/>
         </scene>
-        <!--Select Followers-->
+        <!--Contact Table View Controller-->
         <scene sceneID="FZA-cK-XGm">
             <objects>
                 <tableViewController id="Zf9-7w-nQh" customClass="ContactTableViewController" customModule="HomeSafe" customModuleProvider="target" sceneMemberID="viewController">
@@ -238,7 +238,7 @@
                             <outlet property="delegate" destination="Zf9-7w-nQh" id="u1j-vu-g3x"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select Followers" id="tc5-Fe-uEl">
+                    <navigationItem key="navigationItem" id="tc5-Fe-uEl">
                         <barButtonItem key="leftBarButtonItem" image="Settings Bar Button Icon" id="WRq-XR-ELE">
                             <connections>
                                 <action selector="settingsButtonTapped:" destination="Zf9-7w-nQh" id="AQa-oV-8pQ"/>

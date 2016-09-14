@@ -40,13 +40,21 @@ class ContactTableViewController: UITableViewController, PassContactsDelegate, P
         AppearanceController.sharedController.initializeAppearance()
         hideTransparentNavigationBar()
         
+        
+        
         UserController.sharedController.currentUser
         if UserController.sharedController.currentUser == nil {
             
             let createUserVC = self.storyboard?.instantiateViewControllerWithIdentifier("CreateUserViewController")
             self.presentViewController(createUserVC!, animated: false, completion: nil)
         }
-        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            guard let image = UIImage(named: "HomeSafeNavBar.png") else { return }
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+            imageView.image = image
+            imageView.contentMode = .ScaleAspectFit
+            self.navigationItem.titleView = imageView
+        })
         
         
     }
