@@ -27,8 +27,6 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         
-        let region = CLRegion()
-        
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters

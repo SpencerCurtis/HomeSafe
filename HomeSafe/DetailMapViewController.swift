@@ -151,7 +151,7 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             let coordinate = annotation.coordinate
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             ETAViewController.sharedInstance.destination = location
-            navigationController?.popViewController(animated: true)
+            _ = navigationController?.popViewController(animated: true)
         }
         
     }

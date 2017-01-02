@@ -73,7 +73,7 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchingLocations.count ?? 1
+        return matchingLocations.count 
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
