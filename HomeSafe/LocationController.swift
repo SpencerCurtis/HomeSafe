@@ -26,23 +26,26 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     
     override init() {
         super.init()
+        
+        let region = CLRegion()
+        
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.pausesLocationUpdatesAutomatically = true
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.count < 3 {
-            NSNotificationCenter.defaultCenter().postNotificationName("zoomOnUser", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "zoomOnUser"), object: nil)
         } else if locations.count == 1 {
-            NSNotificationCenter.defaultCenter().postNotificationName("hasLocation", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "hasLocation"), object: nil)
         }
     }
     
     
     
-    func regionMonitoringUser(latitude: Double, longitude: Double, currentUser: CurrentUser) -> CLCircularRegion {
+    func regionMonitoringUser(_ latitude: Double, longitude: Double, currentUser: CurrentUser) -> CLCircularRegion {
         locationManager.requestAlwaysAuthorization()
         
         let usersLocation = CLCircularRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), radius: 600, identifier: currentUser.uuid!)
@@ -50,14 +53,14 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         return usersLocation
     }
     
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if let currentETA = ETAController.sharedController.currentETA {
             ETAController.sharedController.homeSafely(currentETA)
         }
         print("Entered Location")
     }
     
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("Exited Location")
     }
     

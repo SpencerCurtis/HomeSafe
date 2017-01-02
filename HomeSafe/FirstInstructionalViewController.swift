@@ -18,16 +18,16 @@ class FirstInstructionalViewController: UIViewController {
         AppearanceController.sharedController.gradientBackgroundForViewController(self)
         animateViews()
         
-        UIView.animateWithDuration(3) {
+        UIView.animate(withDuration: 3, animations: {
             self.homeSafeImageView.alpha = 1.0
             self.homeSafeLabel.alpha = 1.0
-        }
+        }) 
         // Do any additional setup after loading the view.
     }
     
     
     func animateViews() {
-        UIView.animateWithDuration(2, delay: 0.5, options: [.CurveEaseOut], animations: {
+        UIView.animate(withDuration: 2, delay: 0.5, options: [.curveEaseOut], animations: {
             self.homeSafeImageView.center.y = self.homeSafeImageView.center.y - 125
             }, completion: nil)
        

@@ -27,9 +27,9 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.mapType = .Hybrid
+        mapView.mapType = .hybrid
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(dropPinOnSelectedDestination), name: "locationPicked", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dropPinOnSelectedDestination), name: NSNotification.Name(rawValue: "locationPicked"), object: nil)
         mapView.delegate = self
         mapView.showsUserLocation = true
         
@@ -42,7 +42,7 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         createAnnotation.minimumPressDuration = 1
         mapView.addGestureRecognizer(createAnnotation)
         
-        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("LocationSearchTableViewController") as? LocationSearchTableViewController
+        let locationSearchTable = storyboard?.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as? LocationSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultsSearchController?.searchResultsUpdater = locationSearchTable
         
@@ -50,7 +50,7 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         backgroundView.backgroundColor = UIColor(red: 0.278, green: 0.749, blue: 0.082, alpha: 1.00)
         backgroundView.frame = view.bounds
         self.view.addSubview(backgroundView)
-        self.view.sendSubviewToBack(backgroundView)
+        self.view.sendSubview(toBack: backgroundView)
         
         searchBar?.sizeToFit()
         searchBar?.placeholder = "Enter Desired Location"
@@ -88,13 +88,13 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
     }
     
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
             locationManager.requestLocation()
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             self.currentLocation = location
             let span = MKCoordinateSpanMake(0.0073, 0.0073)
@@ -103,13 +103,13 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error: \(error.localizedDescription)")
     }
     
-    func dropLocationPin(gestureRecognizer: UIGestureRecognizer) {
-        let touchPoint = gestureRecognizer.locationInView(mapView)
-        let newCoordinate: CLLocationCoordinate2D = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+    func dropLocationPin(_ gestureRecognizer: UIGestureRecognizer) {
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let newCoordinate: CLLocationCoordinate2D = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinate
         annotation.title = "New Destination"
@@ -117,13 +117,13 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         mapView.addAnnotation(annotation)
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
         }
         
         let reuseID = "pin"
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as? MKPinAnnotationView
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
         pinView?.pinTintColor = color.exoticGreen
         pinView?.canShowCallout = true
@@ -135,7 +135,7 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
         
     }
     
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         if let annotation = self.mapView.annotations.last {
             self.mapView.selectAnnotation(annotation, animated: true)
         }
@@ -144,7 +144,7 @@ class SmallMapViewController: UIViewController, MKMapViewDelegate, CLLocationMan
 
 extension SmallMapViewController: HandleMapSearch {
     
-    func dropPinOnSelectedLocation(placemark: MKPlacemark) {
+    func dropPinOnSelectedLocation(_ placemark: MKPlacemark) {
         selectedDestinationPin = placemark
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()

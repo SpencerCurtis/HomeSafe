@@ -10,13 +10,37 @@ import Foundation
 import CloudKit
 import CoreLocation
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
+}
+
 
 class CloudKitController {
     
     static let sharedController = CloudKitController()
     
-    let db = CKContainer.defaultContainer().publicCloudDatabase
-    let privateDB = CKContainer.defaultContainer().privateCloudDatabase
+    let db = CKContainer.default().publicCloudDatabase
+    let privateDB = CKContainer.default().privateCloudDatabase
     
     //    func checkForPrivateUserData(completion: () -> Void) {
     //
@@ -25,13 +49,13 @@ class CloudKitController {
     //    }
     //
     
-    func fetchUserForPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
+    func fetchUserForPhoneNumber(_ phoneNumber: String, completion: @escaping (_ otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
         
-        db.performQuery(query, inZoneWithID: nil) { (records, error) in
+        db.perform(query, inZoneWith: nil) { (records, error) in
             guard records?.count > 0 else { print("No users were found with phone number \(phoneNumber)")
-                completion(otherUser: nil); return }
+                completion(nil); return }
             if let records = records {
                 print(records.count)
                 for record in records {
@@ -39,10 +63,10 @@ class CloudKitController {
                     ContactsController.sharedController.saveToPersistentStorage()
                     
                     
-                    if let currentETAID = record.valueForKey("currentETAID") as? String {
-                        NSUserDefaults.standardUserDefaults().setValue(currentETAID, forKey: "currentETAID")
+                    if let currentETAID = record.value(forKey: "currentETAID") as? String {
+                        UserDefaults.standard.setValue(currentETAID, forKey: "currentETAID")
                     }
-                    completion(otherUser: user)
+                    completion(user)
                     
                     
                 }
@@ -51,92 +75,76 @@ class CloudKitController {
         }
     }
     
-    func fetchUsersInformationWithPhoneNumber(phoneNumber: String, completion: (otherUser: User?) -> Void) {
+    func fetchUsersInformationWithPhoneNumber(_ phoneNumber: String, completion: @escaping (_ otherUser: User?) -> Void) {
         let predicate = NSPredicate(format: "phoneNum = %@", phoneNumber)
         let query = CKQuery(recordType: "User", predicate: predicate)
         
-        db.performQuery(query, inZoneWithID: nil) { (records, error) in
+        db.perform(query, inZoneWith: nil) { (records, error) in
             guard records?.count > 0 else { print("No users were found with phone number \(phoneNumber)")
-                completion(otherUser: nil); return }
+                completion(nil); return }
             if let records = records {
                 print(records.count)
                 for record in records {
                     let user = User(record: record)
-                    if let currentETAID = record.valueForKey("currentETAID") as? String {
-                        NSUserDefaults.standardUserDefaults().setValue(currentETAID, forKey: "currentETAID")
+                    if let currentETAID = record.value(forKey: "currentETAID") as? String {
+                        UserDefaults.standard.setValue(currentETAID, forKey: "currentETAID")
                     }
-                    completion(otherUser: user)
+                    completion(user)
                 }
                 
             }
         }
     }
     
-    
-    
-    
-    func fetchSubscriptions() {
-        self.db.fetchAllSubscriptionsWithCompletionHandler { (subscriptions, error) in
-            guard error == nil, let subscriptions = subscriptions else { return }
-            for subscription in subscriptions {
-                print(subscription.recordType)
-                print(subscription.description)
-                print(subscription.notificationInfo)
-                print("\n")
-            }
-            
-            
-        }
-    }
-    
-    
-    func logInUser(phoneNumber: String, password: String, completion: (success: Bool) -> Void) {
-        let predicate1 = NSPredicate(format: "phoneNum = %@", phoneNumber)
-        let predicate2 = NSPredicate(format: "password = %@", password)
+    func logInUser(_ phoneNumber: String, password: String, completion: @escaping (_ success: Bool) -> Void) {
+        let predicate1 = NSPredicate(format: "phoneNum == %@", phoneNumber)
+        let predicate2 = NSPredicate(format: "password == %@", password)
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
         
         let query = CKQuery(recordType: "User", predicate: compoundPredicate)
         
         // Perhaps change the public User record so it doesn't have their password and make the private db query work.
-        self.db.performQuery(query, inZoneWithID: nil) { (records, error) in
-            guard error == nil && records?.count > 0 else { completion(success: false); print(error?.localizedDescription); return }
-            guard let records = records else { print("No records were found matching your phone number and/or password. Try again."); completion(success: false); return }
+        self.db.perform(query, inZoneWith: nil) { (records, error) in
+            
+            if let error = error { completion(false); print(error.localizedDescription) }
+            
+            guard let records = records else { print("No records were found matching your phone number and/or password. Try again."); completion(false); return }
             if let record = records.last {
                 UserController.sharedController.createCurrentUserFromFetchedData(record)
-                completion(success: true)
+                completion(true)
             }
         }
     }
     
-    func fetchSubscriptions(completion: () -> Void) {
-        self.db.fetchAllSubscriptionsWithCompletionHandler { (subscriptions, error) in
-            guard error == nil else { print(error?.localizedDescription); return }
-            completion()
+    func fetchSubscriptions(_ completion: (() -> Void)? = nil) {
+        self.db.fetchAllSubscriptions { (subscriptions, error) in
+            if let error = error { print(error.localizedDescription); return }
+            completion?()
         }
     }
     
     
     // This should be implemented as soon as an account (user) is made on the signup screen. It will set-up a subscription to check if any other user has added them as a contact (potential watcher)
     
-    func subscribeToUsersAddingCurrentUserToContactList(currentUser: CurrentUser, completion: () -> Void) {
+    func subscribeToUsersAddingCurrentUserToContactList(_ currentUser: CurrentUser, completion: @escaping () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
-            let subscription = CKSubscription(recordType: "contacts", predicate: predicate, options: .FiresOnRecordUpdate)
+            let subscription = CKSubscription(recordType: "contacts", predicate: predicate, options: .firesOnRecordUpdate)
             
             let info = CKNotificationInfo()
             info.alertBody = "You have been added as someone's contact"
             info.shouldSendContentAvailable = true
             subscription.notificationInfo = info
             
-            self.db.saveSubscription(subscription) { (subscription, error) in
-                if error != nil {
-                    print(error?.localizedDescription)
+            self.db.save(subscription, completionHandler: { (subscription, error) in
+                if let error = error {
+                    print(error.localizedDescription)
                     completion()
                 } else {
                     print("Successfully subscribed to current user's contacts record")
                     completion()
                 }
-            }
+            })
         }
     }
     
@@ -145,42 +153,42 @@ class CloudKitController {
     
     
     
-    func subscribeToUsersAddingCurrentUserToNewETA(currentUser: CurrentUser, completion: () -> Void) {
+    func subscribeToUsersAddingCurrentUserToNewETA(_ currentUser: CurrentUser, completion: @escaping () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
-            let subscription = CKSubscription(recordType: "userNewETA", predicate: predicate, options: .FiresOnRecordUpdate)
+            let subscription = CKSubscription(recordType: "userNewETA", predicate: predicate, options: .firesOnRecordUpdate)
             
             let info = CKNotificationInfo()
             info.alertBody = "Someone has begun an ETA and wants to you be their watcher."
             info.shouldSendContentAvailable = true
             subscription.notificationInfo = info
             
-            self.db.saveSubscription(subscription) { (subscription, error) in
-                if error != nil {
-                    print(error?.localizedDescription)
+            self.db.save(subscription, completionHandler: { (subscription, error) in
+                if let error = error {
+                    print(error.localizedDescription)
                 } else {
                     print("Successfully subscribed to current user's userNewETA record")
                     completion()
                 }
-            }
+            })
         }
     }
     
     
-    func checkForNewContacts(currentUser: CurrentUser, completion: (users: [User]?) -> Void) {
+    func checkForNewContacts(_ currentUser: CurrentUser, completion: @escaping (_ users: [User]?) -> Void) {
         if let uuid = currentUser.uuid {
-            let group = dispatch_group_create()
+            let group = DispatchGroup()
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
             let query = CKQuery(recordType: "contacts", predicate: predicate)
             var users: [User] = []
             var counter = 0
             
-            self.db.performQuery(query, inZoneWithID: nil, completionHandler: { (records, errors) in
-                guard let records = records else { completion(users: nil); return }
+            self.db.perform(query, inZoneWith: nil, completionHandler: { (records, errors) in
+                guard let records = records else { completion(nil); return }
                 for record in records {
-                    let contacts = record.valueForKey("contacts") as! [String]
+                    let contacts = record.value(forKey: "contacts") as! [String]
                     for contact in contacts {
-                        dispatch_group_enter(group)
+                        group.enter()
                         
                         self.fetchUsersInformationWithPhoneNumber(contact, completion: { (user) in
                             if let user = user {
@@ -192,7 +200,7 @@ class CloudKitController {
                                 //                            UIApplication.sharedApplication().scheduleLocalNotification(notification)
                                 
                                 users.append(user)
-                                dispatch_group_leave(group)
+                                group.leave()
                                 counter -= 1
                                 
                                 
@@ -201,8 +209,8 @@ class CloudKitController {
                         })
                     }
                     
-                    dispatch_group_notify(group, dispatch_get_main_queue(), {
-                        completion(users: users)
+                    group.notify(queue: DispatchQueue.main, execute: {
+                        completion(users)
                     })
                     
                     
@@ -216,34 +224,38 @@ class CloudKitController {
     // Make an alert that will call this function when the user gets a notification saying they've been added as _'s contact.
     // Call this function if they want to add the contact back.
     
-    func addCurrentUserToOtherUsersContactList(currentUser: CurrentUser, phoneNumber: String, completion: (success: Bool) -> Void) {
+    func addCurrentUserToOtherUsersContactList(_ currentUser: CurrentUser, phoneNumber: String, completion: @escaping (_ success: Bool) -> Void) {
         var tempContactsArray: [String] = []
         fetchUserForPhoneNumber(phoneNumber) { (otherUser) in
             if otherUser == nil {
-                completion(success: false)
+                completion(false)
             }
-            if let otherUser = otherUser, uuid = otherUser.uuid, phoneNumber = currentUser.phoneNumber {
+            if let otherUser = otherUser, let uuid = otherUser.uuid, let phoneNumber = currentUser.phoneNumber {
                 tempContactsArray.append(phoneNumber)
                 self.fetchContactsForUserUUID(uuid, completion: { (contactsRecord) in
                     
                     let _ = ContactsController.sharedController.createUserFromFetchedRecord(contactsRecord)
                     UserController.sharedController.saveToPersistentStorage()
-                    let contacts = contactsRecord.valueForKey("contacts") as? [String]
+                    let contacts = contactsRecord.value(forKey: "contacts") as? [String]
                     if let contacts = contacts {
                         tempContactsArray = contacts
                     }
                     
-                    contactsRecord.setObject(tempContactsArray, forKey: "contacts")
+                    contactsRecord.setObject(tempContactsArray as CKRecordValue?, forKey: "contacts")
                     let op = CKModifyRecordsOperation(recordsToSave: [contactsRecord], recordIDsToDelete: nil)
                     op.perRecordCompletionBlock = { (record, error) in
-                        guard error != nil else { print(error?.localizedDescription); completion(success: false); return }
-                        print("Success")
+                        if let error = error {
+                            print(error.localizedDescription); completion(false); return
+                        } else {
+                            
+                            print("Success")
+                        }
                     }
                     
                     op.completionBlock = { () in
-                        completion(success: true)
+                        completion(true)
                     }
-                    self.db.addOperation(op)
+                    self.db.add(op)
                     
                 })
             }
@@ -251,44 +263,44 @@ class CloudKitController {
     }
     
     
-    func fetchContactsForUserUUID(uuid: String, completion: (contactsRecord: CKRecord) -> Void) {
+    func fetchContactsForUserUUID(_ uuid: String, completion: @escaping (_ contactsRecord: CKRecord) -> Void) {
         let predicate = NSPredicate(format: "userUUID == %@", uuid)
         let query = CKQuery(recordType: "contacts", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
-            completion(contactsRecord: record)
+            completion(record)
         }
-        self.db.addOperation(operation)
+        self.db.add(operation)
     }
     
-    func addUsersToContactList(currentUser: CurrentUser, phoneNumbers: [String], completion: (success: Bool) -> Void ) {
-        let group = dispatch_group_create()
+    func addUsersToContactList(_ currentUser: CurrentUser, phoneNumbers: [String], completion: @escaping (_ success: Bool) -> Void ) {
+        let group = DispatchGroup()
         
         for phoneNumber in phoneNumbers {
             
-            dispatch_group_enter(group)
+            group.enter()
             var contactsNotInICloud: [String] = []
             self.fetchUserForPhoneNumber(phoneNumber, completion: { (otherUser) in
                 guard let otherUser = otherUser else {
                     print("User with phone number: \(phoneNumber) is not in the HomeSafe database")
                     contactsNotInICloud.append(phoneNumber)
-                    NSUserDefaults.standardUserDefaults().setObject(contactsNotInICloud, forKey: "contactsForSMS")
+                    UserDefaults.standard.set(contactsNotInICloud, forKey: "contactsForSMS")
                     if contactsNotInICloud.count != 0 {
-                        NSNotificationCenter.defaultCenter().postNotificationName("noContactFound", object: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "noContactFound"), object: nil)
                     }
-                    dispatch_group_leave(group)
-                    completion(success: false)
+                    group.leave()
+                    completion(false)
                     return
                 }
                 
                 let predicate = NSPredicate(format: "userUUID = %@", otherUser.uuid!)
                 let query = CKQuery(recordType: "contacts", predicate: predicate)
-                self.db.performQuery(query, inZoneWithID: nil, completionHandler: { (records, errors) in
-                    guard let records = records else { completion(success: false); return }
+                self.db.perform(query, inZoneWith: nil, completionHandler: { (records, errors) in
+                    guard let records = records else { completion(false); return }
                     var contactArray: [String] = []
-                    print(records.count ?? 0)
+                    print(records.count)
                     for record in records {
-                        let contacts = record.valueForKey("contacts") as? [String] ?? []
+                        let contacts = record.value(forKey: "contacts") as? [String] ?? []
                         for contact in contacts {
                             contactArray.append(contact)
                         }
@@ -296,18 +308,19 @@ class CloudKitController {
                         contactArray.append(currentUser.phoneNumber!)
                         record.setValue(contactArray, forKey: "contacts")
                         
-                        self.db.saveRecord(record, completionHandler: { (record, error) in
-                            guard error == nil else { print(error?.localizedDescription); return }
+                        self.db.save(record, completionHandler: { (record, error) in
+                            
+                            if let error = error { print(error.localizedDescription); return }
                             
                             print("success")
-                            dispatch_group_leave(group)
+                            group.leave()
                             
                         })
                     }
                 })
             })
-            dispatch_group_notify(group, dispatch_get_main_queue()) {
-                completion(success: true)
+            group.notify(queue: DispatchQueue.main) {
+                completion(true)
             }
         }
     }
@@ -315,52 +328,52 @@ class CloudKitController {
     // General subscription by user to check if said user has made a new ETA.
     // Not sure if we need this though if the user is going to select the users to notify.
     
-    func setupSubscriptionForUser(user: User) {
+    func setupSubscriptionForUser(_ user: User) {
         let predicate = NSPredicate(format: "userPhoneNumber = %@", user.phoneNumber!)
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordCreation)
+        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .firesOnRecordCreation)
         let info = CKNotificationInfo()
         info.alertBody = "\(user.name!) has begun a new ETA"
         info.shouldSendContentAvailable = true
         subscription.notificationInfo = info
         //        let record = CKRecord(recordType: "ETA")
-        self.db.saveSubscription(subscription) { (subscription, error) in
-            if error != nil {
-                print(error?.localizedDescription)
-                // Handle the crap out of the error, like send an alert or something.
+        self.db.save(subscription, completionHandler: { (subscription, error) in
+            if let error = error {
+                print(error.localizedDescription)
             } else {
                 
             }
-        }
+        })
     }
     
-    func checkForNewETA(currentUser: CurrentUser, completion: () -> Void) {
+    func checkForNewETA(_ currentUser: CurrentUser, completion: @escaping () -> Void) {
         let ETAPredicate = NSPredicate(format: "userUUID = %@", currentUser.uuid!)
         let ETAQuery = CKQuery(recordType: "userNewETA", predicate: ETAPredicate)
         
         var phoneNumberArray: [String] = []
         
-        self.db.performQuery(ETAQuery, inZoneWithID: nil) { (records, errors) in
+        self.db.perform(ETAQuery, inZoneWith: nil) { (records, errors) in
             guard let records = records else { completion(); return }
             for record in records {
                 
                 print(record)
-                let contactsArray = record.valueForKey("newETA") as? [String] ?? []
+                let contactsArray = record.value(forKey: "newETA") as? [String] ?? []
                 for contact in contactsArray {
                     self.fetchUsersInformationWithPhoneNumber(contact, completion: { (otherUser) in
                         guard let otherUser = otherUser else { return }
                         phoneNumberArray.append(otherUser.phoneNumber!)
-                        print(otherUser.phoneNumber!) // Remove later.
-                        print(otherUser.name) // Remove later.
-                        NSUserDefaults.standardUserDefaults().setValue(phoneNumberArray, forKey: "phoneNumberArrayForETA")
+                        
+                        UserDefaults.standard.setValue(phoneNumberArray, forKey: "phoneNumberArrayForETA")
                         record.setValue([], forKey: "newETA") // May need to change the value here
                         let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
                         operation.perRecordCompletionBlock = { (record, error) in
-                            guard error == nil else { print(error?.localizedDescription); return }
+                            
+                            if let error = error { print(error.localizedDescription); return }
+                            
                             print("Record's newETA value has been changed back to nothing.")
                             completion()
                         }
-                        self.db.addOperation(operation)
+                        self.db.add(operation)
                     })
                 }
             }
@@ -370,23 +383,23 @@ class CloudKitController {
     
     
     
-    func fetchETAAndSubscribe(phoneNumber: String) {
+    func fetchETAAndSubscribe(_ phoneNumber: String) {
         
         fetchUsersInformationWithPhoneNumber(phoneNumber) { (otherUser) in
             if otherUser != nil {
                 
-                let currentETAID = NSUserDefaults.standardUserDefaults().valueForKey("currentETAID") as! String
+                let currentETAID = UserDefaults.standard.value(forKey: "currentETAID") as! String
                 let predicate = NSPredicate(format: "id = %@", currentETAID)
                 
                 let query = CKQuery(recordType: "ETA", predicate: predicate)
                 let op = CKQueryOperation(query: query)
                 op.recordFetchedBlock = { (record) in
                     
-                    let etaTime = record.valueForKey("ETA") as! NSDate
-                    let latitude = record.valueForKey("latitude") as! Double
-                    let longitude = record.valueForKey("longitude") as! Double
-                    let userName = record.valueForKey("name") as! String
-                    let id = record.valueForKey("id") as! String
+                    let etaTime = record.value(forKey: "ETA") as! Date
+                    let latitude = record.value(forKey: "latitude") as! Double
+                    let longitude = record.value(forKey: "longitude") as! Double
+                    let userName = record.value(forKey: "name") as! String
+                    let id = record.value(forKey: "id") as! String
                     let recordID = record.recordID.recordName
                     let eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: userName, id: id, recordID: recordID)
                     if let currentUser = UserController.sharedController.currentUser {
@@ -396,14 +409,14 @@ class CloudKitController {
                     }
                     
                 }
-                self.db.addOperation(op)
+                self.db.add(op)
             }
         }
     }
     
     
     
-    func setCurrentETA(currentUser: CurrentUser, etaID: String) {
+    func setCurrentETA(_ currentUser: CurrentUser, etaID: String) {
         let predicate = NSPredicate(format: "uuid = %@", currentUser.uuid!)
         let query = CKQuery(recordType: "User", predicate: predicate)
         let op = CKQueryOperation(query: query)
@@ -411,74 +424,73 @@ class CloudKitController {
             record.setValue(etaID, forKey: "currentETAID")
             
             let saveOp = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-            self.db.addOperation(saveOp)
+            self.db.add(saveOp)
         }
-        db.addOperation(op)
+        db.add(op)
     }
     
-    func notifySelectedUsersOfNewETA(users: [User], currentUser: CurrentUser) {
+    func notifySelectedUsersOfNewETA(_ users: [User], currentUser: CurrentUser) {
         for user in users {
-            if let uuid = user.uuid, phoneNumber = currentUser.phoneNumber {
+            if let uuid = user.uuid, let phoneNumber = currentUser.phoneNumber {
                 let predicate = NSPredicate(format: "userUUID = %@", uuid)
                 let query = CKQuery(recordType: "userNewETA", predicate: predicate)
                 let operation = CKQueryOperation(query: query)
                 operation.recordFetchedBlock = { (record) in
-                    var phoneNumbers = record.valueForKey("newETA") as? [String] ?? []
+                    var phoneNumbers = record.value(forKey: "newETA") as? [String] ?? []
                     phoneNumbers.append(phoneNumber)
                     record.setValue(phoneNumbers, forKey: "newETA")
                     let op = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
                     op.perRecordCompletionBlock = { (record, error) in
-                        if error != nil {
-                            print(error?.localizedDescription)
+                        if let error = error {
+                            print(error.localizedDescription)
                         } else {
                             print("Successfully sent to \(user.name!)!")
                         }
                     }
-                    self.db.addOperation(op)
+                    self.db.add(op)
                 }
-                self.db.addOperation(operation)
+                self.db.add(operation)
             }
             
         }
     }
     
     
-    func loadETAForUser(user: User, completion: (eta: EstimatedTimeOfArrival) -> Void) {
+    func loadETAForUser(_ user: User, completion: @escaping (_ eta: EstimatedTimeOfArrival) -> Void) {
         let predicate = NSPredicate(format: "id = %@", user.uuid!)
         let query = CKQuery(recordType: "ETA", predicate: predicate)
-        var ETA: EstimatedTimeOfArrival?
+        var eta: EstimatedTimeOfArrival?
         let operation = CKQueryOperation(query: query)
         
         operation.recordFetchedBlock = { (record) in
-            let eta = record["ETA"] as! NSDate
+            let etaTime = record["ETA"] as! Date
             let latitude = record["latitude"] as! Double
             let longitude = record["longitude"] as! Double
             let name = record["name"] as! String
             let id = record["id"] as! String
             
-            
-            ETA = EstimatedTimeOfArrival(eta: eta, latitude: latitude, longitude: longitude, userName: name, id: id, recordID: String(record.recordID))
+            eta = EstimatedTimeOfArrival(eta: etaTime, latitude: latitude, longitude: longitude, userName: name, id: id, recordID: record.recordID.recordName)
         }
         operation.queryCompletionBlock = { (cursor, error) in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
                 if error == nil {
-                    if let eta = ETA {
-                        print(eta.userName)
+                    if let eta = eta {
                         ETAController.sharedController.saveToPersistentStorage()
-                        completion(eta: eta)
+                        completion(eta)
                     }
                 }
             })
         }
-        CKContainer.defaultContainer().publicCloudDatabase.addOperation(operation)
+        
+        CKContainer.default().publicCloudDatabase.add(operation)
     }
     
     
     // TODO: Implement this.
-    func setupSubscriptionForETA(eta: EstimatedTimeOfArrival, phoneNumber: String) {
+    func setupSubscriptionForETA(_ eta: EstimatedTimeOfArrival, phoneNumber: String) {
         
         let predicate = NSPredicate(format: "id = %@", eta.id!)
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .FiresOnRecordUpdate)
+        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .firesOnRecordUpdate)
         
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
@@ -488,100 +500,95 @@ class CloudKitController {
             let info = CKNotificationInfo()
             info.desiredKeys = ["canceledETA", "homeSafe", "inDanger"]
             info.shouldSendContentAvailable = true
-            let formatter = NSDateFormatter()
-            formatter.timeStyle = .ShortStyle
-            if let etaDate = record.valueForKey("ETA") as? NSDate {
-                let etaString = formatter.stringFromDate(etaDate)
+            let formatter = DateFormatter()
+            formatter.timeStyle = .short
+            if let etaDate = record.value(forKey: "ETA") as? Date {
+                let etaString = formatter.string(from: etaDate)
                 
                 info.alertBody = "Your friend will be home around \(etaString)"
                 
                 subscription.notificationInfo = info
-                NSUserDefaults.standardUserDefaults().setValue(subscription.subscriptionID, forKey: "ownSubscription")
+                UserDefaults.standard.setValue(subscription.subscriptionID, forKey: "ownSubscription")
                 
-                self.db.saveSubscription(subscription) { (result, error) in
-                    if error != nil {
-                        print(error?.localizedDescription)
-                    } else {
-                        
-                        
-                    }
-                }
+                self.db.save(subscription, completionHandler: { (result, error) in
+                    if let error = error { print(error.localizedDescription) }
+                })
             }
         }
-        db.addOperation(operation)
+        db.add(operation)
     }
     
-    func subscribeToCanceledETAChanges(eta: EstimatedTimeOfArrival, phoneNumber: String, completion: () -> Void) {
+    func subscribeToCanceledETAChanges(_ eta: EstimatedTimeOfArrival, phoneNumber: String, completion: @escaping () -> Void) {
         let predicate = NSPredicate(format: "followers CONTAINS %@", phoneNumber)
         let predicate2 = NSPredicate(format: "canceledETA = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["canceledETA"]
         info.alertBody = "\(eta.userName!) has canceled their ETA"
         info.shouldSendContentAvailable = true
         subscription.notificationInfo = info
-        self.db.saveSubscription(subscription) { (subscription, error) in
-            if error != nil {
-                print(error?.localizedDescription)
+        self.db.save(subscription, completionHandler: { (subscription, error) in
+            if let error = error {
+                print(error.localizedDescription)
                 completion()
             } else {
                 print("Sucessfully subscribed to canceledETA changes")
                 completion()
             }
-        }
+        })
     }
     
-    func subscribeToHomeSafeETAChanges(eta: EstimatedTimeOfArrival, phoneNumber: String, completion: () -> Void) {
+    func subscribeToHomeSafeETAChanges(_ eta: EstimatedTimeOfArrival, phoneNumber: String, completion: @escaping () -> Void) {
         let predicate = NSPredicate(format: "followers CONTAINS %@", phoneNumber)
         let predicate2 = NSPredicate(format: "homeSafe = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["homeSafe"]
         info.alertBody = "\(eta.userName!) has arrived at their safe location."
         info.shouldSendContentAvailable = true
         subscription.notificationInfo = info
-        self.db.saveSubscription(subscription) { (subscription, error) in
-            if error != nil {
-                print(error?.localizedDescription)
+        self.db.save(subscription, completionHandler: { (subscription, error) in
+            if let error = error {
+                print(error.localizedDescription)
                 completion()
             } else {
                 print("Sucessfully subscribed to homeSafe ETA changes")
                 completion()
             }
-        }
+        })
     }
     
-    func subscribeToInDangerETAChanges(eta: EstimatedTimeOfArrival, phoneNumber: String, completion: () -> Void) {
+    func subscribeToInDangerETAChanges(_ eta: EstimatedTimeOfArrival, phoneNumber: String, completion: @escaping () -> Void) {
         let predicate = NSPredicate(format: "followers CONTAINS %@", phoneNumber)
         let predicate2 = NSPredicate(format: "inDanger = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .FiresOnRecordUpdate)
+        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["inDanger"]
         info.alertBody = "\(eta.userName!) is in danger! Please make contact"
         info.shouldSendContentAvailable = true
         subscription.notificationInfo = info
-        self.db.saveSubscription(subscription) { (subscription, error) in
-            if error != nil {
-                print(error?.localizedDescription)
+        self.db.save(subscription, completionHandler: { (subscription, error) in
+            if let error = error {
+                print(error.localizedDescription)
                 completion()
             } else {
                 print("Sucessfully subscribed to inDanger ETA changes")
-                NSUserDefaults.standardUserDefaults().setValue(subscription?.subscriptionID, forKey: "inDangerSubscriptionID")
+                UserDefaults.standard.setValue(subscription?.subscriptionID, forKey: "inDangerSubscriptionID")
                 completion()
             }
-        }
+        })
     }
     
-    func ETASubscriptions(eta: EstimatedTimeOfArrival, phoneNumber: String, completion: () -> Void) {
+    func ETASubscriptions(_ eta: EstimatedTimeOfArrival, phoneNumber: String, completion: @escaping () -> Void) {
         subscribeToCanceledETAChanges(eta, phoneNumber: phoneNumber) {
             self.subscribeToHomeSafeETAChanges(eta, phoneNumber: phoneNumber, completion: {
                 self.subscribeToInDangerETAChanges(eta, phoneNumber: phoneNumber, completion: {

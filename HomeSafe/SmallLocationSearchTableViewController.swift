@@ -35,7 +35,7 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
             resultSearchController.searchBar.placeholder = "Search for your destination"
             //            resultSearchController.searchBar.setSearchFieldBackgroundImage(UIImage(), forState: .Normal)
             self.tableView.tableHeaderView = resultSearchController.searchBar
-            self.tableView.backgroundColor = UIColor.clearColor()
+            self.tableView.backgroundColor = UIColor.clear
             resultSearchController.searchBar.tintColor = UIColor(red: 0.298, green: 0.749, blue: 0.035, alpha: 1.00)
             
         }
@@ -47,7 +47,7 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
     var handleMapSearchDelegate: HandleMapSearch? = nil
     var searchController = UISearchController(searchResultsController: nil)
     
-    func parsingTheAddress(selectedItem: MKPlacemark) -> String {
+    func parsingTheAddress(_ selectedItem: MKPlacemark) -> String {
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
         let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
         let secondSpace = (selectedItem.subAdministrativeArea != nil && selectedItem.administrativeArea != nil) ? " " : ""
@@ -58,13 +58,13 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
     
     
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else {return}
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchBarText
         //        request.region = mapView.region
         let search = MKLocalSearch(request: request)
-        search.startWithCompletionHandler { response, _ in
+        search.start { response, _ in
             guard let response  = response else { return }
             self.matchingLocations = response.mapItems
             self.tableView.reloadData()
@@ -72,27 +72,27 @@ class SmallLocationSearchTableViewController: UITableViewController, UISearchRes
     }
     
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingLocations.count ?? 1
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("smallCell")!
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "smallCell")!
         let selectedItem = matchingLocations[indexPath.row].placemark
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = UIColor.clear
         cell.textLabel?.text = selectedItem.name
-        cell.detailTextLabel?.textColor = UIColor.whiteColor()
-        cell.textLabel?.textColor = UIColor.whiteColor()
+        cell.detailTextLabel?.textColor = UIColor.white
+        cell.textLabel?.textColor = UIColor.white
         cell.detailTextLabel?.text = parsingTheAddress(selectedItem)
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingLocations[indexPath.row].placemark
         LocationController.sharedController.destination = selectedItem
         handleMapSearchDelegate?.dropPinOnSelectedLocation(selectedItem)
         LocationController.sharedController.address = parsingTheAddress(selectedItem)
-        NSNotificationCenter.defaultCenter().postNotificationName("locationPicked", object: nil)
-        dismissViewControllerAnimated(true, completion: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "locationPicked"), object: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

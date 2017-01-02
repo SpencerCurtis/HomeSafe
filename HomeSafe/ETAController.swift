@@ -16,29 +16,29 @@
     
     static let sharedController = ETAController()
     
-    let db = CKContainer.defaultContainer().publicCloudDatabase
+    let db = CKContainer.default().publicCloudDatabase
     
     var currentETA: EstimatedTimeOfArrival? {
         return arrayOfETAs.last
     }
     
     var arrayOfETAs: [EstimatedTimeOfArrival] {
-        let request = NSFetchRequest(entityName: "EstimatedTimeOfArrival")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "EstimatedTimeOfArrival")
         
         do {
-            let ETAs = try Stack.sharedStack.managedObjectContext.executeFetchRequest(request) as! [EstimatedTimeOfArrival]
+            let ETAs = try Stack.sharedStack.managedObjectContext.fetch(request) as! [EstimatedTimeOfArrival]
             return ETAs
         } catch {
             return []
         }
     }
     
-    let publicDatabate = CKContainer.defaultContainer().publicCloudDatabase
+    let publicDatabate = CKContainer.default().publicCloudDatabase
     
     
-    func createETA(ETATime: NSDate, latitude: Double, longitude: Double, name: String, canceledETA: Bool, inDanger: Bool) {
-        let recordID = NSUUID().UUIDString
-        if let currentUser = UserController.sharedController.currentUser, phoneNumber = currentUser.phoneNumber, _ = currentUser.uuid {
+    func createETA(_ ETATime: Date, latitude: Double, longitude: Double, name: String, canceledETA: Bool, inDanger: Bool) {
+        let recordID = UUID().uuidString
+        if let currentUser = UserController.sharedController.currentUser, let phoneNumber = currentUser.phoneNumber, let _ = currentUser.uuid {
             let eta = EstimatedTimeOfArrival(eta: ETATime, latitude: latitude, longitude: longitude, userName: name, id: recordID, recordID: recordID)
             self.saveToPersistentStorage()
             let record = CKRecord(recordType: "ETA", recordID: CKRecordID(recordName: recordID))
@@ -54,91 +54,91 @@
             
             let contacts = ContactsController.sharedController.selectedGuardians
             var followerPhoneNumbers: [String] = []
-            let group = dispatch_group_create()
-            let queue = dispatch_queue_create("contactQueue", nil)
+            let group = DispatchGroup()
+            let queue = DispatchQueue(label: "contactQueue", attributes: [])
             for contact in contacts {
-                dispatch_group_enter(group)
+                group.enter()
                 followerPhoneNumbers.append(contact.phoneNumber ?? "")
-                dispatch_group_leave(group)
+                group.leave()
             }
             
-            dispatch_group_notify(group, queue, {
+            group.notify(queue: queue, execute: {
                 record.setValue(followerPhoneNumbers, forKey: "followers")
             })
             
             
             
             
-            publicDatabate.saveRecord(record) { (record, error) in
+            publicDatabate.save(record, completionHandler: { (record, error) in
                 if record != nil {
                     CloudKitController.sharedController.setCurrentETA(currentUser, etaID: eta.recordID!)
                     CloudKitController.sharedController.notifySelectedUsersOfNewETA(ContactsController.sharedController.selectedGuardians, currentUser: currentUser)
                 } else {
-                    print(error?.localizedDescription)
+                    if let error = error { print(error.localizedDescription) }
                 }
-            }
+            }) 
         }
     }
     
     func removeETAs() {
         for ETA in arrayOfETAs {
-            ETA.managedObjectContext?.deleteObject(ETA)
+            ETA.managedObjectContext?.delete(ETA)
             saveToPersistentStorage()
             if let id = ETA.id {
-                publicDatabate.deleteRecordWithID(CKRecordID(recordName: id), completionHandler: { (id, error) in
+                publicDatabate.delete(withRecordID: CKRecordID(recordName: id), completionHandler: { (id, error) in
                 })
             }
         }
     }
     
-    func inDanger(eta: EstimatedTimeOfArrival) {
+    func inDanger(_ eta: EstimatedTimeOfArrival) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
             record.setValue(true, forKey: "inDanger")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-            self.db.addOperation(operation)
+            self.db.add(operation)
             self.removeETAs()
             
             //            self.resetChangedFields(eta)
         }
-        db.addOperation(operation)
+        db.add(operation)
         eta.inDanger = true
         saveToPersistentStorage()
         
     }
     
     
-    func cancelETA(eta: EstimatedTimeOfArrival) {
+    func cancelETA(_ eta: EstimatedTimeOfArrival) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
             record.setValue(true, forKey: "canceledETA")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-            self.db.addOperation(operation)
+            self.db.add(operation)
             //            self.resetChangedFields(eta)
             
         }
-        db.addOperation(operation)
+        db.add(operation)
         eta.canceledETA = true
         removeETAs()
         saveToPersistentStorage()
     }
     
-    func homeSafely(eta: EstimatedTimeOfArrival) {
+    func homeSafely(_ eta: EstimatedTimeOfArrival) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.recordFetchedBlock = { (record) in
             record.setValue(true, forKey: "homeSafe")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-            self.db.addOperation(operation)
+            self.db.add(operation)
             print("homeSafely")
             self.resetChangedFields(eta)
         }
-        db.addOperation(operation)
+        db.add(operation)
         eta.homeSafe = true
         removeETAs()
         
@@ -147,7 +147,7 @@
     
     
     
-    func resetChangedFields(eta: EstimatedTimeOfArrival) {
+    func resetChangedFields(_ eta: EstimatedTimeOfArrival) {
         let predicate = NSPredicate(format: "id = %@", eta.id!)
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
@@ -156,9 +156,9 @@
             record.setValue(0, forKey: "canceledETA")
             record.setValue(0, forKey: "homeSafe")
             let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-            self.db.addOperation(operation)
+            self.db.add(operation)
         }
-        db.addOperation(operation)
+        db.add(operation)
     }
     
     

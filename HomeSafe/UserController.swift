@@ -18,22 +18,22 @@
     var selectedArray: [CNContact] = []
     
     var currentUser: CurrentUser? {
-        let request = NSFetchRequest(entityName: "CurrentUser")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CurrentUser")
         
         do {
-            let currentUsers = try Stack.sharedStack.managedObjectContext.executeFetchRequest(request) as! [CurrentUser]
+            let currentUsers = try Stack.sharedStack.managedObjectContext.fetch(request) as! [CurrentUser]
             return currentUsers.first
         } catch {
             return nil
         }
     }
     
-    func createUserFromFetchedData(name: String, safeLocation: CLLocation, phoneNumber: String, uuid: String) {
+    func createUserFromFetchedData(_ name: String, safeLocation: CLLocation, phoneNumber: String, uuid: String) {
         _ = User(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
         saveToPersistentStorage()
     }
     
-    func createCurrentUserFromFetchedData(record: CKRecord) {
+    func createCurrentUserFromFetchedData(_ record: CKRecord) {
         _ = CurrentUser(record: record)
         saveToPersistentStorage()
     }
@@ -41,16 +41,16 @@
     func signOutCurrentUser() {
         let moc = Stack.sharedStack.managedObjectContext
         if let currentUser = currentUser {
-            moc.deleteObject(currentUser)
+            moc.delete(currentUser)
             deleteAllContactsUponSigningOut()
             saveToPersistentStorage()
         }
     }
     
-    func createUser(name: String, password: String, safeLocation: CLLocation, phoneNumber: String, completion: () -> Void) {
-        let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
+    func createUser(_ name: String, password: String, safeLocation: CLLocation, phoneNumber: String, completion: @escaping () -> Void) {
+        let publicDatabase = CKContainer.default().publicCloudDatabase
         
-        let uuid = NSUUID().UUIDString
+        let uuid = UUID().uuidString
         let userRecord = CKRecord(recordType: "User", recordID: CKRecordID(recordName: uuid))
         userRecord.setValue(name, forKey: "name")
         userRecord.setValue(safeLocation, forKey: "safeLocation")
@@ -68,9 +68,9 @@
         _ = CurrentUser(name: name, latitude: safeLocation.coordinate.latitude, longitude: safeLocation.coordinate.longitude, phoneNumber: phoneNumber, uuid: uuid)
         UserController.sharedController.saveToPersistentStorage()
         let op = CKModifyRecordsOperation(recordsToSave: [userRecord, contactsRecord, newETARecord], recordIDsToDelete: nil)
-        publicDatabase.addOperation(op)
+        publicDatabase.add(op)
         op.perRecordCompletionBlock = { (record, error) in
-            guard error == nil else { print("Error saving \(record?.recordType): \(error?.localizedDescription)"); return }
+            guard error == nil else { print("Error saving \(record.recordType): \(error?.localizedDescription)"); return }
         }
         op.completionBlock = {
             completion()
@@ -78,11 +78,11 @@
     }
     
     func deleteAllContactsUponSigningOut() {
-        let fetchRequest = NSFetchRequest(entityName: "User")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
-            try Stack.sharedStack.managedObjectContext.executeRequest(deleteRequest)
+            try Stack.sharedStack.managedObjectContext.execute(deleteRequest)
         } catch let error as NSError {
             print(error.localizedDescription)
         }

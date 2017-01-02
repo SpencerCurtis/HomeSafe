@@ -10,13 +10,13 @@ import UIKit
 
 class InstructionsPageViewController: UIPageViewController {
     
-    let firstInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("firstViewController")
-    let secondInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("secondViewController")
-    let thirdInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("thirdViewController")
-    let fourthInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("fourthViewController")
+    let firstInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "firstViewController")
+    let secondInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "secondViewController")
+    let thirdInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "thirdViewController")
+    let fourthInstructionalPage = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "fourthViewController")
     
     var firstRun: Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey("firstRun")
+        return UserDefaults.standard.bool(forKey: "firstRun")
     }
     
     var orderOfAppearance: [UIViewController] {
@@ -28,20 +28,20 @@ class InstructionsPageViewController: UIPageViewController {
         
         dataSource = self
         if let firstViewController = orderOfAppearance.first {
-            setViewControllers([firstViewController], direction: .Forward, animated: true, completion: nil)
+            setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
     }
     
-    func newInstructionalViewController(name: String) -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("\(name)ViewController")
+    func newInstructionalViewController(_ name: String) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "\(name)ViewController")
     }
     
 }
 
 extension InstructionsPageViewController: UIPageViewControllerDataSource {
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderOfAppearance.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderOfAppearance.index(of: viewController) else {
             return nil
         }
         
@@ -57,8 +57,8 @@ extension InstructionsPageViewController: UIPageViewControllerDataSource {
         return orderOfAppearance[priorIndex]
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderOfAppearance.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderOfAppearance.index(of: viewController) else {
             return nil
         }
         

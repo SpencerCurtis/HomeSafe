@@ -16,28 +16,28 @@ class AppearanceController {
     var color = Colors()
     
     func initializeAppearance() {
-        UINavigationBar.appearance().barStyle = UIBarStyle.Default
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UIBarButtonItem.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barStyle = UIBarStyle.default
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UIBarButtonItem.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().backgroundColor = Colors.sharedColors.exoticGreen
-        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([MFMessageComposeViewController.self]).tintColor = UIColor.blueColor()
+        UINavigationBar.appearance(whenContainedInInstancesOf: [MFMessageComposeViewController.self]).tintColor = UIColor.blue
         
-        let textAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        let textAttributes = [NSForegroundColorAttributeName:UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = textAttributes
     }
     
     func intitializeAppearanceForMFMessageController() {
-        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([MFMessageComposeViewController.self]).tintColor = UIColor.blueColor()
-        UINavigationBar.appearance().barStyle = .Black
-        UINavigationBar.appearance().backgroundColor = UIColor.greenColor()
-        let textAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UINavigationBar.appearance(whenContainedInInstancesOf: [MFMessageComposeViewController.self]).tintColor = UIColor.blue
+        UINavigationBar.appearance().barStyle = .black
+        UINavigationBar.appearance().backgroundColor = UIColor.green
+        let textAttributes = [NSForegroundColorAttributeName: UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = textAttributes
         
     }
     
     func gradientBackground() -> CAGradientLayer {
-        let colorTop = UIColor(red: 0.314, green: 0.749, blue: 0.000, alpha: 1.00).CGColor
-        let colorBottom = UIColor(red: 0.000, green: 0.741, blue: 0.702, alpha: 1.00).CGColor
+        let colorTop = UIColor(red: 0.314, green: 0.749, blue: 0.000, alpha: 1.00).cgColor
+        let colorBottom = UIColor(red: 0.000, green: 0.741, blue: 0.702, alpha: 1.00).cgColor
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [colorTop, colorBottom]
@@ -45,17 +45,17 @@ class AppearanceController {
         return gradientLayer
     }
     
-    func gradientBackgroundForViewController(viewController: UIViewController) {
+    func gradientBackgroundForViewController(_ viewController: UIViewController) {
         let gradient = AppearanceController.sharedController.gradientBackground()
         gradient.frame = viewController.view.bounds
         let backgroundView = UIView()
         backgroundView.frame = viewController.view.bounds
         backgroundView.layer.addSublayer(gradient)
         viewController.view.addSubview(backgroundView)
-        viewController.view.sendSubviewToBack(backgroundView)
+        viewController.view.sendSubview(toBack: backgroundView)
     }
     
-    func gradientBackgroundForTableViewController(tableViewController: UITableViewController) {
+    func gradientBackgroundForTableViewController(_ tableViewController: UITableViewController) {
         let gradient = AppearanceController.sharedController.gradientBackground()
         gradient.frame = tableViewController.view.bounds
         let backgroundView = UIView()
@@ -64,27 +64,27 @@ class AppearanceController {
         tableViewController.tableView.backgroundView = backgroundView
     }
     
-    func setUpButtons(buttons: [UIButton]) {
+    func setUpButtons(_ buttons: [UIButton]) {
         for button in buttons {
             button.layer.cornerRadius = 5
-            button.layer.borderColor = UIColor.whiteColor().CGColor
+            button.layer.borderColor = UIColor.white.cgColor
             button.layer.borderWidth = 0.2
         }
     }
     
-    func setUpTextFields(textFields: [UITextField]) {
+    func setUpTextFields(_ textFields: [UITextField]) {
         for textField in textFields {
             textField.layer.cornerRadius = 5
-            textField.layer.borderColor = UIColor.whiteColor().CGColor
+            textField.layer.borderColor = UIColor.white.cgColor
             textField.layer.borderWidth = 0.3
             textField.tintColor = Colors.sharedColors.exoticGreen
         }
     }
     
-    func setUpActivityIndicator(viewController: UIViewController) -> UIActivityIndicatorView {
-        let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-        indicator.color = UIColor .whiteColor()
-        indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+    func setUpActivityIndicator(_ viewController: UIViewController) -> UIActivityIndicatorView {
+        let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        indicator.color = UIColor.white
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
         indicator.center = viewController.view.center
         indicator.hidesWhenStopped = true
         return indicator

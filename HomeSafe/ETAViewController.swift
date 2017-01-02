@@ -25,16 +25,16 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showMapContainerView), name: "locationPicked", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(clearBorderForContainerView), name: "doneAnimating", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showMapContainerView), name: NSNotification.Name(rawValue: "locationPicked"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(clearBorderForContainerView), name: NSNotification.Name(rawValue: "doneAnimating"), object: nil)
         //        self.hideKeyboardWhenTappedAround()
         setupViews()
-        ETADatePicker.minimumDate = NSDate()
+        ETADatePicker.minimumDate = Date()
         
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
@@ -46,9 +46,9 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         self.containerV.layer.cornerRadius = 12
         self.searchContainerView.layer.cornerRadius = 12
         self.container.layer.borderWidth = 0.4
-        self.container.layer.borderColor = UIColor.whiteColor().CGColor
+        self.container.layer.borderColor = UIColor.white.cgColor
         
-        ETADatePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
+        ETADatePicker.setValue(UIColor.white, forKey: "textColor")
         
         let gradient = AppearanceController.sharedController.gradientBackground()
         gradient.frame = self.view.bounds
@@ -58,85 +58,85 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         backgroundView.layer.addSublayer(gradient)
         self.view.addSubview(backgroundView)
         
-        self.view.sendSubviewToBack(backgroundView)
+        self.view.sendSubview(toBack: backgroundView)
         
         
         
     }
     
-    @IBAction func SelectDateButtonTapped(sender: AnyObject) {
-        ETADatePicker.hidden = false
-        container.hidden = true
-        containerV.hidden = true
-        titleLabel.hidden = false
+    @IBAction func SelectDateButtonTapped(_ sender: AnyObject) {
+        ETADatePicker.isHidden = false
+        container.isHidden = true
+        containerV.isHidden = true
+        titleLabel.isHidden = false
         titleLabel.text = "When will you return to your safe place by?"
     }
     
-    @IBAction func SelectDestinationButtonTapped(sender: AnyObject) {
+    @IBAction func SelectDestinationButtonTapped(_ sender: AnyObject) {
         self.container.frame.size.height = 0
-        self.container.layer.borderColor = UIColor.whiteColor().CGColor
+        self.container.layer.borderColor = UIColor.white.cgColor
         
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.container.frame.size.height = 344
             //        NSNotificationCenter.defaultCenter().postNotificationName("doneAnimating", object: nil)
         })
         //        clearBorderForContainerView()
-        container.hidden = false
-        containerV.hidden = true
-        searchContainerView.hidden = false
-        ETADatePicker.hidden = true
-        titleLabel.hidden = true
+        container.isHidden = false
+        containerV.isHidden = true
+        searchContainerView.isHidden = false
+        ETADatePicker.isHidden = true
+        titleLabel.isHidden = true
         
     }
     
     func showMapContainerView() {
         
-        containerV.hidden = false
-        searchContainerView.hidden = true
+        containerV.isHidden = false
+        searchContainerView.isHidden = true
     }
     
     func clearBorderForContainerView() {
         let duration = 1.5
-        UIView.animateKeyframesWithDuration(duration, delay: 0.5, options: .CalculationModeLinear, animations: {
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: duration * 1/2, animations: {
-                self.container.layer.borderColor = UIColor.whiteColor().CGColor
+        UIView.animateKeyframes(withDuration: duration, delay: 0.5, options: UIViewKeyframeAnimationOptions(), animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: duration * 1/2, animations: {
+                self.container.layer.borderColor = UIColor.white.cgColor
             })
-            UIView.addKeyframeWithRelativeStartTime(duration * 1/2, relativeDuration:  duration * 1/2, animations: {
-                self.container.layer.borderColor = UIColor.clearColor().CGColor
+            UIView.addKeyframe(withRelativeStartTime: duration * 1/2, relativeDuration:  duration * 1/2, animations: {
+                self.container.layer.borderColor = UIColor.clear.cgColor
             })
             
             }, completion: nil)
     }
     
     
-    @IBAction func startTrackingButtonTapped(sender: AnyObject) {
-        guard LocationController.sharedController.destination != nil && ETADatePicker.date != NSDate() && ContactsController.sharedController.selectedGuardians != [] else {
-            let alert = UIAlertController(title: "Hold on a second", message: "Make sure you have selected a destination, a return time, and people to be notified of your departure", preferredStyle: .Alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+    @IBAction func startTrackingButtonTapped(_ sender: AnyObject) {
+        guard LocationController.sharedController.destination != nil && ETADatePicker.date != Date() && ContactsController.sharedController.selectedGuardians != [] else {
+            let alert = UIAlertController(title: "Hold on a second", message: "Make sure you have selected a destination, a return time, and people to be notified of your departure", preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
             alert.addAction(dismissAction)
             alert.view.tintColor = Colors.sharedColors.exoticGreen
-            self.presentViewController(alert, animated: true, completion: {
+            self.present(alert, animated: true, completion: {
                 alert.view.tintColor = Colors.sharedColors.exoticGreen
             })
             return
         }
         
-        if let currentUser = UserController.sharedController.currentUser, name = currentUser.name, destination = LocationController.sharedController.destination, latitude = currentUser.latitude, longitude = currentUser.longitude {
+        if let currentUser = UserController.sharedController.currentUser, let name = currentUser.name, let destination = LocationController.sharedController.destination, let latitude = currentUser.latitude, let longitude = currentUser.longitude {
             ETAController.sharedController.createETA(ETADatePicker.date, latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude, name: name, canceledETA: false, inDanger: false)
             
             let region = LocationController.sharedController.regionMonitoringUser(Double(latitude), longitude: Double(longitude), currentUser: currentUser)
-            LocationController.sharedController.locationManager.startMonitoringForRegion(region)
-            let currentETAVC = storyboard?.instantiateViewControllerWithIdentifier("currentETAController") as! CurrentETAViewController
-            self.presentViewController(currentETAVC, animated: true, completion: nil)
+            LocationController.sharedController.locationManager.startMonitoring(for: region)
+            let currentETAVC = storyboard?.instantiateViewController(withIdentifier: "currentETAController") as! CurrentETAViewController
+            self.present(currentETAVC, animated: true, completion: nil)
         }
     }
 }
 
-extension NSDate {
+extension Date {
     var formatted: String {
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
-        return formatter.stringFromDate(self)
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: self)
     }
 }
 

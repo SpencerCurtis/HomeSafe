@@ -15,7 +15,7 @@ import CoreData
 extension EstimatedTimeOfArrival {
 
     @NSManaged var canceledETA: NSNumber?
-    @NSManaged var eta: NSDate?
+    @NSManaged var eta: Date?
     @NSManaged var homeSafe: NSNumber?
     @NSManaged var id: String?
     @NSManaged var inDanger: NSNumber?

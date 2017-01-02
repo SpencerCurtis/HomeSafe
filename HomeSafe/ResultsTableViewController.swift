@@ -10,7 +10,7 @@ import UIKit
 import Contacts
 
 protocol PassSearchedContactsDelegate {
-    func userDidSelectSearchedContacts(contacts: [CNContact])
+    func userDidSelectSearchedContacts(_ contacts: [CNContact])
 }
 
 class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating {
@@ -24,18 +24,18 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
     
     @IBOutlet weak var doneButton: UIButton!
 
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowResults = true
         filteredArray = []
         tableView.reloadData()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         shouldShowResults = false
         tableView.reloadData()
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if !shouldShowResults {
             shouldShowResults = true
             tableView.reloadData()
@@ -43,9 +43,9 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         searchController.searchBar.resignFirstResponder()
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else {return}
-            self.filteredArray =  results.filter { $0.givenName.lowercaseString.containsString(searchText.lowercaseString) }
+            self.filteredArray =  results.filter { $0.givenName.lowercased().contains(searchText.lowercased()) }
             shouldShowResults = true
             tableView.reloadData()
     }
@@ -55,7 +55,7 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         tableView.allowsMultipleSelection = true
-        doneButton.layer.borderColor = UIColor.whiteColor().CGColor
+        doneButton.layer.borderColor = UIColor.white.cgColor
         doneButton.layer.borderWidth = 0.4
 
         AppearanceController.sharedController.gradientBackgroundForTableViewController(self)
@@ -63,16 +63,16 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         self.tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
     }
     
-    @IBAction func secondDoneButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func secondDoneButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if shouldShowResults {
             return filteredArray.count
         } else {
@@ -81,30 +81,30 @@ class ResultsTableViewController: UITableViewController, UISearchBarDelegate, UI
         
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("searchedContactCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchedContactCell", for: indexPath)
         let contacts = filteredArray.count > 0 ? filteredArray[indexPath.row] : results[indexPath.row]
         if shouldShowResults {
             cell.textLabel?.text = contacts.givenName + " " + contacts.familyName
-            cell.selectionStyle = .None
-            cell.tintColor = UIColor.whiteColor()
+            cell.selectionStyle = .none
+            cell.tintColor = UIColor.white
         }
         return cell
      
     }
     
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
         let selectedContacts = filteredArray[indexPath.row]
         UserController.sharedController.selectedArray.append(selectedContacts)
         print("\n\(UserController.sharedController.selectedArray)\n")
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
-        let index = UserController.sharedController.selectedArray.indexOf(filteredArray[indexPath.row])
-        UserController.sharedController.selectedArray.removeAtIndex(index!)
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+        let index = UserController.sharedController.selectedArray.index(of: filteredArray[indexPath.row])
+        UserController.sharedController.selectedArray.remove(at: index!)
         print("\n\(UserController.sharedController.selectedArray)\n")
     }
 

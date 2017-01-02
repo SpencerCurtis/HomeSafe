@@ -20,32 +20,32 @@ class ContactsController {
     var selectedGuardians: [User] = []
     
     var contacts: [User] {
-        let request = NSFetchRequest(entityName: "User")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         
         do {
-            let contacts = try Stack.sharedStack.managedObjectContext.executeFetchRequest(request) as! [User]
+            let contacts = try Stack.sharedStack.managedObjectContext.fetch(request) as! [User]
             return contacts
         } catch {
             return []
         }
     }
     
-    func createUserFromFetchedRecord(record: CKRecord) {
+    func createUserFromFetchedRecord(_ record: CKRecord) {
         _ = User(record: record)
         self.saveToPersistentStorage()
     }
     
-    func saveContact(contact: User) {
+    func saveContact(_ contact: User) {
         saveToPersistentStorage()
     }
-    func removeContact(contact: User) {
-        contact.managedObjectContext?.deleteObject(contact)
+    func removeContact(_ contact: User) {
+        contact.managedObjectContext?.delete(contact)
         saveToPersistentStorage()
     }
     
-    func plainPhoneNumber(string: String) -> String {
-        let filter = NSCharacterSet.alphanumericCharacterSet()
-        let result = String(string.utf16.filter{filter.characterIsMember($0)}.map{Character(UnicodeScalar($0))})
+    func plainPhoneNumber(_ string: String) -> String {
+        let filter = CharacterSet.alphanumerics
+        let result = String(string.utf16.filter{filter.contains(UnicodeScalar($0)!)}.map{Character(UnicodeScalar($0)!)})
         
         return result
     }
