@@ -14,27 +14,34 @@ class NotificationController {
     
     static let sharedController = NotificationController()
     
-    func scheduleLocalNotification(user: User, ETA: EstimatedTimeOfArrival) {
+    func scheduleLocalNotification(_ user: User, ETA: EstimatedTimeOfArrival) {
         let notification = UILocalNotification()
-        notification.fireDate = ETA.eta
+        notification.fireDate = ETA.eta as Date?
         notification.alertTitle = "\(user.name) is not in their safe location yet."
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        UIApplication.shared.scheduleLocalNotification(notification)
     }
     
-    func cancelLocalNotification(eta: EstimatedTimeOfArrival) {
-        guard let scheduledNotifications = UIApplication.sharedApplication().scheduledLocalNotifications else { return }
+    func cancelLocalNotification(_ eta: EstimatedTimeOfArrival) {
+        guard let scheduledNotifications = UIApplication.shared.scheduledLocalNotifications else { return }
         for notification in scheduledNotifications {
             if notification.fireDate == eta.eta {
-                UIApplication.sharedApplication().cancelLocalNotification(notification)
+                UIApplication.shared.cancelLocalNotification(notification)
             }
         }
     }
     
-    func simpleAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+    func simpleAlert(_ title: String, message: String) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.view.tintColor = Colors.sharedColors.exoticGreen
+        
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alert.addAction(dismissAction)
-        alert.showViewController(alert, sender: self)
-//        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        return alert
+        //        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        
     }
+    
+    
+    
+    
 }

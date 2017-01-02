@@ -8,9 +8,11 @@
 import UIKit
 import MapKit
 import CoreLocation
+
 protocol MapSearch {
-    func dropPinOnSelectedLocation(placemark: MKPlacemark)
+    func dropPinOnSelectedLocation(_ placemark: MKPlacemark)
 }
+
 class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
@@ -41,10 +43,10 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
          createAnnotation.minimumPressDuration = 1
          mapView.addGestureRecognizer(createAnnotation)
          */
-        
-        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("locationTableViewController") as? LocationTableViewController
-        resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultsSearchController?.searchResultsUpdater = locationSearchTable
+        //        
+        //        let locationSearchTable = storyboard?.instantiateViewControllerWithIdentifier("locationTableViewController") as? LocationTableViewController
+        //        resultsSearchController = UISearchController(searchResultsController: locationSearchTable)
+        //        resultsSearchController?.searchResultsUpdater = locationSearchTable
         
         let searchBar = resultsSearchController?.searchBar
         searchBar?.sizeToFit()
@@ -54,18 +56,18 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         resultsSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
         
-        locationSearchTable?.mapView = mapView
-        locationSearchTable?.mapSearchDelegate = self
+        //        locationSearchTable?.mapView = mapView
+        //        locationSearchTable?.mapSearchDelegate = self
         
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
             locationManager.requestLocation()
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             self.currentLocation = location
             let span = MKCoordinateSpanMake(0.0073, 0.0073)
@@ -74,7 +76,7 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error: \(error.localizedDescription)")
     }
     
@@ -120,22 +122,22 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
      } */
     
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
         }
         
         let reuseID = "pin"
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID) as? MKPinAnnotationView
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
         pinView?.pinTintColor = color.exoticGreen
         pinView?.canShowCallout = true
         pinView?.animatesDrop = true
         
         let smallSquare = CGSize(width: 30, height: 30)
-        let button = UIButton(frame: CGRect(origin: CGPointZero, size: smallSquare))
-        button.setBackgroundImage(UIImage(named: "goArrow") ?? UIImage(), forState: .Normal)
-        button.addTarget(self, action: #selector(selectSafeZone), forControlEvents: .TouchUpInside)
+        let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
+        button.setBackgroundImage(UIImage(named: "goArrow") ?? UIImage(), for: UIControlState())
+        button.addTarget(self, action: #selector(selectSafeZone), for: .touchUpInside)
         // Get the address from the pin.
         pinView?.rightCalloutAccessoryView = button
         self.selectedSafeZonePin = annotation
@@ -149,7 +151,7 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             let coordinate = annotation.coordinate
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             ETAViewController.sharedInstance.destination = location
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
         }
         
     }
@@ -169,7 +171,7 @@ class DetailMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
 }
 extension DetailMapViewController: MapSearch {
     
-    func dropPinOnSelectedLocation(placemark: MKPlacemark) {
+    func dropPinOnSelectedLocation(_ placemark: MKPlacemark) {
         selectedSafeZonePin = placemark
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
