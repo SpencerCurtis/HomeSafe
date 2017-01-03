@@ -46,6 +46,7 @@ class LoginViewController: UIViewController {
             CloudKitController.sharedController.logInUser(phoneNumber, password: password, completion: { (success) in
                 print(success)
                 guard success == true else { indicator.stopAnimating(); let alert = NotificationController.sharedController.simpleAlert("Error", message: "No user was found with the phone number and password entered. Check the fields and try again."); DispatchQueue.main.async(execute: { () -> Void in
+                    indicator.stopAnimating()
                     self.present(alert, animated: true, completion: nil)
                 }) ; return}
                 
