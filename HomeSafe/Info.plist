@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To track your location to send notifications to followers.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>To let you select the people that you want to be your followers.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -23,7 +27,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App needs to track user's location to send notifications to followers.</string>
+	<string>To track your location to send notifications to followers.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

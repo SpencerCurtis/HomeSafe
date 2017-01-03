@@ -30,8 +30,8 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         //        self.hideKeyboardWhenTappedAround()
         setupViews()
         ETADatePicker.minimumDate = Date()
-        
-        
+        titleLabel.isHidden = false
+        titleLabel.text = "When will you return to your safe place by?"
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -73,11 +73,11 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func SelectDestinationButtonTapped(_ sender: AnyObject) {
-        self.container.frame.size.height = 0
+        let originalHeight = self.container.frame.size.height
         self.container.layer.borderColor = UIColor.white.cgColor
-        
+        self.container.frame.size.height = 0
         UIView.animate(withDuration: 0.3, animations: {
-            self.container.frame.size.height = 344
+            self.container.frame.size.height = originalHeight
             //        NSNotificationCenter.defaultCenter().postNotificationName("doneAnimating", object: nil)
         })
         //        clearBorderForContainerView()
@@ -86,13 +86,18 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
         searchContainerView.isHidden = false
         ETADatePicker.isHidden = true
         titleLabel.isHidden = true
-        
     }
     
     func showMapContainerView() {
         
         containerV.isHidden = false
         searchContainerView.isHidden = true
+        titleLabel.isHidden = false
+        titleLabel.alpha = 0
+        UIView.animate(withDuration: 0.5) { 
+            self.titleLabel.alpha = 1
+        }
+        titleLabel.text = "This is your selected destination."
     }
     
     func clearBorderForContainerView() {
@@ -105,7 +110,7 @@ class ETAViewController: UIViewController, UITextFieldDelegate {
                 self.container.layer.borderColor = UIColor.clear.cgColor
             })
             
-            }, completion: nil)
+        }, completion: nil)
     }
     
     

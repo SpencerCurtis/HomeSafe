@@ -13,7 +13,7 @@ class Stack {
     
     static let container: NSPersistentContainer = {
         
-        let container = NSPersistentContainer(name: "RentWorks")
+        let container = NSPersistentContainer(name: "HomeSafe")
         container.loadPersistentStores() { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
