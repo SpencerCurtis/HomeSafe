@@ -10,14 +10,14 @@ import Foundation
 import CoreData
 
 
-class EstimatedTimeOfArrival: NSManagedObject {
+extension EstimatedTimeOfArrival {
 
-    convenience init(eta: Date, latitude: Double, longitude: Double, userName: String, homeSafe: Bool = false, inDanger: Bool = false, canceledETA: Bool = false, id: String, recordID: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(eta: Date, latitude: Double, longitude: Double, userName: String, homeSafe: Bool = false, inDanger: Bool = false, canceledETA: Bool = false, id: String, recordID: String, context: NSManagedObjectContext = Stack.context) {
         let entity = NSEntityDescription.entity(forEntityName: "EstimatedTimeOfArrival", in: context)
         
         self.init(entity: entity!, insertInto: context)
         
-        self.eta = eta
+        self.eta = eta as NSDate?
         self.latitude = latitude as NSNumber?
         self.longitude = longitude as NSNumber?
         self.userName = userName

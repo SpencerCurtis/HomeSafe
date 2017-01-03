@@ -11,9 +11,9 @@ import CoreData
 import CoreLocation
 import CloudKit
 
-class User: NSManagedObject {
+extension User {
     
-    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, context: NSManagedObjectContext = Stack.context) {
         let entity = NSEntityDescription.entity(forEntityName: "User", in: context)
         
         self.init(entity: entity!, insertInto: context)
@@ -24,7 +24,7 @@ class User: NSManagedObject {
         self.longitude = longitude as NSNumber?
     }
     
-    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, uuid: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, uuid: String, context: NSManagedObjectContext = Stack.context) {
         let entity = NSEntityDescription.entity(forEntityName: "User", in: context)
         
         self.init(entity: entity!, insertInto: context)
@@ -36,7 +36,7 @@ class User: NSManagedObject {
         self.uuid = uuid
     }
     
-    convenience init(name: String, phoneNumber: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(name: String, phoneNumber: String, context: NSManagedObjectContext = Stack.context) {
         let entity = NSEntityDescription.entity(forEntityName: "User", in: context)
         self.init(entity: entity!, insertInto: context)
         
@@ -44,7 +44,7 @@ class User: NSManagedObject {
         self.phoneNumber = phoneNumber
     }
     
-    convenience init?(record: CKRecord, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init?(record: CKRecord, context: NSManagedObjectContext = Stack.context) {
         guard let name = record.value(forKey: "name") as? String, let phoneNumber = record.value(forKey: "phoneNum") as? String, let safeLocation = record.value(forKey: "safeLocation") as? CLLocation else { return nil }
         
         let entity = NSEntityDescription.entity(forEntityName: "User", in: context)

@@ -140,6 +140,14 @@ extension Date {
     }
 }
 
+extension NSDate {
+    var formatted: String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: self as Date)
+    }
+}
+
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))

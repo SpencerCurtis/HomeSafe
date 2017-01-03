@@ -20,10 +20,10 @@ class ContactsController {
     var selectedGuardians: [User] = []
     
     var contacts: [User] {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let request: NSFetchRequest<User> = User.fetchRequest()
         
         do {
-            let contacts = try Stack.sharedStack.managedObjectContext.fetch(request) as! [User]
+            let contacts = try Stack.context.fetch(request)
             return contacts
         } catch {
             return []
@@ -54,7 +54,7 @@ class ContactsController {
     func saveToPersistentStorage() {
         
         do {
-            try Stack.sharedStack.managedObjectContext.save()
+            try Stack.context.save()
         } catch {
             print("Error saving Managed Object Context. Items not saved.")
         }

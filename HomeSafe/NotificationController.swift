@@ -9,25 +9,39 @@
 import Foundation
 import UIKit
 import CloudKit
+import UserNotifications
 
 class NotificationController {
     
     static let sharedController = NotificationController()
     
-    func scheduleLocalNotification(_ user: User, ETA: EstimatedTimeOfArrival) {
-        let notification = UILocalNotification()
-        notification.fireDate = ETA.eta as Date?
-        notification.alertTitle = "\(user.name) is not in their safe location yet."
-        UIApplication.shared.scheduleLocalNotification(notification)
+    func scheduleNotificationRequestFor(user: User, eta: EstimatedTimeOfArrival) {
+        
+        guard let id = eta.id else { return }
+        
+        let identifier = id
+        
+        let content = UNMutableNotificationContent()
+        
+        content.title = "\(user.name) is not in their safe location yet."
+        content.body = ""
+        content.sound = UNNotificationSound.default()
+        
+        guard let etaInSeconds = eta.eta?.timeIntervalSinceNow else { return }
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: etaInSeconds, repeats: false)
+
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error { print(error.localizedDescription) }
+        }
+
     }
     
-    func cancelLocalNotification(_ eta: EstimatedTimeOfArrival) {
-        guard let scheduledNotifications = UIApplication.shared.scheduledLocalNotifications else { return }
-        for notification in scheduledNotifications {
-            if notification.fireDate == eta.eta {
-                UIApplication.shared.cancelLocalNotification(notification)
-            }
-        }
+    func cancelNotificationRequestFor(eta: EstimatedTimeOfArrival) {
+        guard let id = eta.id else { print("Could not cancel notification request because the ETA has no ID"); return }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
     }
     
     func simpleAlert(_ title: String, message: String) -> UIAlertController {
@@ -40,8 +54,4 @@ class NotificationController {
         //        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
         
     }
-    
-    
-    
-    
 }

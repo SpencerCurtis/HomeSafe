@@ -129,7 +129,8 @@ class CloudKitController {
     func subscribeToUsersAddingCurrentUserToContactList(_ currentUser: CurrentUser, completion: @escaping () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
-            let subscription = CKSubscription(recordType: "contacts", predicate: predicate, options: .firesOnRecordUpdate)
+        
+            let subscription = CKQuerySubscription(recordType: "contacts", predicate: predicate, options: .firesOnRecordUpdate)
             
             let info = CKNotificationInfo()
             info.alertBody = "You have been added as someone's contact"
@@ -156,7 +157,7 @@ class CloudKitController {
     func subscribeToUsersAddingCurrentUserToNewETA(_ currentUser: CurrentUser, completion: @escaping () -> Void) {
         if let uuid = currentUser.uuid {
             let predicate = NSPredicate(format: "userUUID = %@", uuid)
-            let subscription = CKSubscription(recordType: "userNewETA", predicate: predicate, options: .firesOnRecordUpdate)
+            let subscription = CKQuerySubscription(recordType: "userNewETA", predicate: predicate, options: .firesOnRecordUpdate)
             
             let info = CKNotificationInfo()
             info.alertBody = "Someone has begun an ETA and wants to you be their watcher."
@@ -331,7 +332,7 @@ class CloudKitController {
     func setupSubscriptionForUser(_ user: User) {
         let predicate = NSPredicate(format: "userPhoneNumber = %@", user.phoneNumber!)
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .firesOnRecordCreation)
+        let subscription = CKQuerySubscription(recordType: "ETA", predicate: predicate, options: .firesOnRecordCreation)
         let info = CKNotificationInfo()
         info.alertBody = "\(user.name!) has begun a new ETA"
         info.shouldSendContentAvailable = true
@@ -490,7 +491,7 @@ class CloudKitController {
     func setupSubscriptionForETA(_ eta: EstimatedTimeOfArrival, phoneNumber: String) {
         
         let predicate = NSPredicate(format: "id = %@", eta.id!)
-        let subscription = CKSubscription(recordType: "ETA", predicate: predicate, options: .firesOnRecordUpdate)
+        let subscription = CKQuerySubscription(recordType: "ETA", predicate: predicate, options: .firesOnRecordUpdate)
         
         let query = CKQuery(recordType: "ETA", predicate: predicate)
         let operation = CKQueryOperation(query: query)
@@ -523,7 +524,7 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "canceledETA = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
+        let subscription = CKQuerySubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["canceledETA"]
@@ -546,7 +547,7 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "homeSafe = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
+        let subscription = CKQuerySubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["homeSafe"]
@@ -569,7 +570,7 @@ class CloudKitController {
         let predicate2 = NSPredicate(format: "inDanger = %d", 1)
         let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
         
-        let subscription = CKSubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
+        let subscription = CKQuerySubscription(recordType: "ETA", predicate: combinedPredicate, options: .firesOnRecordUpdate)
         
         let info = CKNotificationInfo()
         info.desiredKeys = ["inDanger"]

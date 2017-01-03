@@ -27,8 +27,6 @@
 		4636E5DC1D0FBEF0007F45BC /* SmallMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */; };
 		4636E5DE1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4636E5DD1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift */; };
 		4659FF101CEB8CE900B02642 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF0F1CEB8CE900B02642 /* Colors.swift */; };
-		4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF111CEBB31300B02642 /* Model.xcdatamodeld */; };
-		4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */; };
 		4659FF191CEBB3F100B02642 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF171CEBB3F100B02642 /* User.swift */; };
 		4659FF1B1CEBB52400B02642 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1A1CEBB52400B02642 /* ContactsController.swift */; };
 		4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4659FF1E1CEBB93300B02642 /* Stack.swift */; };
@@ -38,15 +36,14 @@
 		46A0F6FF1CF89F230024F507 /* SecondInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */; };
 		46A0F7011CF89F390024F507 /* ThirdInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */; };
 		46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */; };
+		46BA685C1E1C059F00396048 /* HomeSafe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 46BA685A1E1C059F00396048 /* HomeSafe.xcdatamodeld */; };
 		46EFF6841D2D984400B4AA43 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EFF6831D2D984400B4AA43 /* LoginViewController.swift */; };
 		46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */; };
 		46F538611CF4B7B300D63D17 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */; };
 		E5777ADC1CEFA66200B7ADF1 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */; };
 		E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */; };
 		E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */; };
-		E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */; };
 		E5DE0F121CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */; };
-		E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,8 +70,6 @@
 		4636E5DB1D0FBEF0007F45BC /* SmallMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallMapViewController.swift; sourceTree = "<group>"; };
 		4636E5DD1D1062A5007F45BC /* SmallLocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallLocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		4659FF0F1CEB8CE900B02642 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		4659FF121CEBB31300B02642 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4659FF171CEBB3F100B02642 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4659FF1A1CEBB52400B02642 /* ContactsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		4659FF1E1CEBB93300B02642 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
@@ -84,15 +79,14 @@
 		46A0F6FE1CF89F230024F507 /* SecondInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondInstructionalViewController.swift; sourceTree = "<group>"; };
 		46A0F7001CF89F390024F507 /* ThirdInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdInstructionalViewController.swift; sourceTree = "<group>"; };
 		46A0F7021CF89F510024F507 /* FourthInstructionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourthInstructionalViewController.swift; sourceTree = "<group>"; };
+		46BA685B1E1C059F00396048 /* HomeSafe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HomeSafe.xcdatamodel; sourceTree = "<group>"; };
 		46EFF6831D2D984400B4AA43 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46F5385E1CF4B7B300D63D17 /* DetailMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
 		46F5385F1CF4B7B300D63D17 /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		E5777ADB1CEFA66200B7ADF1 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		E5DE0EF91CECCECE00617CF6 /* ApperanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApperanceController.swift; sourceTree = "<group>"; };
 		E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
-		E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CurrentUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatedTimeOfArrival.swift; sourceTree = "<group>"; };
-		E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EstimatedTimeOfArrival+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,12 +174,9 @@
 		462039DA1CEF67CD00DC29F6 /* Models + Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				4659FF111CEBB31300B02642 /* Model.xcdatamodeld */,
+				46BA685A1E1C059F00396048 /* HomeSafe.xcdatamodeld */,
 				E5DE0F0C1CECDF6B00617CF6 /* CurrentUser.swift */,
-				E5DE0F0D1CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift */,
 				E5DE0F0E1CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift */,
-				E5DE0F0F1CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift */,
-				4659FF161CEBB3F100B02642 /* User+CoreDataProperties.swift */,
 				4659FF171CEBB3F100B02642 /* User.swift */,
 				4659FF1E1CEBB93300B02642 /* Stack.swift */,
 			);
@@ -302,26 +293,23 @@
 				4617E0631CEA6C18003EB3C1 /* ETAController.swift in Sources */,
 				46A0F7011CF89F390024F507 /* ThirdInstructionalViewController.swift in Sources */,
 				4617E0651CEA6DB6003EB3C1 /* NotificationController.swift in Sources */,
-				4659FF131CEBB31300B02642 /* Model.xcdatamodeld in Sources */,
 				46F538611CF4B7B300D63D17 /* LocationTableViewController.swift in Sources */,
 				46A0F6FF1CF89F230024F507 /* SecondInstructionalViewController.swift in Sources */,
 				4659FF211CEBBC1500B02642 /* LocationSearchTableViewController.swift in Sources */,
 				4617E0671CEA7DE8003EB3C1 /* LocationController.swift in Sources */,
-				4659FF181CEBB3F100B02642 /* User+CoreDataProperties.swift in Sources */,
 				E5DE0F121CECDF6B00617CF6 /* EstimatedTimeOfArrival.swift in Sources */,
 				4659FF191CEBB3F100B02642 /* User.swift in Sources */,
+				46BA685C1E1C059F00396048 /* HomeSafe.xcdatamodeld in Sources */,
 				46F538601CF4B7B300D63D17 /* DetailMapViewController.swift in Sources */,
 				4617E0541CEA5C0D003EB3C1 /* ETAViewController.swift in Sources */,
 				46EFF6841D2D984400B4AA43 /* LoginViewController.swift in Sources */,
 				E5DE0EFA1CECCECE00617CF6 /* ApperanceController.swift in Sources */,
 				46A0F7031CF89F510024F507 /* FourthInstructionalViewController.swift in Sources */,
-				E5DE0F131CECDF6B00617CF6 /* EstimatedTimeOfArrival+CoreDataProperties.swift in Sources */,
 				4617E03A1CEA542F003EB3C1 /* AppDelegate.swift in Sources */,
 				4636E5DC1D0FBEF0007F45BC /* SmallMapViewController.swift in Sources */,
 				4659FF1F1CEBB93300B02642 /* Stack.swift in Sources */,
 				46A0F6FD1CF89F0C0024F507 /* FirstInstructionalViewController.swift in Sources */,
 				E5DE0F101CECDF6B00617CF6 /* CurrentUser.swift in Sources */,
-				E5DE0F111CECDF6B00617CF6 /* CurrentUser+CoreDataProperties.swift in Sources */,
 				4617E04E1CEA5BD6003EB3C1 /* CreateUserViewController.swift in Sources */,
 				E5777ADC1CEFA66200B7ADF1 /* ResultsTableViewController.swift in Sources */,
 			);
@@ -390,7 +378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -432,7 +420,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -450,7 +438,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HomeSafe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -469,7 +457,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HomeSafe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.HomeSafe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -503,13 +491,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		4659FF111CEBB31300B02642 /* Model.xcdatamodeld */ = {
+		46BA685A1E1C059F00396048 /* HomeSafe.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				4659FF121CEBB31300B02642 /* Model.xcdatamodel */,
+				46BA685B1E1C059F00396048 /* HomeSafe.xcdatamodel */,
 			);
-			currentVersion = 4659FF121CEBB31300B02642 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			currentVersion = 46BA685B1E1C059F00396048 /* HomeSafe.xcdatamodel */;
+			path = HomeSafe.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

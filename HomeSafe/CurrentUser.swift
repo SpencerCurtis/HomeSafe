@@ -11,9 +11,9 @@ import CoreData
 import CloudKit
 
 
-class CurrentUser: NSManagedObject {
+extension CurrentUser {
 
-    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, uuid: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(name: String, latitude: Double, longitude: Double, phoneNumber: String, uuid: String, context: NSManagedObjectContext = Stack.context) {
         let entity = NSEntityDescription.entity(forEntityName: "CurrentUser", in: context)
         
         self.init(entity: entity!, insertInto: context)
@@ -26,7 +26,7 @@ class CurrentUser: NSManagedObject {
     }
     
     
-    convenience init?(record: CKRecord, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init?(record: CKRecord, context: NSManagedObjectContext = Stack.context) {
         guard let name = record.value(forKey: "name") as? String, let phoneNumber = record.value(forKey: "phoneNum") as? String, let safeLocation = record.value(forKey: "safeLocation") as? CLLocation else { return nil }
         
         let entity = NSEntityDescription.entity(forEntityName: "CurrentUser", in: context)

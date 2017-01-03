@@ -18,10 +18,11 @@
     var selectedArray: [CNContact] = []
     
     var currentUser: CurrentUser? {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CurrentUser")
+        
+        let request: NSFetchRequest<CurrentUser> = CurrentUser.fetchRequest()
         
         do {
-            let currentUsers = try Stack.sharedStack.managedObjectContext.fetch(request) as! [CurrentUser]
+            let currentUsers = try Stack.context.fetch(request)
             return currentUsers.first
         } catch {
             return nil
@@ -39,7 +40,7 @@
     }
     
     func signOutCurrentUser() {
-        let moc = Stack.sharedStack.managedObjectContext
+        let moc = Stack.context
         if let currentUser = currentUser {
             moc.delete(currentUser)
             deleteAllContactsUponSigningOut()
@@ -82,7 +83,7 @@
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
-            try Stack.sharedStack.managedObjectContext.execute(deleteRequest)
+            try Stack.context.execute(deleteRequest)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -91,7 +92,7 @@
     
     func saveToPersistentStorage() {
         do {
-            try Stack.sharedStack.managedObjectContext.save()
+            try Stack.context.save()
         } catch {
             print("Error saving Managed Object Context. Items not saved.")
         }

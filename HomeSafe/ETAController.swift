@@ -23,10 +23,10 @@
     }
     
     var arrayOfETAs: [EstimatedTimeOfArrival] {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "EstimatedTimeOfArrival")
+        let request: NSFetchRequest<EstimatedTimeOfArrival> = EstimatedTimeOfArrival.fetchRequest()
         
         do {
-            let ETAs = try Stack.sharedStack.managedObjectContext.fetch(request) as! [EstimatedTimeOfArrival]
+            let ETAs = try Stack.context.fetch(request)
             return ETAs
         } catch {
             return []
@@ -165,7 +165,7 @@
     func saveToPersistentStorage() {
         
         do {
-            try Stack.sharedStack.managedObjectContext.save()
+            try Stack.context.save()
         } catch {
             print("Error saving Managed Object Context. Items not saved.")
         }

@@ -522,7 +522,7 @@
             startingLineNumber = "17"
             endingLineNumber = "17"
             landmarkName = "init(name:latitude:longitude:phoneNumber:context:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -538,7 +538,7 @@
             startingLineNumber = "28"
             endingLineNumber = "28"
             landmarkName = "init(name:latitude:longitude:phoneNumber:uuid:context:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -554,7 +554,7 @@
             startingLineNumber = "40"
             endingLineNumber = "40"
             landmarkName = "init(name:phoneNumber:context:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -570,7 +570,7 @@
             startingLineNumber = "48"
             endingLineNumber = "48"
             landmarkName = "init(record:context:)"
-            landmarkType = "5">
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"

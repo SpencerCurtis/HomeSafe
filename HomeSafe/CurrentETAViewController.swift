@@ -39,6 +39,7 @@ class CurrentETAViewController: UIViewController, MKMapViewDelegate {
         self.view.sendSubview(toBack: backgroundView)
         
         if let currentETA = ETAController.sharedController.currentETA, let eta = currentETA.eta {
+            
             self.etaLabel.text = "Your estimated time of arrival is \(eta.formatted)"
         }
         
